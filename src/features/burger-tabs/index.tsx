@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {List, SxProps} from "@mui/material";
 import {BurgerTab} from "../burger-tab";
 import {List as MyList} from "../../shared/components/list";
@@ -7,11 +7,7 @@ interface BurgerTabsProps {
   
   list:any,
   
-  initTabs?:SelectedTabsType,
-  
   selectable?:boolean,
-  
-  tabName:string,
   
   onClick?:(id:string) => void,
   
@@ -23,25 +19,27 @@ interface BurgerTabsProps {
 
 export type SelectedTabType = {[id:string | number]:{available:boolean,level:number}}
 
-export type SelectedTabsType = {
-  [name:string]:SelectedTabType
-}
-
-
 const BurgerTabs = (props:BurgerTabsProps) => {
-  const [selectedTabs, setSelectedTabs] = useState<SelectedTabsType>(props.initTabs || {})
-
+  const [unmount, setUnmount] = useState(false)
+  const [selectedTabs, setSelectedTabs] = useState<SelectedTabType>({})
   const callbacks = {
-    onClick: useCallback((id:string) => {
+    onClick: useCallback( (id:string) => {
       props.onClick && props.onClick(id)
       if(props.selectable){
-        setSelectedTabs({...selectedTabs,[props?.tabName]:{...selectedTabs?.[props?.tabName],[id]:{available:!selectedTabs?.[props?.tabName]?.[id]?.available ,level:props.level || 0}}})
+        setSelectedTabs({[id]:{available:!selectedTabs?.[id]?.available ,level:props.level || 0}})
       } else {
-        setSelectedTabs({...selectedTabs,[props?.tabName]:{[id]:{available:true ,level:props.level || 0}}})
+        setUnmount(true)
+        setSelectedTabs({[id]:{available:true ,level:props.level || 0}})
       }
-    },[selectedTabs,props?.tabName, props.selectable])
-    
+    },[selectedTabs, props.selectable, props.level, props.onClick])
   }
+  
+  useEffect(() => {
+    if(unmount){
+      setUnmount(false)
+    }
+  },[unmount])
+  
   
   const renders = {
     item:useCallback((tab:any) => (
@@ -49,14 +47,13 @@ const BurgerTabs = (props:BurgerTabsProps) => {
         onClick={callbacks.onClick}
         onPropsClick={props.onClick}
         tab={tab}
-        tabName={props.tabName}
-        selected={selectedTabs?.[props.tabName]?.[tab.id]?.available || false}
+        selected={unmount ? false : selectedTabs?.[tab.id]?.available || false}
         sx={props.itemSx}
         selectable={props.selectable}
         level={(props?.level || 0) + 1}
         key={tab.id}
       />
-    ),[callbacks.onClick, selectedTabs, props.tabName, props.onClick, props.selectable])
+    ),[callbacks.onClick, selectedTabs, props.onClick, props.selectable,setSelectedTabs,props.level,props.itemSx,unmount])
   }
   
   return (

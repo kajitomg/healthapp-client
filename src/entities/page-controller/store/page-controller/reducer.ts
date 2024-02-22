@@ -22,13 +22,15 @@ export const pageControllerSlice = createSlice({
   name: 'pageController',
   initialState,
   reducers: {
-    setPage: (state, action:PayloadAction<{id?:string,redirect?:NavigateFunction}>) => {
+    setPage: (state, action:PayloadAction<{id?:string,query?:string,redirect?:NavigateFunction}>) => {
       
       const page = state.flatList.find((item) => item.id === action.payload.id)
   
       state.currentPage = page || null
       
-      action.payload.redirect && page?.path && action.payload.redirect(page.path)
+      const queryPath = page && page.path.split(':').length > 1 ? page?.path.split(':')[0] : null
+      
+      action.payload.redirect && page?.path && action.payload.redirect(action.payload.query && queryPath ? queryPath + action.payload.query : page.path)
       
     },
     setPages: (state, action:PayloadAction<{pages:RoutesType[]}>) => {

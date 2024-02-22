@@ -18,6 +18,24 @@ interface ParamsControllerState {
   
 }
 
+const updateHistory = (url:string,replace?:boolean) => {
+  if (replace) {
+    replaceHistory({}, '', url);
+  } else {
+    pushHistory({}, '', url);
+  }
+}
+
+const createURLSearch = (params:ParamsType) => {
+  return new URLSearchParams(params).toString();
+}
+
+const createURL = (params:ParamsType) => {
+  const urlSearch = createURLSearch(params)
+  
+  return getLocationPathname() + (urlSearch ? `?${urlSearch}`: '') + getLocationHash()
+}
+
 const initialState:ParamsControllerState = {}
 
 const paramsControllerSlice = createSlice({
@@ -28,21 +46,15 @@ const paramsControllerSlice = createSlice({
       const { page, newParams, replace } = action.payload;
       if(page){
         const params = cleaningParams({...page?.params,...state[page?.id]?.list,...newParams})
-        
-        const urlSearch = new URLSearchParams(params).toString();
-        
-        const url = getLocationPathname() + (urlSearch ? `?${urlSearch}`: '') + getLocationHash();
-        
+
         state[page?.id] = {
           list:params
         };
-        if (replace) {
-          replaceHistory({}, '', url);
-        } else {
-          pushHistory({}, '', url);
-        }
+        
+        updateHistory(createURL(params),replace)
       }
     },
+
   }
 })
 

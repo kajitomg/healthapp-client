@@ -1,11 +1,9 @@
 import {Box, Checkbox, Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, SxProps} from "@mui/material";
-import {BurgerTabs, SelectedTabType} from "../burger-tabs";
+import {BurgerTabs} from "../burger-tabs";
 
 interface BurgerTabProps {
   
   tab:any,
-  
-  tabName:string,
   
   selected?:boolean
   
@@ -18,8 +16,6 @@ interface BurgerTabProps {
   sx?:SxProps,
   
   level?:number,
-  
-  initTabs?:SelectedTabType,
 }
 
 const BurgerTab = (props:BurgerTabProps) => {
@@ -40,9 +36,9 @@ const BurgerTab = (props:BurgerTabProps) => {
           {props.tab?.children?.length > 0 && <span>▾</span>}
         </ListItemButton>
       </ListItem>
-      <Collapse in={!!props.tab.children && props.selected} timeout={'auto'} unmountOnExit>
-        <BurgerTabs list={props.tab.children} tabName={props.tabName} onClick={props.onPropsClick} itemSx={{pl:(props?.level || 0) + 2 }} level={props.level} selectable={props.selectable}/>
-      </Collapse>
+      {/*Костыль размаунчивания для сброса внутреннего стейта, FIX*/props.selected && <Collapse in={props.tab?.children?.length > 0 && props.selected} timeout={0} unmountOnExit>
+        <BurgerTabs list={props.tab.children} onClick={props.onPropsClick} itemSx={{pl:(props?.level || 0) + 2 }} level={props.level} selectable={props.selectable}/>
+      </Collapse>}
     </Box>
   );
 };

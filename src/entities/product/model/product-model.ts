@@ -12,6 +12,7 @@ export interface IProduct extends ModelType  {
   discount: number,
   description: string,
   imageId: number,
+  count:number,
   images?:IImage[],
   documents?:IDocument[]
   specifications?:ISpecification[],

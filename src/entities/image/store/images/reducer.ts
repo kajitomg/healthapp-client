@@ -1,11 +1,12 @@
 
 import {IImage} from "../../model/image-model.ts";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
 
 
 
 export interface ImageState {
   item:IImage | null,
-  error:ErrorType | null,
+  error:FetchBaseQueryError | null,
   waiting:boolean
 }
 

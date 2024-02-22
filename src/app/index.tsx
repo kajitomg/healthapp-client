@@ -12,16 +12,20 @@ import {selectCurrentPage} from "../entities/page-controller/store/page-controll
 import {SubRoutes} from "../entities/page-controller/components/sub-routes";
 import {Header} from "../widgets/header";
 import {Footer} from "../widgets/footer";
+import {BottomNavigationMenu} from "../features/bottom-navigation-menu";
+import {useMediaQuery, useTheme} from "@mui/material";
 
 function App() {
+  const theme = useTheme()
+  const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
+  
   const {DrawerHeader, drawerWidth, headerHeight,name} = useBurger()
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
-  const isAvailable = useTypedSelector(state => selectIsPopSnapOpen(state,'burger-available'))
   userAPI.useLoadUsersQuery(1)
-
+  
   return (
-    <PageLayout header={<Header isBurgerAvailable={true}/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>
+    <PageLayout header={<Header/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>
       <DrawerHeader/>
       <MainLayout
         open={isOpen}
@@ -34,6 +38,7 @@ function App() {
           </ParamsControllerLayout>
         </PageControllerLayout>
       </MainLayout>
+      {isBottomNavigationAvailable && <BottomNavigationMenu isAvailable={true}/>}
     </PageLayout>
   )
 }

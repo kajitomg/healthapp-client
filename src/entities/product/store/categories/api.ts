@@ -6,9 +6,16 @@ import {ICategory} from "../../model/category-model.ts";
 export const categoryAPI = api.injectEndpoints({
   endpoints: (build) => ({
     loadCategories: build.query<baseEntitiesState & {list:ICategory[]},unknown>({
-      query: (params:any = {}) => ({
+      query: (params?:any) => ({
         url: `/api/categories`,
-        params
+        params,
+      }),
+      providesTags: () => ['Category']
+    }),
+    loadCategory: build.query<baseEntitiesState & {item:ICategory},{id?:number | string, params?: {[name:string]:string|number }}>({
+      query: ({id,params}) => ({
+        url: `/api/categories/${id}`,
+        params,
       }),
       providesTags: () => ['Category']
     }),
@@ -16,5 +23,7 @@ export const categoryAPI = api.injectEndpoints({
 })
 
 export const {
-  useLoadCategoriesQuery
+  useLoadCategoriesQuery,
+  useLoadCategoryQuery,
+  useLazyLoadCategoryQuery
 } = categoryAPI

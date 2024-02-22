@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 
 interface SignoutButtonProps {
   onClick:() => void,
-  isAvailable:boolean
+  isAvailable?:boolean
 }
 
 const SignoutButton = (props:SignoutButtonProps) => {

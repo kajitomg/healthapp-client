@@ -9,11 +9,15 @@ interface ListProps {
 }
 
 const List = (props:ListProps) => {
-  return (
-    props.list?.map(item =>
-      props.renderItem && props.renderItem(item)
-    )
-  );
+  
+  if(props.list){
+    return (
+      props.list.map(item =>
+        props.renderItem && props.renderItem(item)
+      )
+    );
+  }
+  return null
 };
 
 export {List};

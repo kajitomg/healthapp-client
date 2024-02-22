@@ -1,8 +1,12 @@
 import {ParamsType} from "../../params-controller/models.ts";
 import {ModelType, SortTypes} from "../../../shared/models";
+import {IProduct} from "./product-model.ts";
 
 export interface ICategory extends ModelType {
   name: string,
+  levelId: string,
+  childrens: ICategory[],
+  products:IProduct[]
 }
 
 export type ICategoryUpdate = Pick<ICategory, 'id' | 'name'>

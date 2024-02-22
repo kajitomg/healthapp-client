@@ -26,7 +26,7 @@ const ProductPrice = (props:ProductPriceProps) => {
         <Typography variant={"subtitle1"} color={props.price ? 'forestgreen' : 'black'}>{Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(props.discount)}</Typography>
       }
       {!props.price && !props.discount &&
-        <Typography variant={"subtitle1"} color={'black'}>Цена не указана</Typography>
+        <Typography variant={"subtitle1"} color={'black'} textAlign={'right'}>Цена не указана</Typography>
       }
     </Box>
   );

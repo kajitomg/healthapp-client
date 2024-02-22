@@ -1,11 +1,9 @@
-import {Box, Drawer, ToggleButton, ToggleButtonGroup} from "@mui/material";
-import {useCallback, useEffect, useState} from "react";
+import {Box, Drawer} from "@mui/material";
+import {useCallback} from "react";
 import {useBurger} from "./hooks.ts";
 import {RoutesType} from "../../entities/page-controller/models.ts";
-import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {useLoadCategoriesQuery} from "../../entities/product/store/categories/api.ts";
-import {selectCurrentPage} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {BurgerTabs} from "../../features/burger-tabs";
+import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 
 interface BurgerProps {
   
@@ -21,35 +19,19 @@ interface BurgerProps {
 
 
 const Burger = (props:BurgerProps) => {
-  const selected = useTypedSelector(state => selectCurrentPage(state))
   const {drawerWidth,headerHeight} = useBurger()
-  const categories = useTypedSelector(state => state.categories)
-  const pages = useTypedSelector(state => state.pageController)
-  const [tabs, setTabs] = useState({})
-  const [tab, setTab] = useState<keyof typeof tabs>('catalog')
+  const {pages} = useSetPage()
 
-  useLoadCategoriesQuery({})
   const callbacks = {
     closeMenu:useCallback(() => {
     },[]),
     
-    setPage:useCallback((id:string,callback?:() => void) => {
+    setPage:useCallback((id:string) => {
       props.setPage && props.setPage(id)
-      return () => {
-        console.log(callback)
-        callback && callback()
-      }
     },[]),
     
-    setTab: useCallback((event: React.MouseEvent<HTMLElement>,value: keyof typeof tabs) => {
-      setTab(value);
-    },[])
   }
   
-  
-  useEffect(() => {
-    setTabs({'navigation':pages.navList,'catalog':categories.list})
-  },[pages,categories])
   if(props.isAvailable){
     return (
       <Drawer
@@ -72,20 +54,7 @@ const Burger = (props:BurgerProps) => {
         }}
       >
         <Box display={'flex'} flexDirection={'column'}>
-          <Box>
-            <ToggleButtonGroup
-              color="primary"
-              value={tab}
-              exclusive
-              fullWidth
-              onChange={callbacks.setTab}
-              aria-label="Platform"
-            >
-              <ToggleButton value='navigation'>Навигация</ToggleButton>
-              <ToggleButton value='catalog'>Каталог</ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
-          <BurgerTabs list={tabs[tab]} onClick={callbacks.setPage} tabName={tab} initTabs={selected ? {'catalog':{[selected?.id]:{available:true,level:0}}}:{}} selectable={tab === 'catalog'}/>
+          <BurgerTabs list={pages.navList} onClick={callbacks.setPage}/>
         </Box>
       </Drawer>
     );

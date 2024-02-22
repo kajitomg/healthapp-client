@@ -6,19 +6,19 @@ import {RoutesType} from "../../page-controller/models.ts";
 import {useTypedSelector} from "../../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectParamsElement} from "../store/params-controller/reducer.ts";
 
-interface UseStateParamsProps {
+interface UseSetParamsProps {
   page?:RoutesType | null
 }
 
-export const useSetParams = (props:UseStateParamsProps) => {
+export const useSetParams = (props?:UseSetParamsProps) => {
   const params = useTypedSelector(state => selectParamsElement(state,props?.page?.id))
   const {paramsController} = useActions()
   
   const callbacks = {
-    setParams:useCallback(async (params:ParamsType) => {
-      await paramsController.set({page:props.page,newParams:createParamsWithLocation(params)})
-    },[props.page])
+    setParams:useCallback((params:ParamsType, page?:RoutesType, replace?:boolean) => {
+      paramsController.set({page:page || props?.page,newParams:createParamsWithLocation(params),replace})
+    },[paramsController, props?.page])
   }
   
-  return {params,...callbacks}
+  return {params, ...callbacks}
 }

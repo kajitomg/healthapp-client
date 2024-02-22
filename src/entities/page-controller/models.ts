@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactElement, ReactNode} from "react";
 import {ParamsType} from "../params-controller/models.ts";
 
 export type RoutesType = {
@@ -8,6 +8,7 @@ export type RoutesType = {
   redirect:string,
   element:ReactNode,
   children:RoutesType[],
+  icon?:ReactElement,
   auth:boolean,
   nav:boolean,
   params:ParamsType

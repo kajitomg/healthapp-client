@@ -1,43 +1,44 @@
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
-import cardImage from "../../imgaes/card.jpg";
+import {Card, CardActions, CardContent, styled} from "@mui/material";
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {ProductPrice} from "../product-price";
-import config from "../../config.ts";
+import {ProductCardActions} from "../product-card-actions";
+import {ProductCardContent} from "../product-card-content";
+import {ProductCardMedia} from "../product-card-media";
 
 interface ProductCardProps {
   item:IProduct
 }
 
+const StyledCard = styled('div')(({theme}) => ({
+  width: 'calc(25% - 16px)',
+  cursor:'pointer',
+  margin: 8,
+  [theme.breakpoints.down('lg')]:{
+    width: 'calc(33.333% - 16px)'
+  },
+  [theme.breakpoints.down('md')]:{
+    width: 'calc(50% - 16px)'
+  },
+  [theme.breakpoints.down('sm')]:{
+    width: 'calc(100% - 16px)'
+  },
+}))
+
+
+
 const ProductCard = (props:ProductCardProps) => {
   
   return (
-    <Card sx={{ width: 'calc(25% - 16px)' }} onClick={() => {console.log('da')}} style={{cursor:'pointer',margin: 8}}>
-      <CardMedia
-        component="img"
-        alt="Изображение товара"
-        height="300px"
-        src={props.item.images?.[0] ? config.api.baseUrl + '/' + props.item.images?.[0]?.path : cardImage}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {props.item?.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.item?.description}
-        </Typography>
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          <Typography variant="caption" color={'black'}>
-            артикул: {props.item?.article}
-          </Typography>
-        </Box>
-      </CardContent>
-      <CardActions>
-        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={'100%'} minHeight={'46px'} paddingX={1}>
-          <Button size="small" variant={"contained"} onClick={(e) => {e.stopPropagation();console.log('da1')}}>Купить</Button>
-          <ProductPrice price={props.item.price} discount={props.item.discount}/>
-        </Box>
-      </CardActions>
-    </Card>
+    <StyledCard>
+      <Card onClick={() => {console.log('da')}}>
+        <ProductCardMedia images={props.item.images}/>
+        <CardContent>
+          <ProductCardContent name={props.item.name} description={props.item.description} article={props.item.article} count={props.item.count}/>
+        </CardContent>
+        <CardActions>
+          <ProductCardActions discount={props.item.discount} price={props.item.price}/>
+        </CardActions>
+      </Card>
+    </StyledCard>
   );
 };
 
