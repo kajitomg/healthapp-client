@@ -1,6 +1,4 @@
 import {styled} from "@mui/material";
-import {useLoadCategoriesQuery} from "../../entities/product/store/categories/api.ts";
-import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useBurger} from "../burger/hooks.ts";
 import {CatalogFilter} from "../../features/catalog-filter";
 import MuiBox, { BoxProps as MuiBoxProps } from '@mui/material/Box';
@@ -32,14 +30,11 @@ const StyledBox = styled(MuiBox,{
 }))
 
 const CatalogFilterController = () => {
-  const categories = useTypedSelector(state => state.categories)
   const {headerHeight} = useBurger()
-  useLoadCategoriesQuery({})
-  
   
   return (
     <StyledBox headerHeight={headerHeight}>
-      <CatalogFilter list={categories.list}/>
+      <CatalogFilter/>
     </StyledBox>
   );
 };

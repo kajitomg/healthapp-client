@@ -10,7 +10,7 @@ interface SelectFormProps {
   
   values: Option[],
   
-  initialValue:Option,
+  initialValue?:Option,
   
   onSelect?:(value:string) => void,
   
@@ -19,7 +19,7 @@ interface SelectFormProps {
 }
 
 const SelectForm = (props:SelectFormProps) => {
-  const [item, setItem] = useState<Option | null>(props.initialValue)
+  const [item, setItem] = useState<Option | null>(props.initialValue || null)
   
   const callbacks = {
     

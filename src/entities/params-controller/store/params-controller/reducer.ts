@@ -1,13 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../../../shared/services/redux/model.ts";
 import cleaningParams from "../../../../shared/utils/cleaning-params.ts";
-import {ParamsType} from "../../models.ts";
+import {ParamsType} from "../../../../shared/models";
 import {RoutesType} from "../../../page-controller/models.ts";
-import {getLocationPathname} from "../../../../shared/utils/get-location-pathname.ts";
-import {getLocationHash} from "../../../../shared/utils/get-location-hash.ts";
-import {replaceHistory} from "../../../../shared/utils/replace-history.ts";
-import {pushHistory} from "../../../../shared/utils/push-history.ts";
-
+import merge from 'lodash.merge'
+import {deleteObjectElementsHasInObject} from "../../../../shared/utils/delete-object-elements-has-in-object.ts";
+import {updateHistory} from "../../../../shared/utils/update-history.ts";
+import {createURL} from "../../../../shared/utils/create-url.ts";
 
 interface ParamControllerElementState {
     list:ParamsType
@@ -15,25 +14,6 @@ interface ParamControllerElementState {
 
 interface ParamsControllerState {
   [id:string]:ParamControllerElementState,
-  
-}
-
-const updateHistory = (url:string,replace?:boolean) => {
-  if (replace) {
-    replaceHistory({}, '', url);
-  } else {
-    pushHistory({}, '', url);
-  }
-}
-
-const createURLSearch = (params:ParamsType) => {
-  return new URLSearchParams(params).toString();
-}
-
-const createURL = (params:ParamsType) => {
-  const urlSearch = createURLSearch(params)
-  
-  return getLocationPathname() + (urlSearch ? `?${urlSearch}`: '') + getLocationHash()
 }
 
 const initialState:ParamsControllerState = {}
@@ -45,7 +25,7 @@ const paramsControllerSlice = createSlice({
     set: (state, action: PayloadAction<{page?:RoutesType | null,newParams?:ParamsType,replace?:boolean}>) => {
       const { page, newParams, replace } = action.payload;
       if(page){
-        const params = cleaningParams({...page?.params,...state[page?.id]?.list,...newParams})
+        const params = cleaningParams(merge({...page?.params},state[page?.id]?.list,newParams))
 
         state[page?.id] = {
           list:params
@@ -54,6 +34,19 @@ const paramsControllerSlice = createSlice({
         updateHistory(createURL(params),replace)
       }
     },
+    delete: (state, action: PayloadAction<{page?:RoutesType | null,params?:ParamsType,replace?:boolean}>) => {
+      const { page, params, replace } = action.payload;
+      if(page && params){
+        const objectWithDeletedElements = deleteObjectElementsHasInObject(state[page?.id]?.list,params)
+
+        state[page?.id] = {
+          list:objectWithDeletedElements
+        }
+        
+        updateHistory(createURL(objectWithDeletedElements),replace)
+        
+      }
+    }
 
   }
 })

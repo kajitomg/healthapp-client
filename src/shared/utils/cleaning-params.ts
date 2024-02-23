@@ -1,5 +1,5 @@
 import isEmptyParam from "./is-empty-param.ts";
-import {ParamsType} from "../../entities/params-controller/models.ts";
+import {ParamsType} from "../models";
 
 export default function cleaningParams(params:ParamsType):ParamsType{
   const result:ParamsType = {}

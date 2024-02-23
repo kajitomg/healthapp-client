@@ -3,7 +3,7 @@ import {IDocument} from "../../document/model/document-model.ts";
 import {ISpecification} from "./specification-model.ts";
 import {ICategory} from "./category-model.ts";
 import {ModelType, SortTypes} from "../../../shared/models";
-import {ParamsType} from "../../params-controller/models.ts";
+import {ParamsType} from "../../../shared/models";
 
 export interface IProduct extends ModelType  {
   name: string,

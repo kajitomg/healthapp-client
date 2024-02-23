@@ -1,4 +1,4 @@
-import {ParamsType} from "../../params-controller/models.ts";
+import {ParamsType} from "../../../shared/models";
 import {ModelType, SortTypes} from "../../../shared/models";
 import {IProduct} from "./product-model.ts";
 

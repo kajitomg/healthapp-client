@@ -1,7 +1,7 @@
 export function paramsToObject(entries: IterableIterator<[string, string]>) {
-  const result:{[key:string]:string} = {}
-  for(const [key, value] of entries) { // each 'entry' is a [key, value] tupple
-    result[key] = value;
+  let result:{[key:string]:string} = {}
+  for(const [key] of entries) { // each 'entry' is a [key, value] tupple
+    result = JSON.parse(key)
   }
   return result;
 }

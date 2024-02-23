@@ -22,7 +22,6 @@ const CatalogFilterPriceSlider = (props:CatalogFilterPriceSliderProps) => {
       props.onChange(newValue)
     },[])
   }
-
   
   return (
     <Slider

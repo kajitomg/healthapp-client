@@ -1,7 +1,7 @@
 import {Box, Skeleton, Typography} from "@mui/material";
 import mainImage  from '../../imgaes/main.jpg';
 import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
-import {useSetParams} from "../../entities/params-controller/hooks/use-set-params.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useLoadProductsQuery} from "../../entities/product/store/products/api.ts";
 import {CatalogProducts} from "../../widgets/catalog-products";
@@ -12,24 +12,23 @@ import {useEffect} from "react";
 
 const Catalog = () => {
   const {page} = useSetPage()
-  const {params} = useSetParams({page})
+  const {params} = useParams({page})
   const [loadCategory,categoryData] = useLazyLoadCategoryQuery()
-  
-  
+
   const {data:products, refetch} = useLoadProductsQuery({
-    ...(params?.['filter[price]'] && {'filter[price]':params?.['filter[price]']}),
+    ...(params?.filter && {filter:JSON.stringify(params?.filter)}),
     'include[category]':'',
     ...(categoryData?.currentData?.item?.id && {'where[category][id]':categoryData?.currentData?.item?.id}),
     'include[image]':'',
     'include[document]':'',
     'include[specification]':'specifications',
-    ...(params?.sort && {[`sort[${Object.keys(JSON.parse(params?.sort))[0]}]`]:JSON.parse(params?.sort)?.[Object.keys(JSON.parse(params?.sort))[0]]})
+    ...(params?.sort && {sort:JSON.stringify(params?.sort)})
   })
   
   useEffect(() => {
     if(params?.category){
       loadCategory({
-        id:params?.category,
+        id:+params?.category,
         params:{
           'include[category]':'childrens',
           'include[product]':'',

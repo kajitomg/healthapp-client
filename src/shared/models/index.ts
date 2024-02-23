@@ -4,3 +4,7 @@ export type ModelType = {
 }
 
 export type SortTypes  = 'ASC' | 'DESC' | ''
+
+export type ParamsType = {
+  [name:string]:string | string[] | number | number[] | ParamsType
+}

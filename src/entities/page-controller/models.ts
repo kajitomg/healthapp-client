@@ -1,5 +1,5 @@
 import {ReactElement, ReactNode} from "react";
-import {ParamsType} from "../params-controller/models.ts";
+import {ParamsType} from "../../shared/models";
 
 export type RoutesType = {
   id:string,

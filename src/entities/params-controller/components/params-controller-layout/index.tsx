@@ -1,7 +1,7 @@
 import {ReactNode, useEffect} from "react";
-import {useActions} from "../../../../shared/services/redux/hooks/use-actions.ts";
 import {RoutesType} from "../../../page-controller/models.ts";
 import {createParamsWithLocation} from "../../../../shared/utils/create-params-with-location.ts";
+import {useParams} from "../../hooks/use-params.ts";
 
 interface ParamsControllerLayoutProps {
   page?:RoutesType | null,
@@ -9,10 +9,10 @@ interface ParamsControllerLayoutProps {
 }
 
 const ParamsControllerLayout = (props:ParamsControllerLayoutProps) => {
-  const {paramsController} = useActions()
+  const {setParams} = useParams({page:props.page})
 
   useEffect(() => {
-    paramsController.set({page:props.page,newParams:createParamsWithLocation()})
+    setParams(createParamsWithLocation())
   },[props.page])
   
   return (

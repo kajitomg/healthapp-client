@@ -3,7 +3,7 @@ import {CatalogPopoverTabs} from "../catalog-popover-tabs";
 import {useCallback, useState} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {useLoadCategoriesQuery} from "../../entities/product/store/categories/api.ts";
-import {useSetParams} from "../../entities/params-controller/hooks/use-set-params.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {CatalogPopoverSubTabs} from "../catalog-popover-subtabs";
 
@@ -21,7 +21,7 @@ const CatalogPopover = ({anchorEl = null,onClose}:CatalogPopoverProps) => {
   const theme = useTheme()
   const isCatalogInSearch = useMediaQuery(theme.breakpoints.up('sm'))
   const {pages, page,setPage} = useSetPage()
-  const {setParams} = useSetParams({page})
+  const {setParams} = useParams({page})
   const {data:categories} = useLoadCategoriesQuery({levelId:1})
   const [subTab,setSubTab] = useState<ICategory>()
 

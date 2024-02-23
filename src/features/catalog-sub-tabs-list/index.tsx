@@ -4,7 +4,7 @@ import {CatalogPopoverTab} from "../catalog-popover-tab";
 import {Box} from "@mui/material";
 import {List} from "../../shared/components/list";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {useSetParams} from "../../entities/params-controller/hooks/use-set-params.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
 interface SubCatalogListProps {
   
@@ -14,7 +14,7 @@ interface SubCatalogListProps {
 
 const CatalogSubTabsList = (props:SubCatalogListProps) => {
   const {page,pages,setPage} = useSetPage()
-  const {setParams} = useSetParams({page})
+  const {setParams} = useParams({page})
   
   const callbacks = {
     

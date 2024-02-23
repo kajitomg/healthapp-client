@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import {Option, SelectForm} from "../../shared/components/select";
-import {useCallback, useMemo} from "react";
-import {useSetParams} from "../../entities/params-controller/hooks/use-set-params.ts";
+import {useCallback, useMemo, useState} from "react";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 
 enum SortDirections {
@@ -20,7 +20,7 @@ interface SortOption extends Option {
 
 const CatalogSortSelectForm = () => {
   const {page} = useSetPage()
-  const {params,setParams} = useSetParams({page})
+  const {params,setParams, deleteParams} = useParams({page})
   
   const options = {
     sort:useMemo<SortOption[]>(() => ([
@@ -29,12 +29,15 @@ const CatalogSortSelectForm = () => {
       {value:'+count',data:{fieldName:'count',direction:SortDirections.DESC},title:'По наличию'},
     ]),[])
   }
+  const [initialValue] = useState<SortOption | undefined>(options.sort.find((item) => params?.sort?.[item.data.fieldName] === item.data.direction))  //FIX Поправить типизацию, возможно изменить реализацию
+  
   const callbacks = {
     
     onSort:useCallback((value:string) => {
       const sort = options.sort.find((item) => item.value === value)
       if(sort){
-        setParams({'sort':JSON.stringify({[sort.data.fieldName]:sort.data.direction})})
+        deleteParams({sort:''})
+        setParams({sort:{[sort.data.fieldName]:sort.data.direction}})
       }
     },[setParams,params,page,options.sort])
     
@@ -42,7 +45,7 @@ const CatalogSortSelectForm = () => {
   
   return (
     <Box width={'200px'}>
-      <SelectForm values={options.sort} onSelect={callbacks.onSort} label={'Сортировка'} initialValue={options.sort[0]}/>
+      <SelectForm values={options.sort} onSelect={callbacks.onSort} label={'Сортировка'} initialValue={initialValue}/>
     </Box>
   );
 };

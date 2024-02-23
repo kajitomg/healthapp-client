@@ -1,5 +1,5 @@
 import {ModelType, SortTypes} from "../../../shared/models";
-import {ParamsType} from "../../params-controller/models.ts";
+import {ParamsType} from "../../../shared/models";
 
 
 export interface IType extends ModelType  {
