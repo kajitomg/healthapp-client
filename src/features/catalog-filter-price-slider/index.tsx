@@ -11,7 +11,7 @@ interface CatalogFilterPriceSliderProps {
   
   onChange:(newValue:number | number[]) => void
   
-  max:number
+  max?:number | null
   
 }
 
@@ -20,7 +20,7 @@ const CatalogFilterPriceSlider = (props:CatalogFilterPriceSliderProps) => {
   const callbacks = {
     onChange:useCallback((event: Event, newValue: number | number[]) => {
       props.onChange(newValue)
-    },[])
+    },[props.onChange])
   }
   
   return (
@@ -31,7 +31,7 @@ const CatalogFilterPriceSlider = (props:CatalogFilterPriceSliderProps) => {
       min={0}
       size={'small'}
       step={1}
-      max={props.max}
+      max={props.max || 0}
       valueLabelDisplay="auto"
       getAriaValueText={valuetext}
     />

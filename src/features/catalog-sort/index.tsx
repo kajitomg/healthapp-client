@@ -2,9 +2,6 @@ import {Box} from "@mui/material";
 import {CatalogSortSelectForm} from "../catalog-sort-select-form";
 
 
-/*
-  Сортировка по (цена, наличие)..., выбор нескольких категорий
- */
 const CatalogSort = () => {
 
   return (

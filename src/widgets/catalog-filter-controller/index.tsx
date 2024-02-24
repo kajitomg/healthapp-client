@@ -2,6 +2,7 @@ import {styled} from "@mui/material";
 import {useBurger} from "../burger/hooks.ts";
 import {CatalogFilter} from "../../features/catalog-filter";
 import MuiBox, { BoxProps as MuiBoxProps } from '@mui/material/Box';
+import {IProduct} from "../../entities/product/model/product-model.ts";
 
 interface BoxProps extends MuiBoxProps{
   headerHeight:number
@@ -29,12 +30,18 @@ const StyledBox = styled(MuiBox,{
   }
 }))
 
-const CatalogFilterController = () => {
+interface CatalogFilterControllerProps {
+  
+  list:IProduct[]
+  
+}
+
+const CatalogFilterController = (props:CatalogFilterControllerProps) => {
   const {headerHeight} = useBurger()
   
   return (
     <StyledBox headerHeight={headerHeight}>
-      <CatalogFilter/>
+      <CatalogFilter list={props.list}/>
     </StyledBox>
   );
 };

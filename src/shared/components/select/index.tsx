@@ -19,15 +19,15 @@ interface SelectFormProps {
 }
 
 const SelectForm = (props:SelectFormProps) => {
-  const [item, setItem] = useState<Option | null>(props.initialValue || null)
-  
+  const [item, setItem] = useState<Option | null>(null)
+
   const callbacks = {
     
     onChange:useCallback((item:SelectChangeEvent) => {
       setItem(props.values.find((value) => value.value === item.target.value) || null)
       
       props.onSelect && props.onSelect(item.target.value)
-    },[])
+    },[props.onSelect])
   }
   
   useEffect(() => {
@@ -36,13 +36,19 @@ const SelectForm = (props:SelectFormProps) => {
     }
   },[])
   
+  useEffect(() => {
+    if(props.initialValue){
+      setItem(props.initialValue)
+    }
+  },[props.initialValue])
+  
   return (
     <FormControl fullWidth variant={'standard'} size={'small'}>
       <InputLabel id="elect-label">{props.label}</InputLabel>
       <Select
         labelId="select-label"
         id="select"
-        value={item?.value}
+        value={item?.value || ''}
         label={props.label}
         onChange={callbacks.onChange}
       >

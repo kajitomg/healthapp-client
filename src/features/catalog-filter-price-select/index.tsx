@@ -1,11 +1,15 @@
-import {Box, TextField, Typography} from "@mui/material";
+import {Box, TextField} from "@mui/material";
 import {ChangeEvent, useCallback} from "react";
 
 interface CatalogFilterPriceSelectProps {
   
   value:number[],
   
-  onChange:(newValue: number[]) => void
+  onChange:(newValue: number[]) => void,
+  
+  minPlaceholder?:number | null,
+  
+  maxPlaceholder?:number | null,
   
 }
 const CatalogFilterPriceSelect = (props:CatalogFilterPriceSelectProps) => {
@@ -13,44 +17,44 @@ const CatalogFilterPriceSelect = (props:CatalogFilterPriceSelectProps) => {
   const callbacks = {
     onChange:useCallback((index:number) => (event: ChangeEvent<HTMLInputElement>) => {
       const data = JSON.parse(JSON.stringify(props.value))
-      
+
       data[index] = +event.currentTarget.value
       
       props.onChange(data)
-    },[props.value])
+    },[props.value,props.onChange])
   }
   
   return (
-    <Box display={'flex'} alignItems={'center'}>
-      <Typography
-        fontSize={'small'}
-        sx={{
-          mr:'8px'
-        }}>От</Typography>
+    <Box display={'flex'} alignItems={'center'} marginY={2}>
       <TextField
         size={'small'}
-        placeholder={'От'}
+        placeholder={`от ${props?.minPlaceholder}`}
         id={'catalog-filter-price-select'}
         type={'number'}
-        value={props.value[0]}
+        value={props?.value?.[0] || ''}
+        InputProps={{
+          sx:{
+            fontSize:12
+          }
+        }}
         onChange={callbacks.onChange(0)}
         margin={'none'}
         sx={{
           mr:'8px'
         }}
       />
-      <Typography
-        fontSize={'small'}
-        sx={{
-          mx:'8px'
-        }}>До</Typography>
       <TextField
         size={'small'}
-        placeholder={'До'}
+        placeholder={`до ${props?.maxPlaceholder}`}
         id={'catalog-filter-price-select'}
         type={'number'}
         margin={'none'}
-        value={props.value[1]}
+        value={props?.value?.[1] || ''}
+        InputProps={{
+          sx:{
+            fontSize:12
+          }
+        }}
         onChange={callbacks.onChange(1)}
       />
     </Box>

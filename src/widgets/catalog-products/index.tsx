@@ -24,7 +24,7 @@ const CatalogProducts = (props:CatalogProductsProps) => {
   if(props.list){
     return (
       <StyledBox>
-        <CatalogFilterController/>
+        <CatalogFilterController list={props?.list}/>
         <Box width={'100%'} display={'flex'} justifyContent={'center'} flexDirection={'column'} marginTop={1}>
           <Box>
             <CatalogSortController/>

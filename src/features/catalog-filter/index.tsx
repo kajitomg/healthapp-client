@@ -2,12 +2,15 @@ import {Box, Collapse, List, ListItemButton, ListItemText} from "@mui/material";
 import {CatalogFilterPrice} from "../catalog-filter-price";
 import {useCallback, useState} from "react";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import {IProduct} from "../../entities/product/model/product-model.ts";
 
+interface CatalogFilterProps {
+  
+  list:IProduct[]
+  
+}
 
-/*
-  Фильтрация по (категория,цена,наличие)..., выбор нескольких категорий
- */
-const CatalogFilter = () => {
+const CatalogFilter = (props:CatalogFilterProps) => {
   const [open, setOpen] = useState(true);
   
   const callbacks = {
@@ -16,6 +19,7 @@ const CatalogFilter = () => {
       setOpen(!open);
     },[open]),
   }
+  
   return (
     <Box width={'100%'}>
       <List
@@ -30,7 +34,7 @@ const CatalogFilter = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton>
-              <CatalogFilterPrice/>
+              <CatalogFilterPrice list={props.list}/>
             </ListItemButton>
           </List>
         </Collapse>

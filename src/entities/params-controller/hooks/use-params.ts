@@ -13,6 +13,7 @@ export const useParams = (props?:UseSetParamsProps) => {
   const params = useTypedSelector(state => selectParamsElement(state,props?.page?.id))
   const {paramsController} = useActions()
   
+  
   const callbacks = {
     
     setParams:useCallback((params:ParamsType, page?:RoutesType, replace?:boolean) => {
