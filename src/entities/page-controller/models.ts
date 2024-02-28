@@ -3,7 +3,7 @@ import {ParamsType} from "../../shared/models";
 
 export type RoutesType = {
   id:string,
-  path:string,
+  path:string | string[],
   name:string,
   redirect:string,
   element:ReactNode,

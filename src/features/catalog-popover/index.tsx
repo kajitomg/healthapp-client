@@ -27,9 +27,9 @@ const CatalogPopover = ({anchorEl = null,onClose}:CatalogPopoverProps) => {
 
   const callbacks = {
     
-    onTabClick:useCallback((params:string) => {
-      setPage('catalog')
-      setParams({category:params},pages.list.find(page => page.id === 'catalog'))
+    onTabClick:useCallback((id:number) => {
+      setPage('catalog' , id.toString())
+      setParams({},pages.list.find(page => page.id === 'catalog'))
       onClose && onClose()
     },[setParams,setPage,page]),
     
@@ -56,7 +56,7 @@ const CatalogPopover = ({anchorEl = null,onClose}:CatalogPopoverProps) => {
           backgroundColor:alpha('#000',0.15)
         }}
       >
-        <Box display={'flex'}>
+        <Box display={'flex'} pt={2}>
           <CatalogPopoverTabs tabs={categories?.list} onHover={callbacks.onTabHover} onClick={callbacks.onTabClick}/>
           {subTab && <CatalogPopoverSubTabs tab={subTab} onClick={callbacks.onTabClick}/>}
         </Box>

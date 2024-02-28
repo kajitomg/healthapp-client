@@ -11,7 +11,7 @@ interface CatalogSubtabsProps {
 const CatalogSubTabs = (props:CatalogSubtabsProps) => {
   
   return (
-    <Box>
+    <Box display={'flex'} width={'100%'} justifyContent={'flex-start'}>
       <CatalogSubTabsList list={props.list}/>
     </Box>
   );

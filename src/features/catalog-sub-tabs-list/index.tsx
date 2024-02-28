@@ -1,10 +1,10 @@
 import {useCallback} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";
-import {CatalogPopoverTab} from "../catalog-popover-tab";
 import {Box} from "@mui/material";
 import {List} from "../../shared/components/list";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import {CatalogSubTabsCard} from "../catalog-sub-tabs-card";
 
 interface SubCatalogListProps {
   
@@ -18,21 +18,21 @@ const CatalogSubTabsList = (props:SubCatalogListProps) => {
   
   const callbacks = {
     
-    onTabClick:useCallback((params:string) => {
-      setPage('catalog')
-      setParams({category:params},pages?.list?.find(page => page.id === 'catalog'))
+    onTabClick:useCallback((id:number) => {
+      setPage('catalog', id.toString())
+      setParams({},pages?.list?.find(page => page.id === 'catalog'))
     },[setParams,page]),
     
   }
   
   const renders = {
-    item:useCallback((tab:ICategory) => (
-      <CatalogPopoverTab tab={tab} key={tab.id} onClick={callbacks.onTabClick}/>
+    item:useCallback((item:ICategory) => (
+      <CatalogSubTabsCard item={item} key={item.id} onClick={callbacks.onTabClick}/>
     ),[callbacks.onTabClick])
   }
   
   return (
-    <Box>
+    <Box display={'flex'} width={'100%'} justifyContent={'flex-start'}>
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );

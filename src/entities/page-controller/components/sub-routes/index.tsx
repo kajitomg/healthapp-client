@@ -7,10 +7,14 @@ interface SubRoutesProps {
   routes:RoutesType[]
 }
 const SubRoutes = (props:SubRoutesProps) => {
-  
   return (
     <Routes>
       {nestedListInList(props.routes).map(route =>
+        typeof route.path === 'object'
+          ? route.path.map((path) =>
+            <Route key={route.id} path={path} element={<Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected>}/>
+          )
+          :
         <Route key={route.id} path={route.path} element={<Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected>}/>
       )}
     </Routes>

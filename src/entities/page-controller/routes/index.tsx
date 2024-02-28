@@ -7,11 +7,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CallIcon from '@mui/icons-material/Call';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import {Product} from "../../../pages/product";
 
 const routes:RoutesType[] = [
   {
     id:'main',
-    path: '/main',
+    path: ['/main','/'],
     name:'Главная',
     redirect:'/login',
     element: <Main/>,
@@ -46,7 +47,19 @@ const routes:RoutesType[] = [
   },
   {
     id:'catalog',
-    path: '/catalog',
+    path: '/catalog/:id',
+    name:'Каталог',
+    redirect:'/main',
+    element: <Catalog/>,
+    children:[],
+    icon:<ManageSearchIcon/>,
+    nav:false,
+    auth:true,
+    params:{}
+  },
+  {
+    id:'catalogItems',
+    path: '/catalog/',
     name:'Каталог',
     redirect:'/main',
     element: <Catalog/>,
@@ -77,6 +90,17 @@ const routes:RoutesType[] = [
     icon:<AccountCircleIcon/>,
     children:[],
     nav:true,
+    auth:true,
+    params:{}
+  },
+  {
+    id:'product',
+    path: '/product/:id',
+    name:'Продукт',
+    redirect:'/main',
+    element: <Product/>,
+    children:[],
+    nav:false,
     auth:true,
     params:{}
   },

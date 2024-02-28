@@ -1,9 +1,9 @@
 import {Box} from "@mui/material";
 import {Option, SelectForm} from "../../shared/components/select";
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {ParamsType, SortDirections} from "../../shared/models";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
 
 interface SortOption extends Option {
@@ -27,7 +27,7 @@ const CatalogSortSelectForm = () => {
     ]),[])
   }
   
-  const [initialValue, setInitialValue] = useState<SortOption>(options.sort.find((item) => (params?.filter as ParamsType)?.[item.data.fieldName] === item.data.direction) || options.sort[0])
+  const [initialValue, setInitialValue] = useState<SortOption>(options.sort.find((item) => (params?.sort as ParamsType)?.[item.data.fieldName] === item.data.direction) || options.sort[0])
   
   const callbacks = {
     
@@ -45,9 +45,9 @@ const CatalogSortSelectForm = () => {
   }
   
   useEffect(() => {
-    setInitialValue(options.sort.find((item) => (params?.filter as ParamsType)?.[item.data.fieldName] === item.data.direction) || options.sort[0])
+    setInitialValue(options.sort.find((item) => (params?.sort as ParamsType)?.[item.data.fieldName] === item.data.direction) || options.sort[0])
   },[params])
-  
+
   return (
     <Box width={'200px'}>
       <SelectForm values={options.sort} onSelect={callbacks.onSort} label={'Сортировка'} initialValue={initialValue}/>

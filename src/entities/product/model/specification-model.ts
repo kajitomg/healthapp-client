@@ -5,8 +5,9 @@ import {ParamsType} from "../../../shared/models";
 export interface ISpecification extends ModelType  {
   name: string,
   basic: boolean,
-  categoryId: number;
-  typeId: number;
+  categoryId: number,
+  typeId: number,
+  'product-specification':{value:string}
 }
 
 export type ISpecificationUpdate = Pick<ISpecification, 'id' | 'name' | 'basic' | 'categoryId' | 'typeId'>

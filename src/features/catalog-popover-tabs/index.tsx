@@ -8,7 +8,7 @@ interface CatalogPopoverTabsProps {
   
   tabs?:ICategory[],
   
-  onClick?:(params:string) => void,
+  onClick?:(id:number) => void,
   
   onHover?:(tab:ICategory) => void,
   

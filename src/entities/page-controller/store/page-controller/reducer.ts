@@ -30,7 +30,7 @@ export const pageControllerSlice = createSlice({
       
       const queryPath = page && page.path.split(':').length > 1 ? page?.path.split(':')[0] : null
       
-      action.payload.redirect && page?.path && action.payload.redirect(action.payload.query && queryPath ? queryPath + action.payload.query : page.path)
+      action.payload.redirect && page?.path && action.payload.redirect(queryPath ? action.payload.query ? queryPath + action.payload.query : queryPath : page.path )
       
     },
     setPages: (state, action:PayloadAction<{pages:RoutesType[]}>) => {

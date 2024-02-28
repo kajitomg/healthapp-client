@@ -14,7 +14,7 @@ export const categoryAPI = api.injectEndpoints({
     }),
     loadCategory: build.query<baseEntitiesState & {item:ICategory},{id?:number | string, params?: {[name:string]:string|number }}>({
       query: ({id,params}) => ({
-        url: `/api/categories/${id}`,
+        url: `/api/categories/${id || ''}`,
         params,
       }),
       providesTags: () => ['Category']

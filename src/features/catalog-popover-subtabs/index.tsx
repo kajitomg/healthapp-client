@@ -4,12 +4,13 @@ import {List} from "../../shared/components/list";
 import {useCallback} from "react";
 import {CatalogPopoverTab} from "../catalog-popover-tab";
 import {useLoadCategoryQuery} from "../../entities/product/store/categories/api.ts";
+import {blue} from "@mui/material/colors";
 
 interface CatalogPopoverSubTabsProps {
   
   tab?:ICategory,
   
-  onClick?:(params:string) => void,
+  onClick?:(id:number) => void,
   
 }
 
@@ -24,11 +25,19 @@ const CatalogPopoverSubTabs = (props:CatalogPopoverSubTabsProps) => {
   
   const renders = {
     item:useCallback((tab:ICategory) => (
-      <CatalogPopoverTab tab={tab} key={tab.id} hasChildrens onClick={props.onClick}/>
+      <CatalogPopoverTab tab={tab} key={tab.id} hasChildrens onClick={props.onClick} sx={{
+        fontWeight:700,
+        fontSize:'16px',
+        lineHeight:'24px',
+        '&:hover':{
+          bgcolor:'transparent',
+          color:blue[500]
+        },
+      }}/>
     ),[props.onClick])
   }
   return (
-    <Box>
+    <Box px={1}>
       <List list={data?.item.childrens} renderItem={renders.item}/>
     </Box>
   );

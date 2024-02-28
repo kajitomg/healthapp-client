@@ -20,7 +20,7 @@ const StyledBox = styled('div')(({theme}) => ({
 }))
 
 const CatalogProducts = (props:CatalogProductsProps) => {
-  
+
   if(props.list){
     return (
       <StyledBox>
