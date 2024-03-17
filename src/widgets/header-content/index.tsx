@@ -12,6 +12,7 @@ import {HeaderBurgerButton} from "../../features/header-burger-button";
 import {HeaderNavigationMenu} from "../../features/header-navigation-menu";
 import {CatalogSearch} from "../../features/catalog-search";
 import {SessionState} from "../../entities/user/store/session/reducer.ts";
+import {cartsSlice} from "../../entities/user/store/carts/reducer.ts";
 
 
 interface HeaderContentProps {
@@ -26,6 +27,7 @@ interface HeaderContentProps {
 
 const HeaderContent = (props:HeaderContentProps) => {
   const theme = useTheme();
+  const {cart} = useActions()
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
   
   const {BurgerBox, headerHeight} = useBurger()
@@ -46,6 +48,7 @@ const HeaderContent = (props:HeaderContentProps) => {
     
     signOut: useCallback(() => {
       signout()
+      cart.clearCart()
     },[]),
     
   }
@@ -68,12 +71,6 @@ const HeaderContent = (props:HeaderContentProps) => {
               <HeaderNavigationMenu/>
             </Box>
           }
-          <Box marginX={props?.session?.exists || props?.session?.waiting ? 3 : 0} display={'flex'} alignItems={'center'}>
-            <HeaderSessiondataButton session={props?.session}/>
-          </Box>
-          <Box marginX={props?.session?.exists ? 3 : 0} display={'flex'} alignItems={'center'}>
-            <SignoutButton onClick={callbacks.signOut} isAvailable={props?.session?.exists}/>
-          </Box>
         </Box>
       </Box>
     </AppBar>

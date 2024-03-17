@@ -6,7 +6,7 @@ import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {ParamsType} from "../../shared/models";
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {getPriceValues} from "../../shared/utils/getPriceValues.ts";
+import {getPriceValues} from "../../shared/utils/get-price-values.ts";
 
 interface CatalogFilterPriceProps {
   

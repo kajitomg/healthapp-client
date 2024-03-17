@@ -1,8 +1,8 @@
 import {useTypedSelector} from "../../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useCallback} from "react";
 import {useActions} from "../../../shared/services/redux/hooks/use-actions.ts";
-import {useNavigate} from "react-router-dom";
 import {selectCurrentPage} from "../store/page-controller/reducer.ts";
+import {useNavigate} from "react-router-dom";
 
 export const useSetPage = () => {
   const navigate = useNavigate()

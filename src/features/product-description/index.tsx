@@ -1,7 +1,4 @@
-import React, {useContext} from 'react';
-import {Typography} from "@mui/material";
-import {TabPanel} from "../../shared/components/tab-panel";
-import {ProductNavigationContext} from "../../pages/product";
+import {Box, Typography} from "@mui/material";
 
 interface ProductDescriptionProps {
 
@@ -10,12 +7,14 @@ interface ProductDescriptionProps {
 }
 
 const ProductDescription = (props:ProductDescriptionProps) => {
-  const {productNavigationValue} = useContext(ProductNavigationContext)
-  
+
   return (
-    <TabPanel index={0} value={productNavigationValue}>
+    <Box display={'flex'} flexDirection={'column'} width={'100%'} >
+      <Box my={2} mb={3}>
+        <Typography fontWeight={'bold'} fontSize={'x-large'}>Описание</Typography>
+      </Box>
       <Typography>{props?.description}</Typography>
-    </TabPanel>
+    </Box>
   );
 };
 

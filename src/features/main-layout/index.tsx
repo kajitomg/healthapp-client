@@ -1,6 +1,7 @@
 import {styled} from "@mui/material";
+import {memo} from "react";
 
-const MainLayout = styled('main', { shouldForwardProp: (prop) => prop !== 'open'  })<{
+const MainLayout = memo(styled('main', { shouldForwardProp: (prop) => prop !== 'open'  })<{
   open?: boolean;
   drawerwidth?:number;
   headerheight?:number;
@@ -18,6 +19,6 @@ const MainLayout = styled('main', { shouldForwardProp: (prop) => prop !== 'open'
     }),
     marginLeft: `${drawerwidth}px`,
   }),
-}));
+})));
 
 export {MainLayout}

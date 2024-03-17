@@ -1,34 +1,7 @@
-import {styled} from "@mui/material";
-import {useBurger} from "../burger/hooks.ts";
+import {useTheme} from "@mui/material";
 import {CatalogFilter} from "../../features/catalog-filter";
-import MuiBox, { BoxProps as MuiBoxProps } from '@mui/material/Box';
 import {IProduct} from "../../entities/product/model/product-model.ts";
-
-interface BoxProps extends MuiBoxProps{
-  headerHeight:number
-}
-
-const StyledBox = styled(MuiBox,{
-  shouldForwardProp: (prop) => prop !== 'headerHeight',
-})<BoxProps>(({theme,headerHeight}) => ({
-  flex:'0 1 300px',
-  minHeight:'500px',
-  position:'sticky',
-  top:`calc(${headerHeight}px + 8px)`,
-  margin:theme.spacing(1),
-  padding:1,
-  backgroundColor:'white',
-  borderRadius:4,
-  boxShadow:theme.shadows[1],
-  [theme.breakpoints.down('md')]:{
-    top:`auto`,
-    position:'relative',
-    minHeight:'auto',
-    height:'60px',
-    flex:'1 1 100%',
-    width:`calc(100% - ${theme.spacing(2)})`
-  }
-}))
+import {StickyLayout} from "../../shared/components/sticky-layout";
 
 interface CatalogFilterControllerProps {
   
@@ -37,12 +10,25 @@ interface CatalogFilterControllerProps {
 }
 
 const CatalogFilterController = (props:CatalogFilterControllerProps) => {
-  const {headerHeight} = useBurger()
+  const theme = useTheme()
   
   return (
-    <StyledBox headerHeight={headerHeight}>
+    <StickyLayout sx={{
+      flex:'0 1 250px',
+      minWidth:'250px',
+      minHeight:'500px',
+      margin:1,
+      [theme.breakpoints.down('md')]:{
+        top:`auto`,
+        position:'relative',
+        minHeight:'auto',
+        height:'60px',
+        flex:'1 1 100%',
+        width:`calc(100% - ${theme.spacing(2)})`
+      }
+    }}>
       <CatalogFilter list={props.list}/>
-    </StyledBox>
+    </StickyLayout>
   );
 };
 

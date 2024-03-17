@@ -4,13 +4,14 @@ import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {useRef} from "react"
 import {MainAbout} from "../../widgets/main-about";
+import {MainContentLayout} from "../../shared/components/main-content-layout";
 
 
 const Main = () => {
-  const ref = useRef<HTMLInputElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   
   return (
-    <Box >
+    <Box>
       <FullsizeImageLayout image={mainImage} imageAlt={'Главное изображение'} isIndents={true} sx={{display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'flex-start', width:'100%', height:'100%'}}>
         <Box display={'flex'} flexDirection={'column'} maxWidth={'1200px'} margin={'0 auto'} height={'100%'}>
           <Box width={'100%'} display={'flex'} height={'100%'} justifyContent={'center'} alignItems={'center'}>
@@ -23,9 +24,9 @@ const Main = () => {
           </Box>
         </Box>
       </FullsizeImageLayout>
-      <Box display={'flex'} maxWidth={'1200px'} margin={'0 auto'} ref={ref}>
-        <MainAbout/>
-      </Box>
+      <MainContentLayout>
+        <MainAbout ref={ref}/>
+      </MainContentLayout>
     </Box>
   );
 };

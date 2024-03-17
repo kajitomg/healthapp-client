@@ -1,5 +1,4 @@
 import './styles.scss'
-import {userAPI} from "../entities/user/store/users/api.ts";
 import {PageLayout} from "../shared/components/page-layout";
 import {MainLayout} from "../features/main-layout";
 import {useBurger} from "../widgets/burger/hooks.ts";
@@ -14,16 +13,25 @@ import {Header} from "../widgets/header";
 import {Footer} from "../widgets/footer";
 import {BottomNavigationMenu} from "../features/bottom-navigation-menu";
 import {useMediaQuery, useTheme} from "@mui/material";
+import {useEffect} from "react";
+import {useAuth} from "../entities/user/hooks/use-auth.ts";
+import {useListenHistory} from "../entities/page-controller/hooks/use-listen-history.ts";
 
 function App() {
   const theme = useTheme()
+  useListenHistory()
+  const {refresh} = useAuth()
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
   
   const {DrawerHeader, drawerWidth, headerHeight,name} = useBurger()
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
-  userAPI.useLoadUsersQuery(1)
+
   
+  useEffect(() => {
+    refresh()
+  },[])
+
   return (
     <PageLayout header={<Header/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>
       <DrawerHeader/>

@@ -9,7 +9,8 @@ export type RoutesType = {
   element:ReactNode,
   children:RoutesType[],
   icon?:ReactElement,
-  auth:boolean,
+  auth?:boolean,
   nav:boolean,
-  params:ParamsType
+  menu?:boolean,
+  params:ParamsType,
 }

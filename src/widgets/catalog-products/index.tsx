@@ -5,7 +5,9 @@ import {ProductsList} from "../products-list";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 
 interface CatalogProductsProps {
+  
   list?:IProduct[]
+  
 }
 
 const StyledBox = styled('div')(({theme}) => ({
@@ -25,7 +27,7 @@ const CatalogProducts = (props:CatalogProductsProps) => {
     return (
       <StyledBox>
         <CatalogFilterController list={props?.list}/>
-        <Box width={'100%'} display={'flex'} justifyContent={'center'} flexDirection={'column'} marginTop={1}>
+        <Box width={'100%'} display={'flex'} justifyContent={'center'} flexDirection={'column'}>
           <Box>
             <CatalogSortController/>
           </Box>

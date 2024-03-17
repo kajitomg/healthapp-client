@@ -4,6 +4,11 @@ import {ISpecification} from "./specification-model.ts";
 import {ICategory} from "./category-model.ts";
 import {ModelType, SortTypes} from "../../../shared/models";
 import {ParamsType} from "../../../shared/models";
+import {ICartProduct} from "../../cart/model/cart-product-model.ts";
+import {ILikeProduct} from "../../like/model/like-product-model.ts";
+import {ICart} from "../../cart/model/cart-model.ts";
+import {ILike} from "../../like/model/like-model.ts";
+import {IOrderProduct} from "../../order/model/order-product-model.ts";
 
 export interface IProduct extends ModelType  {
   name: string,
@@ -16,7 +21,14 @@ export interface IProduct extends ModelType  {
   images?:IImage[],
   documents?:IDocument[]
   specifications?:ISpecification[],
-  categories?:ICategory[]
+  categories?:ICategory[],
+  'cart-product'?:Partial<ICartProduct>,
+  'like-product'?:Partial<ILikeProduct>,
+  'cart-products'?:Partial<ICartProduct>[],
+  'like-products'?:Partial<ILikeProduct>[],
+  'order-product'?:Partial<IOrderProduct>,
+  carts?:ICart[],
+  likes?:ILike[],
 }
 
 export type IProductUpdate = Pick<IProduct, 'id' | 'name' | 'imageId'>

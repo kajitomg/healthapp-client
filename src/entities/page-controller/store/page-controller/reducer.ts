@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../../../../shared/services/redux/model.ts";
 import {RoutesType} from "../../models.ts";
-import {NavigateFunction} from "react-router-dom";
+import {NavigateOptions, To} from "react-router-dom";
 import {nestedListInList} from "../../../../shared/utils/nested-list-in-list.ts";
 
 interface PageControllerState {
@@ -22,15 +22,19 @@ export const pageControllerSlice = createSlice({
   name: 'pageController',
   initialState,
   reducers: {
-    setPage: (state, action:PayloadAction<{id?:string,query?:string,redirect?:NavigateFunction}>) => {
+    setPage: (state, action:PayloadAction<{id?:string,query?:string,redirect?:(path:To,options?:NavigateOptions) => void}>) => {
       
       const page = state.flatList.find((item) => item.id === action.payload.id)
-  
-      state.currentPage = page || null
-      
-      const queryPath = page && page.path.split(':').length > 1 ? page?.path.split(':')[0] : null
-      
-      action.payload.redirect && page?.path && action.payload.redirect(queryPath ? action.payload.query ? queryPath + action.payload.query : queryPath : page.path )
+
+      if(page){
+        state.currentPage = page || null
+        
+        const path = typeof page.path === 'object' ? page.path[0] : page.path
+        
+        const queryPath = path.split(':').length > 1 ? path.split(':')[0] : null
+        
+        action.payload.redirect && action.payload.redirect(queryPath ? action.payload.query ? queryPath + action.payload.query : queryPath : path ,{state:{back:location.pathname}})
+      }
       
     },
     setPages: (state, action:PayloadAction<{pages:RoutesType[]}>) => {

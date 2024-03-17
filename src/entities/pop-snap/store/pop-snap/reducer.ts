@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../../../shared/services/redux/model.ts";
 
 interface PopSnapElementDataState {
-  [name:string]:PopSnapElementDataState | string | number
+  [name:string]:string | number
 }
 
 interface PopSnapElementState {

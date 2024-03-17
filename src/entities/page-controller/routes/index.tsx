@@ -4,10 +4,17 @@ import {Error} from "../../../pages/error";
 import {Catalog} from "../../../pages/catalog";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CallIcon from '@mui/icons-material/Call';
+import StoreIcon from '@mui/icons-material/Store';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import {Product} from "../../../pages/product";
+import {Cart} from "../../../pages/cart";
+import {Profile} from "../../../pages/profile";
+import {Login} from "../../../pages/login";
+import {Registration} from "../../../pages/registration";
+import {Like} from "../../../pages/like";
+import {Shops} from "../../../pages/shops";
+import {ChangePassword} from "../../../pages/change-password";
 
 const routes:RoutesType[] = [
   {
@@ -18,31 +25,40 @@ const routes:RoutesType[] = [
     element: <Main/>,
     children:[],
     nav:false,
-    auth:true,
     params:{}
   },
   {
     id:'like',
-    path: '/like',
+    path: '/profile/like',
     name:'Избранное',
     redirect:'/main',
-    element: <Catalog/>,
+    element: <Like/>,
     icon:<FavoriteIcon/>,
     children:[],
     nav:true,
-    auth:true,
+    params:{}
+  },
+  
+  {
+    id:'order',
+    path: '/profile/order',
+    name:'Заказы',
+    redirect:'/login',
+    element: <Like/>,
+    icon:<FavoriteIcon/>,
+    children:[],
+    nav:false,
     params:{}
   },
   {
-    id:'basket',
-    path: '/basket',
+    id:'cart',
+    path: '/cart',
     name:'Корзина',
     redirect:'/main',
-    element: <Catalog/>,
+    element: <Cart/>,
     icon:<ShoppingCartIcon/>,
     children:[],
     nav:true,
-    auth:true,
     params:{}
   },
   {
@@ -54,7 +70,6 @@ const routes:RoutesType[] = [
     children:[],
     icon:<ManageSearchIcon/>,
     nav:false,
-    auth:true,
     params:{}
   },
   {
@@ -66,19 +81,17 @@ const routes:RoutesType[] = [
     children:[],
     icon:<ManageSearchIcon/>,
     nav:true,
-    auth:true,
     params:{}
   },
   {
-    id:'contacts',
-    path: '/contacts',
-    name:'Контакты',
+    id:'shops',
+    path: '/shops',
+    name:'Магазины',
     redirect:'/main',
-    element: <Catalog/>,
-    icon:<CallIcon/>,
+    element: <Shops/>,
+    icon:<StoreIcon/>,
     children:[],
     nav:true,
-    auth:true,
     params:{}
   },
   {
@@ -86,10 +99,11 @@ const routes:RoutesType[] = [
     path: '/profile',
     name:'Профиль',
     redirect:'/main',
-    element: <Catalog/>,
+    element: <Profile/>,
     icon:<AccountCircleIcon/>,
     children:[],
     nav:true,
+    menu:true,
     auth:true,
     params:{}
   },
@@ -101,7 +115,39 @@ const routes:RoutesType[] = [
     element: <Product/>,
     children:[],
     nav:false,
+    params:{}
+  },
+  {
+    id:'login',
+    path: '/login',
+    name:'Авторизация',
+    redirect:'/main',
+    element: <Login/>,
+    children:[],
+    nav:false,
+    auth:false,
+    params:{}
+  },
+  {
+    id:'changePassword',
+    path: '/profile/password/change',
+    name:'Смена пароля',
+    redirect:'/main',
+    element: <ChangePassword/>,
+    children:[],
+    nav:false,
     auth:true,
+    params:{}
+  },
+  {
+    id:'registration',
+    path: '/registration',
+    name:'Регистрация',
+    redirect:'/main',
+    element: <Registration/>,
+    children:[],
+    nav:false,
+    auth:false,
     params:{}
   },
   {
@@ -112,7 +158,6 @@ const routes:RoutesType[] = [
     element: <Error/>,
     nav:false,
     children:[],
-    auth:true,
     params:{}
   },
 ]

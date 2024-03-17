@@ -1,5 +1,5 @@
 import {Box, SxProps, Theme} from "@mui/material";
-import {ReactNode} from "react";
+import {memo, ReactNode} from "react";
 import {useBurger} from "../../../widgets/burger/hooks.ts";
 
 interface FullsizeImageLayoutProps {
@@ -18,7 +18,7 @@ interface FullsizeImageLayoutProps {
   
 }
 
-const FullsizeImageLayout = (props:FullsizeImageLayoutProps) => {
+const FullsizeImageLayout = memo((props:FullsizeImageLayoutProps) => {
   const {headerHeight} = useBurger()
   return (
     <Box position={'relative'} sx={{
@@ -44,6 +44,6 @@ const FullsizeImageLayout = (props:FullsizeImageLayoutProps) => {
       </Box>
     </Box>
   );
-};
+});
 
 export {FullsizeImageLayout};

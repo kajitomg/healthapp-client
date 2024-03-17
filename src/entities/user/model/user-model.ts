@@ -5,6 +5,7 @@ export interface IUser extends ModelType  {
   email: string,
   roleId:number
   password?:string,
-  role?:string
+  role?:string,
+  phonenumber?:string
 }
 

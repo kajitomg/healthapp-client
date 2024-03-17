@@ -9,6 +9,7 @@ import {CatalogSubTabs} from "../../widgets/catalog-sub-tabs";
 import {useLazyLoadCategoryQuery} from "../../entities/product/store/categories/api.ts";
 import {useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
+import {MainContentLayout} from "../../shared/components/main-content-layout";
 
 
 const Catalog = () => {
@@ -27,7 +28,7 @@ const Catalog = () => {
       'include[specification]': '',
       ...(params?.sort && {sort: JSON.stringify(params?.sort)})
     }})
-  
+
   useEffect(() => {
     if(id){
       loadCategory({
@@ -45,21 +46,19 @@ const Catalog = () => {
   
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={300} isIndents={true}>
+      <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={200} isIndents={true}>
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
-          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{categoryData?.currentData?.item?.name}</Typography>
+          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{id && categoryData?.currentData?.item?.name || page?.name}</Typography>
         </Box>
       </FullsizeImageLayout>
-      <Box display={'flex'} justifyContent={'center'} width={'100%'}>
-        <Box maxWidth={'1200px'} width={'100%'}>
-          {!categoryData.isLoading && !isLoading  && products?.list?.length === 0 &&
-            <CatalogSubTabs list={categoryData?.currentData?.item?.childrens} />
-          }
-          {!categoryData.isLoading && !isLoading && products?.list && products?.list?.length > 0 &&
-            <CatalogProducts list={products?.list}/>
-          }
-        </Box>
-      </Box>
+      <MainContentLayout>
+        {!categoryData.isLoading && !isLoading  && products?.list?.length === 0 &&
+          <CatalogSubTabs list={categoryData?.currentData?.item?.childrens} />
+        }
+        {!categoryData.isLoading && !isLoading && products?.list && products?.list?.length > 0 &&
+          <CatalogProducts list={products?.list}/>
+        }
+      </MainContentLayout>
     </Box>
   );
 };

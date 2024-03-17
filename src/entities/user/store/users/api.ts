@@ -1,19 +1,10 @@
 import {api} from "../../../../shared/services/api";
 import {IUser} from "../../model/user-model.ts";
-import {baseEntitiesState} from "../../../../shared/utils/reducer-handlers.ts";
+import {ApiOptions} from "../../../../shared/services/api/model.ts";
 
 
 export const userAPI = api.injectEndpoints({
   endpoints: (build) => ({
-    loadUsers: build.query<baseEntitiesState & {list:IUser[]}, number>({
-      query: (limit: number = 5) => ({
-        url: `/api/users`,
-        params: {
-          limit: limit
-        }
-      }),
-      providesTags: () => ['User']
-    }),
     createUser: build.mutation<IUser, IUser>({
       query: (user) => ({
         url: `/api/users`,
@@ -22,11 +13,29 @@ export const userAPI = api.injectEndpoints({
       }),
       invalidatesTags: ['User']
     }),
-    updateUser: build.mutation<IUser, IUser>({
-      query: (user) => ({
-        url: `/api/users/${user.id}`,
+    updateUser: build.mutation<{item:IUser}, { userId:number,data?:{phonenumber?:string,name?:string},options?:ApiOptions }>({
+      query: ({data,userId,options}) => ({
+        url: `/api/users/${userId}`,
         method: 'PUT',
-        body: user
+        body: data
+      }),
+      invalidatesTags: ['User']
+    }),
+    
+    updateUserPassword: build.mutation<{item:IUser}, { userId:number,data?:{password?:string,currentPassword?:string},options?:ApiOptions }>({
+      query: ({data,userId,options}) => ({
+        url: `/api/users/password/${userId}`,
+        method: 'PUT',
+        body: data
+      }),
+      invalidatesTags: ['User']
+    }),
+    
+    updateUserEmail: build.mutation<{item:IUser}, { userId:number,data?:{email?:string},options?:ApiOptions }>({
+      query: ({data,userId,options}) => ({
+        url: `/api/users/email/${userId}`,
+        method: 'PUT',
+        body: data
       }),
       invalidatesTags: ['User']
     }),
@@ -39,3 +48,11 @@ export const userAPI = api.injectEndpoints({
     }),
   })
 })
+
+export const {
+  useCreateUserMutation,
+  useUpdateUserMutation,
+  useUpdateUserPasswordMutation,
+  useUpdateUserEmailMutation,
+  useDeleteUserMutation
+} = userAPI

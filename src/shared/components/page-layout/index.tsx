@@ -1,5 +1,5 @@
 import {cn} from '@bem-react/classname';
-import {ReactNode} from "react";
+import {memo, ReactNode} from "react";
 import './styles.scss';
 
 interface PageLayoutProps {
@@ -15,7 +15,7 @@ interface PageLayoutProps {
 }
 
 const cnPageLayout = cn('PageLayout')
-const PageLayout = (props:PageLayoutProps) => {
+const PageLayout = memo((props:PageLayoutProps) => {
   return (
     <div className={cnPageLayout({},[props.className])}>
       <div className={cnPageLayout('header')}>{props.header}</div>
@@ -25,6 +25,6 @@ const PageLayout = (props:PageLayoutProps) => {
       </div>
     </div>
   );
-};
+});
 
 export {PageLayout};

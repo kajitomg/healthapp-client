@@ -6,6 +6,9 @@ import {pageControllerActions, pageControllerState} from "../../entities/page-co
 import {popSnapActions, popSnapState} from "../../entities/pop-snap/store";
 import {paramsControllerActions, paramsControllerState} from "../../entities/params-controller/store";
 import {productState} from "../../entities/product/store";
+import {cartActions,cartState} from "../../entities/cart/store";
+import {likeActions,likeState} from "../../entities/like/store";
+import {tabsControllerActions,tabsControllerState} from "../../entities/tabs-controller/store";
 
 const rootState = combineReducers({
   ...userState,
@@ -13,12 +16,18 @@ const rootState = combineReducers({
   ...pageControllerState,
   ...paramsControllerState,
   ...productState,
+  ...cartState,
+  ...likeState,
+  ...tabsControllerState,
   [api.reducerPath]: api.reducer,
 })
 const rootActions = {
   ...popSnapActions,
   ...pageControllerActions,
-  ...paramsControllerActions
+  ...paramsControllerActions,
+  ...cartActions,
+  ...likeActions,
+  ...tabsControllerActions,
 }
 const rootInterceptor = {
   ...sessionInterceptors,

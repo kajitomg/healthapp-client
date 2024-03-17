@@ -13,7 +13,8 @@ const PageControllerLayout = (props:PageControllerLayoutProps) => {
   const {pageController} = useActions()
   
   useLayoutEffect(() => {
-    const queryPath = window.location.pathname.split('/').length > 2 ? window.location.pathname.split('/')[1] : null
+    const queryPath = window.location.pathname.split('/').length > 3 ? window.location.pathname.split('/')[1] : null
+
     const path = queryPath ? `/${queryPath}/:id`:window.location.pathname
 
     pageController.setPages({pages:routes})

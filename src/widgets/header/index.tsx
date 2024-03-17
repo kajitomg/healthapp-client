@@ -23,15 +23,6 @@ const Header = () => {
     },[]),
     
   }
-  /*
-   toggleMenu: useCallback(() => {
-      if(isOpen){
-        popSnap.close({id:name})
-      }else {
-        popSnap.open({id:name})
-      }
-    },[isOpen]),
-  */
   
   return (
     <Box display={'flex'}>

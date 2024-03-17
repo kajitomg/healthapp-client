@@ -2,6 +2,10 @@ import {Box, styled, Typography, useTheme} from "@mui/material";
 import {blue} from "@mui/material/colors";
 import {pagesData} from "../../mock/data.ts";
 import aboutImage from "../../imgaes/about.jpeg";
+import {forwardRef, Ref} from "react";
+
+interface MainAboutProps {
+}
 
 const StyledBox = styled('div')(({theme}) => ({
   display:'flex',
@@ -14,11 +18,11 @@ const StyledBox = styled('div')(({theme}) => ({
   }
 }))
 
-const MainAbout = () => {
+const MainAbout = forwardRef((props:MainAboutProps,ref:Ref<HTMLDivElement>) => {
   const theme = useTheme()
   
   return (
-    <StyledBox>
+    <StyledBox ref={ref}>
       <Box sx={{maxWidth:'700px'}} padding={3}>
         <Typography color={blue[500]} fontSize={'80px'}>О нас</Typography>
         <Typography color={'black'} fontSize={"medium"}>{pagesData.about.title}</Typography>
@@ -28,6 +32,6 @@ const MainAbout = () => {
       </Box>
     </StyledBox>
   );
-};
+});
 
 export {MainAbout};

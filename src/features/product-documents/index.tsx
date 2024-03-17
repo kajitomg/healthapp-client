@@ -12,21 +12,21 @@ interface ProdcutDocumentsProps {
 const ProdcutDocuments = (props:ProdcutDocumentsProps) => {
 
   return (
-    <Box m={2}>
+    <Box my={2} width={'100%'} bgcolor={'white'} borderRadius={1} boxShadow={theme => theme.shadows[1]} p={1}>
       <Box >
-        <Typography>Документы:</Typography>
+        <Typography fontWeight={'bold'}>Документы:</Typography>
       </Box>
-      <Box display={'flex'} justifyContent={'flex-start'}>
+      <Box display={'flex'} justifyContent={'flex-start'} py={1}>
         {
-          props?.documents && props?.documents?.length > 0 && props?.documents.map((document) =>
+          props?.documents?.length !== 0 && props?.documents?.map((document) =>
           <Button variant={'text'} href={config.api.baseUrl + '/' + document.path} key={document.id} startIcon={<InsertDriveFileIcon/>}>
             <Typography textTransform={'capitalize'}>{document.name}</Typography>
           </Button>
           )
         }
         {
-          props?.documents && props?.documents?.length === 0 &&
-          <Typography>Нет документов</Typography>
+          props?.documents?.length === 0 &&
+          <Typography fontWeight={'bold'} fontSize={'small'}>Нет документов</Typography>
         }
         
       </Box>

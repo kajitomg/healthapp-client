@@ -1,5 +1,5 @@
 import {BaseQueryApi, BaseQueryFn} from "@reduxjs/toolkit/query/react";
-import {QueryReturnValue} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import {QueryReturnValue} from "@reduxjs/toolkit/query/baseQueryTypes";
 
 
 class Interceptor {

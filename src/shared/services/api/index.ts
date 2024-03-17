@@ -20,10 +20,12 @@ const baseQuery = fetchBaseQuery({
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = (getState() as RootState).session.token
     if (token) {
-      headers.set('authentication', `Bearer ${token}`)
+      headers.set('Authorization', `Bearer ${token}`)
     }
+    
     return headers
   },
+  credentials:"include"
 })
 
 
@@ -70,7 +72,7 @@ export const api = createApi({
    * Tag types must be defined in the original API definition
    * for any tags that would be provided by injected endpoints
    */
-  tagTypes: ['User','Session','Product','Category','Type'],
+  tagTypes: ['User','Session','Product','Category','Type','Cart','Like','Order'],
   /**
    * This api has endpoints injected in adjacent files,
    * which is why no endpoints are shown below.

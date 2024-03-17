@@ -23,6 +23,7 @@ const CatalogFilter = (props:CatalogFilterProps) => {
   return (
     <Box width={'100%'}>
       <List
+        disablePadding
         sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader"

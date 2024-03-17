@@ -10,7 +10,7 @@ const SubRoutes = (props:SubRoutesProps) => {
   return (
     <Routes>
       {nestedListInList(props.routes).map(route =>
-        typeof route.path === 'object'
+        Array.isArray(route.path)
           ? route.path.map((path) =>
             <Route key={route.id} path={path} element={<Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected>}/>
           )

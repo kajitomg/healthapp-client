@@ -1,7 +1,8 @@
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {ReactNode, useEffect} from "react";
 import {Loader} from "../../shared/components/loader";
+import {useRedirect} from "../../entities/page-controller/hooks/use-redirect.ts";
 
 interface ProtectedProps {
 
@@ -17,15 +18,18 @@ const Protected = (props:ProtectedProps) => {
   const session = useTypedSelector(state => state.session)
   
   const location = useLocation()
-  const navigate = useNavigate()
+  const {redirect} = useRedirect()
   
   useEffect(() => {
-    if(session.exists && !session.waiting && (location.pathname === '/login' || location.pathname === '/registration')){
-      navigate(props.redirect,{state: {back: location.pathname }})
+    if(props.authPath && !session.exists && !session.waiting){
+      redirect(props.redirect)
+    }
+    if(!props.authPath && props.authPath !== undefined && session.exists && !session.waiting){
+      redirect(props.redirect)
     }
   },[session.exists,session.waiting,location.pathname])
-  
-  if (session.waiting){
+
+  if (props.authPath ? session.waiting  : (session.exists || session.waiting) && props.authPath !== undefined ){
     return (<Loader />)
   } else
     return props.children;

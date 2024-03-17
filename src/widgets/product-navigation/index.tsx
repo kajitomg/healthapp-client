@@ -8,7 +8,7 @@ const ProductNavigation = () => {
   const [tabs] = useState<ProductNavigationTabs[]>([{label:'Описание'},{label:'Характеристики'}])
   
   return (
-    <Box borderRadius={1} boxShadow={theme => theme.shadows[1]} width={'200px'}>
+    <Box borderRadius={1} boxShadow={theme => theme.shadows[1]} width={'100%'} bgcolor={'white'}>
       <ProductNavigationsTabs list={tabs}/>
     </Box>
   );
