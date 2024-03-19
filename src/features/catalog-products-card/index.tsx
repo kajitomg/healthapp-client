@@ -1,0 +1,53 @@
+import {CardActions, CardContent, styled} from "@mui/material";
+import {IProduct} from "../../entities/product/model/product-model.ts";
+import {CatalogProductsCardActions} from "../catalog-products-card-actions";
+import {CatalogProductsCardContent} from "../catalog-products-card-content";
+import {CatalogProductsCardMedia} from "../catalog-products-card-media";
+import {useCart} from "../../entities/cart/hooks/use-cart.ts";
+import {useLike} from "../../entities/like/hooks/use-like.ts";
+import {ProductCard} from "../product-card";
+
+interface CatalogProductsCardProps {
+  
+  item:IProduct,
+  
+  onClick?:(id:number) => void,
+  
+  cartProps?:ReturnType<typeof useCart>,
+  
+  likeProps?:ReturnType<typeof useLike>,
+  
+}
+
+const StyledCatalogProductsCard = styled(ProductCard)(({theme}) => ({
+  flexDirection:'column',
+  justifyContent:'space-between',
+  width: 'calc(33.333% - 16px)',
+  [theme.breakpoints.down('md')]:{
+    width: 'calc(50% - 16px)'
+  },
+  [theme.breakpoints.down('sm')]:{
+    width: 'calc(100% - 16px)'
+  },
+}))
+
+
+
+const CatalogProductsCard = (props:CatalogProductsCardProps) => {
+  const {item,cartProps,likeProps} = props
+
+  
+  return (
+    <StyledCatalogProductsCard productId={item.id}>
+        <CatalogProductsCardMedia images={item.images}/>
+        <CardContent>
+          <CatalogProductsCardContent name={item.name} description={item.description} article={item.article} count={item.count}/>
+        </CardContent>
+        <CardActions>
+          <CatalogProductsCardActions discount={item.discount} price={item.price} product={item} cartProps={cartProps} likeProps={likeProps}/>
+        </CardActions>
+    </StyledCatalogProductsCard>
+  );
+};
+
+export {CatalogProductsCard};

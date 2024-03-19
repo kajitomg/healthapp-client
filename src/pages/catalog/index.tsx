@@ -1,15 +1,16 @@
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import mainImage  from '../../imgaes/main.jpg';
-import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
+import mainImageSM  from '../../imgaes/main_SM.jpg';
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {CatalogProducts} from "../../widgets/catalog-products";
-import {CatalogSubTabs} from "../../widgets/catalog-sub-tabs";
+import {CatalogCategories} from "../../widgets/catalog-categories";
 import {useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import {useCategory} from "../../entities/product/hooks/use-category.ts";
-import {useProduct} from "../../entities/product/hooks/use-product.ts";
+import {useProducts} from "../../entities/product/hooks/use-products.ts";
+import {PageImageLayout} from "../../shared/components/page-image-layout";
 
 
 const Catalog = () => {
@@ -18,7 +19,7 @@ const Catalog = () => {
   const {id} = useReactParams()
   
   const {category,categoryIsLoading,loadCategory} = useCategory()
-  const {products,productsIsLoading,loadProducts} = useProduct()
+  const {products,productsIsLoading,loadProducts} = useProducts()
   
   
   useEffect(() => {
@@ -35,31 +36,30 @@ const Catalog = () => {
   },[params,category,loadProducts,page?.id])
   
   useEffect(() => {
-    if(id) {
-      loadCategory({
-        data: {
-          id:+id
-        },
-        params: {
-          'include[category]': 'childrens',
-        },
-        options: {
-          includeDefaultParams: true
-        }
-      })
-    }
+    loadCategory({
+      data: {
+        id:id
+      },
+      params: {
+        'include[category]': 'childrens',
+      },
+      options: {
+        includeDefaultParams: true
+      }
+    })
   },[id,loadCategory])
   
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={200} isIndents={true}>
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
-          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{id && category?.item?.name || page?.name}</Typography>
-        </Box>
-      </FullsizeImageLayout>
+      <PageImageLayout
+        image={mainImage}
+        progressiveImage={mainImageSM}
+        imageAlt={'Изображение'}
+        title={id && category?.item?.name || page?.name}
+      />
       <MainContentLayout>
         {!categoryIsLoading && !productsIsLoading  && products?.list?.length === 0 &&
-          <CatalogSubTabs list={category?.item?.childrens} />
+          <CatalogCategories list={category?.item?.childrens} />
         }
         {!categoryIsLoading && !productsIsLoading && products?.list && products?.list?.length > 0 &&
           <CatalogProducts list={products?.list}/>

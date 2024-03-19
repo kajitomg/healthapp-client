@@ -3,7 +3,7 @@ import {memo, ReactNode} from "react";
 import {useBurger} from "../../../widgets/burger/hooks.ts";
 import {ProgressiveImageLoader} from "../progressive-image-loader";
 
-interface FullsizeImageLayoutProps {
+export interface FullsizeImageLayoutProps {
   
   isIndents?:boolean
   

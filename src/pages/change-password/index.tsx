@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import {FullheightContentLayout} from "../../shared/components/fullheight-content-layout";
-import {ProfileFormPassword} from "../../features/profile-form-field-password";
+import {ProfileFormPassword} from "../../features/profile-form-password";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 
 const ChangePassword = () => {

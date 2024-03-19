@@ -18,20 +18,23 @@ export const useCategory = () => {
   
   const callbacks = {
     
-    loadCategory:useCallback(async ({data,params,options}:{data:{id:number},params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {item:ICategory} | undefined> => {
-      try {
-        return await loadCategory({
-          id:data.id,
-          params: {
-            ...(options?.includeDefaultParams && {
-              'include[level]':'',
-            }),
-            ...params
-          }
-        }).unwrap()
-      } catch (e) {
-        return
+    loadCategory:useCallback(async ({data,params,options}:{data:{id?:string},params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {item:ICategory} | undefined> => {
+      if(data.id){
+        try {
+          return await loadCategory({
+            id:data.id,
+            params: {
+              ...(options?.includeDefaultParams && {
+                'include[level]':'',
+              }),
+              ...params
+            }
+          }).unwrap()
+        } catch (e) {
+          return
+        }
       }
+      return
     },[loadCategory]),
   }
   

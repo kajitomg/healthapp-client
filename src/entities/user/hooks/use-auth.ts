@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from "react";
+import {useCallback} from "react";
 import {useTypedSelector} from "../../../shared/services/redux/hooks/use-typed-selector.ts";
 import {
   useLazyRefreshQuery,

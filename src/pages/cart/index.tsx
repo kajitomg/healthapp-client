@@ -1,41 +1,37 @@
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
-import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
 import mainImage from "../../imgaes/main.jpg";
 import {CartNoProducts} from "../../features/cart-no-products";
-import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useEffect} from "react";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {CartProducts} from "../../widgets/cart-products";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
+import {PageImageLayout} from "../../shared/components/page-image-layout";
+import mainImageSM from "../../imgaes/main_SM.jpg";
+import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 
 
 const Cart = () => {
-  const session = useTypedSelector(state => state.session)
+  const {page} = useSetPage()
   
   const cartProps = useCart()
   const likeProps = useLike()
   
-
-  useEffect(() => {
-    if(session.exists){
-      cartProps.loadCart(session.user.id)
-    }
-  },[session, cartProps.loadCart])
-  
   useEffect(() => {
     cartProps.loadCartProducts()
   },[cartProps.loadCartProducts])
+  
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={200} isIndents={true}>
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
-          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>Корзина</Typography>
-        </Box>
-      </FullsizeImageLayout>
+      <PageImageLayout
+        image={mainImage}
+        progressiveImage={mainImageSM}
+        imageAlt={'Изображение'}
+        title={page?.name}
+      />
       <MainContentLayout>
         <CartNoProducts available={!(cartProps.cartProducts?.list?.length !== 0)}/>
-        <CartProducts products={cartProps.cartProducts?.list} available={cartProps.cartProducts?.list?.length > 0} cartProps={cartProps} likeProps={likeProps}/>
+        <CartProducts products={cartProps.cartProducts?.list} available={cartProps.cartProducts?.list?.length !== 0} cartProps={cartProps} likeProps={likeProps}/>
       </MainContentLayout>
     </Box>
   );

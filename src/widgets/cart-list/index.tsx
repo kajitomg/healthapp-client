@@ -2,9 +2,7 @@ import {useCallback} from 'react';
 import {Box} from "@mui/material";
 import {List} from "../../shared/components/list";
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {CartItem} from "../../features/cart-item";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import {CartProductCard} from "../../features/cart-product-card";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 
@@ -19,26 +17,15 @@ interface CartListProps {
 }
 
 const CartList = (props:CartListProps) => {
-  const {setPage,pages,page} = useSetPage()
-  const {setParams} = useParams()
-  
-  const callbacks = {
-    
-    onProductClick:useCallback((id:number) => {
-      setPage('product',id.toString())
-      setParams({},pages?.list?.find(page => page.id === 'product'))
-    },[setParams,page]),
-    
-  }
   
   const renders = {
     item:useCallback((item:IProduct) => (
-      <CartItem item={item} key={item?.id} onClick={callbacks.onProductClick} likeProps={props.likeProps} cartProps={props.cartProps}/>
-    ),[callbacks.onProductClick,props.likeProps,props.cartProps])
+      <CartProductCard item={item} key={item?.id} likeProps={props.likeProps} cartProps={props.cartProps}/>
+    ),[props.likeProps,props.cartProps])
   }
   
   return (
-    <Box className={'Cart_list'} display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} p={1}>
+    <Box className={'Cart_list'} display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );

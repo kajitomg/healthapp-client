@@ -1,7 +1,7 @@
 import {Box, styled} from "@mui/material";
 import {CatalogFilterController} from "../catalog-filter-controller";
 import {CatalogSortController} from "../catalog-sort-controller";
-import {ProductsList} from "../products-list";
+import {CatalogProductsList} from "../catalog-products-list";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 
 interface CatalogProductsProps {
@@ -31,7 +31,7 @@ const CatalogProducts = (props:CatalogProductsProps) => {
           <Box>
             <CatalogSortController/>
           </Box>
-          <ProductsList list={props?.list}/>
+          <CatalogProductsList list={props?.list}/>
         </Box>
       </StyledBox>
     );

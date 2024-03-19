@@ -27,11 +27,11 @@ const LikeProducts = (props:LikeProductsProps) => {
   const {available,setTab,list} = useTabs({
     name:'product',
     tabs:[
-      {id:'like',label:'Избранное',page:'like',component:<Box m={1}>
+      {id:'like',label:'Избранное',page:'like',component:<Box>
           {props.products && props.products.length > 0 && <LikeManager list={props.products}/>}
           <LikeList list={props.products} likeProps={props.likeProps} cartProps={props.cartProps}/>
         </Box>},
-      {id:'order',label:'Заказы',page:'order',component:<Box m={1}><OrderList/></Box>}
+      {id:'order',label:'Заказы',page:'order',component:<Box><OrderList/></Box>}
     ],
     availableId:page?.id
   },[props,page])
@@ -52,7 +52,7 @@ const LikeProducts = (props:LikeProductsProps) => {
       }}>
         <Tabs available={available} setTab={setTab} list={list}/>
       </StickyLayout>
-      <Box flex={'1 1 auto'}>
+      <Box flex={'1 1 100%'}>
         <TabPanel available={available} list={list}/>
       </Box>
     </Box>

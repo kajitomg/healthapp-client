@@ -1,61 +1,31 @@
-import {Card, CardActions, CardContent, styled} from "@mui/material";
-import {IProduct} from "../../entities/product/model/product-model.ts";
-import {ProductCardActions} from "../product-card-actions";
-import {ProductCardContent} from "../product-card-content";
-import {ProductCardMedia} from "../product-card-media";
 import {useCallback} from "react";
-import {useCart} from "../../entities/cart/hooks/use-cart.ts";
-import {useLike} from "../../entities/like/hooks/use-like.ts";
+import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import {CardProps} from "@mui/material";
+import {StyledCard} from "../../shared/components/styled-card";
 
-interface ProductCardProps {
+type ProductCardProps = {
   
-  item:IProduct,
+  productId?:string | number
   
-  onClick?:(id:number) => void,
-  
-  cartProps?:ReturnType<typeof useCart>,
-  
-  likeProps?:ReturnType<typeof useLike>,
-  
-}
-
-const StyledCard = styled(Card)(({theme}) => ({
-  display:'flex',
-  flexDirection:'column',
-  justifyContent:'space-between',
-  width: 'calc(33.333% - 16px)',
-  cursor:'pointer',
-  margin: 8,
-  [theme.breakpoints.down('md')]:{
-    width: 'calc(50% - 16px)'
-  },
-  [theme.breakpoints.down('sm')]:{
-    width: 'calc(100% - 16px)'
-  },
-}))
-
-
+} & CardProps
 
 const ProductCard = (props:ProductCardProps) => {
-  const {item,cartProps,likeProps,onClick} = props
-  const callbacks = {
-    
-    onClick:useCallback(() => {
-      item?.id && onClick && onClick(item?.id)
-    },[item?.id,onClick]),
-    
-  }
+  const {productId, ...defProps} = props
   
+  const {setPage,pages} = useSetPage()
+  const {setParams} = useParams()
+  
+  const callbacks = {
+    onClick:useCallback(() => {
+      if(productId){
+        setPage('product',productId.toString())
+        setParams({},pages?.list?.find(page => page.id === 'product'))
+      }
+    },[setPage,setParams,pages,productId])
+  }
   return (
-    <StyledCard onClick={() => callbacks.onClick()}>
-        <ProductCardMedia images={item.images}/>
-        <CardContent>
-          <ProductCardContent name={item.name} description={item.description} article={item.article} count={item.count}/>
-        </CardContent>
-        <CardActions>
-          <ProductCardActions discount={item.discount} price={item.price} product={item} cartProps={cartProps} likeProps={likeProps}/>
-        </CardActions>
-    </StyledCard>
+    <StyledCard onClick={callbacks.onClick} {...defProps}>{props.children}</StyledCard>
   );
 };
 

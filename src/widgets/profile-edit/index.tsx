@@ -1,8 +1,8 @@
 import {Box, Button, Typography} from "@mui/material"
-import {ProfileFormPhonenumber} from "../../features/profile-form-field-phonenumber";
-import {ProfileFormName} from "../../features/profile-form-field-name";
+import {ProfileFormPhonenumber} from "../../features/profile-form-phonenumber";
+import {ProfileFormName} from "../../features/profile-form-name";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {ProfileFormEmail} from "../../features/profile-form-field-email";
+import {ProfileFormEmail} from "../../features/profile-form-email";
 import {useCallback} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";

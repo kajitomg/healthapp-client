@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {baseEntitiesState} from "../../../shared/utils/reducer-handlers.ts";
 import {ParamsType} from "../../../shared/models";
-import {useLazyLoadProductsQuery} from "../store/products/api.ts";
+import {useLazyLoadProductQuery} from "../store/products/api.ts";
 import {IProduct} from "../model/product-model.ts";
 
 interface HookOptions {
@@ -12,36 +12,41 @@ interface HookOptions {
 
 export const useProduct = () => {
   
-  const [loadProducts,products] = useLazyLoadProductsQuery()
+  const [loadProduct,product] = useLazyLoadProductQuery()
   
-  const [memoProducts,setMemoProducts] = useState(products.currentData)
+  const [memoProduct,setMemoProduct] = useState(product.currentData)
   
   const callbacks = {
     
-    loadProducts:useCallback(async ({params,options}:{params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {list:IProduct[]} | undefined> => {
-      try {
-        return await loadProducts({
-          params: {
-            ...(options?.includeDefaultParams && {
-              'include[category]': '',
-              'include[image]': '',
-              'include[document]': '',
-              'include[specification]': '',
-            }),
-            ...params
-          }
-        }).unwrap()
-      } catch (e) {
-        return
+    loadProduct:useCallback(async ({data,params,options}:{data:{id?:string},params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {item:IProduct} | undefined> => {
+      if(data.id){
+        try {
+          return await loadProduct({
+            id:data.id,
+            params: {
+              ...(options?.includeDefaultParams && {
+                'include[category]': '',
+                'include[image]': '',
+                'include[document]': '',
+                'include[specification]': '',
+              }),
+              ...params
+            }
+          }).unwrap()
+        } catch (e) {
+          return
+        }
       }
-    },[loadProducts]),
+      return
+    },[loadProduct]),
+    
   }
   
   useEffect(() => {
-    if(products.currentData && !products.isLoading){
-      setMemoProducts(products.currentData)
+    if(product.currentData && !product.isLoading){
+      setMemoProduct(product.currentData)
     }
-  },[products])
+  },[product])
   
-  return {products:memoProducts,productsIsLoading:products.isLoading,...callbacks}
+  return {product:memoProduct,productsIsLoading:product.isLoading,...callbacks}
 }

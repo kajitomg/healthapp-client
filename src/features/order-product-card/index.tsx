@@ -1,42 +1,33 @@
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {Box} from "@mui/material";
+import {CardContent, styled} from "@mui/material";
 import {OrderProductCardMedia} from "../order-product-card-media";
 import {OrderProductCardContent} from "../order-product-card-content";
-import {useCallback} from "react";
+import {ProductCard} from "../product-card";
+
+const StyledOrderProductCard = styled(ProductCard)(() => ({
+  display:'flex',
+  minWidth:'80px',
+  flexDirection:'column',
+}))
 
 interface OrderProductCardProps {
   
-  product?:IProduct,
+  item?:IProduct
   
-  onClick?:(id:number) => void
 }
 
 const OrderProductCard = (props:OrderProductCardProps) => {
-  
-  const callbacks = {
-    
-    onClick:useCallback(() => {
-      props.product?.id && props.onClick && props.onClick(props.product?.id)
-    },[props.product?.id,props.onClick]),
-    
-  }
+  const {item} = props
   
   return (
-    <Box display={'flex'} flexDirection={'column'} onClick={callbacks.onClick} bgcolor={'white'} borderRadius={1} boxShadow={theme => theme.shadows[1]} m={1}
-      sx={{
-        cursor:'pointer'
-      }}
-    >
-      <OrderProductCardMedia product={props.product}/>
-      <Box width={'100%'} display={'flex'}>
-        <OrderProductCardContent
-          product={props.product}
-          sx={{
-            flex:'1 1 auto'
-          }}/>
-       
-      </Box>
-    </Box>
+    <StyledOrderProductCard productId={item?.id}>
+      <OrderProductCardMedia images={item?.images}/>
+      <CardContent sx={{
+        p:1
+      }}>
+        <OrderProductCardContent name={item?.name}/>
+      </CardContent>
+    </StyledOrderProductCard>
   );
 };
 
