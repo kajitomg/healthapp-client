@@ -1,20 +1,23 @@
-import {Main} from "../../../pages/main";
 import {RoutesType} from "../models.ts";
-import {Error} from "../../../pages/error";
-import {Catalog} from "../../../pages/catalog";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import StoreIcon from '@mui/icons-material/Store';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import {Product} from "../../../pages/product";
-import {Cart} from "../../../pages/cart";
-import {Profile} from "../../../pages/profile";
-import {Login} from "../../../pages/login";
-import {Registration} from "../../../pages/registration";
-import {Like} from "../../../pages/like";
-import {Shops} from "../../../pages/shops";
-import {ChangePassword} from "../../../pages/change-password";
+import {lazy, Suspense} from "react";
+import {Loader} from "../../../shared/components/loader";
+
+const Product = lazy(() => import("../../../pages/product"))
+const Cart = lazy(() => import("../../../pages/cart"))
+const Profile = lazy(() => import("../../../pages/profile"))
+const Login = lazy(() => import("../../../pages/login"))
+const Registration = lazy(() => import("../../../pages/registration"))
+const Like = lazy(() => import("../../../pages/like"))
+const Shops = lazy(() => import("../../../pages/shops"))
+const ChangePassword = lazy(() => import("../../../pages/change-password"))
+const Main = lazy(() => import("../../../pages/main"))
+const Error = lazy(() => import("../../../pages/error"))
+const Catalog = lazy(() => import("../../../pages/catalog"))
 
 const routes:RoutesType[] = [
   {

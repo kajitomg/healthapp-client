@@ -57,7 +57,7 @@ export const useCart = () => {
     clearCartState:useCallback(() => {
       cartActions.clearState()
       setStorage([])
-    },[cartActions,setStorage]),
+    },[cartActions]),
     
     isCartAvailable:useCallback((product?:IProduct) => {
       const list:IProduct[] = storage
@@ -89,12 +89,13 @@ export const useCart = () => {
         
         const productsData = await callbacks.loadCartProducts({
           data:JSON.stringify({}),
+          sort:JSON.stringify(['createdAt','ASC']),
           ...(cartId && {'include[cart-product]':''}),
-          ...(cartId && {'where[cart-product][cartId]':cartId})
+          ...(cartId && {'where[cart-product][cartId]':cartId}),
         })
-        await setStorage(() => productsData?.list)
+        await setStorage(productsData?.list)
       }
-    },[addProducts, loadProducts, storage, setStorage]),
+    },[addProducts, loadProducts, storage]),
     
     addProductToCart:useCallback(async (product:IProduct | IProduct[]) => {
       const products = addProductsToCart(Array.isArray( product) ? product : [product],storage)
@@ -105,7 +106,7 @@ export const useCart = () => {
         await cartActions.replaceState()
       }
       await callbacks.loadCartProducts({},products)
-    },[addProducts,cartActions,loadProducts,cart,storage,setStorage]),
+    },[addProducts,cartActions,loadProducts,cart,storage]),
     
     deleteProductFromCart:useCallback( async (product:IProduct | IProduct[]) => {
       const products = deleteProductsFromCart(Array.isArray( product) ? product : [product],storage)
@@ -117,7 +118,7 @@ export const useCart = () => {
       }
       
       await callbacks.loadCartProducts({},products)
-    },[deleteProducts,cartActions,loadProducts,cart,storage,setStorage]),
+    },[deleteProducts,cartActions,loadProducts,cart,storage]),
     
     incrementProductInCart:useCallback( (product:IProduct) => {
       const products = incrementProductInCart(product,storage)
@@ -128,7 +129,7 @@ export const useCart = () => {
         cartActions.replaceState()
       }
       callbacks.loadCartProducts({},products)
-    },[incrementProduct,cartActions,loadProducts,cart,storage,setStorage]),
+    },[incrementProduct,cartActions,loadProducts,cart,storage]),
     
     decrementProductInCart:useCallback(async (product:IProduct) => {
       const products = decrementProductInCart(product,storage)
@@ -139,7 +140,7 @@ export const useCart = () => {
         cartActions.replaceState()
       }
       callbacks.loadCartProducts({},products)
-    },[decrementProduct,cartActions,loadProducts,cart,storage,setStorage]),
+    },[decrementProduct,cartActions,loadProducts,cart,storage]),
   }
   
   useEffect(() => {
@@ -147,6 +148,7 @@ export const useCart = () => {
       setMemoProducts(products.currentData)
     }
   },[products])
+  
   
   return {cart,cartProducts:memoProducts,localStorageName,storage,...callbacks}
 }

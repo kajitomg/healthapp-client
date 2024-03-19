@@ -20,4 +20,4 @@ const Registration = () => {
   );
 };
 
-export {Registration};
+export default Registration;

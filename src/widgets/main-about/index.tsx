@@ -2,7 +2,9 @@ import {Box, styled, Typography, useTheme} from "@mui/material";
 import {blue} from "@mui/material/colors";
 import {pagesData} from "../../mock/data.ts";
 import aboutImage from "../../imgaes/about.jpeg";
-import {forwardRef, Ref} from "react";
+import aboutImageSM from "../../imgaes/about_SM.jpeg";
+import {forwardRef} from "react";
+import {ProgressiveImageLoader} from "../../shared/components/progressive-image-loader";
 
 interface MainAboutProps {
 }
@@ -18,7 +20,7 @@ const StyledBox = styled('div')(({theme}) => ({
   }
 }))
 
-const MainAbout = forwardRef((props:MainAboutProps,ref:Ref<HTMLDivElement>) => {
+const MainAbout = forwardRef<HTMLDivElement,MainAboutProps>((props,ref) => {
   const theme = useTheme()
   
   return (
@@ -27,11 +29,11 @@ const MainAbout = forwardRef((props:MainAboutProps,ref:Ref<HTMLDivElement>) => {
         <Typography color={blue[500]} fontSize={'80px'}>О нас</Typography>
         <Typography color={'black'} fontSize={"medium"}>{pagesData.about.title}</Typography>
       </Box>
-      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px'}}} padding={3}>
-        <img alt={'Доверие'} src={aboutImage} width={'100%'} height={'100%'} style={{objectFit:'cover'}}/>
+      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px', minWidth:'500px'}}} padding={3}>
+        <ProgressiveImageLoader alt={'Доверие'} src={aboutImage} progressiveSrc={aboutImageSM} width={'100%'} height={'100%'} style={{objectFit:'cover'}}/>
       </Box>
     </StyledBox>
   );
 });
 
-export {MainAbout};
+export default MainAbout;

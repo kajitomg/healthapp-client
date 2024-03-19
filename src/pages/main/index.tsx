@@ -1,10 +1,12 @@
 import {Box, IconButton, Typography} from "@mui/material";
 import mainImage  from '../../imgaes/main.jpg'
+import mainImageSM  from '../../imgaes/main_SM.jpg'
 import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {useRef} from "react"
-import {MainAbout} from "../../widgets/main-about";
+import {lazy, Suspense, useRef} from "react"
+const MainAbout = lazy(() => import("../../widgets/main-about"))
 import {MainContentLayout} from "../../shared/components/main-content-layout";
+import {Loader} from "../../shared/components/loader";
 
 
 const Main = () => {
@@ -12,7 +14,7 @@ const Main = () => {
   
   return (
     <Box>
-      <FullsizeImageLayout image={mainImage} imageAlt={'Главное изображение'} isIndents={true} sx={{display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'flex-start', width:'100%', height:'100%'}}>
+      <FullsizeImageLayout image={mainImage} progressiveImage={mainImageSM} imageAlt={'Главное изображение'} isIndents={true} sx={{display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'flex-start', width:'100%', height:'100%'}}>
         <Box display={'flex'} flexDirection={'column'} maxWidth={'1200px'} margin={'0 auto'} height={'100%'}>
           <Box width={'100%'} display={'flex'} height={'100%'} justifyContent={'center'} alignItems={'center'}>
             <Typography color={'whitesmoke'} fontWeight={'900'} fontSize={'xxx-large'} textAlign={'center'} >Сеть магазинов медицинской техники в Санкт-Петербурге</Typography>
@@ -25,10 +27,10 @@ const Main = () => {
         </Box>
       </FullsizeImageLayout>
       <MainContentLayout>
-        <MainAbout ref={ref}/>
+        <Suspense fallback={<Loader/>}><MainAbout ref={ref}/></Suspense>
       </MainContentLayout>
     </Box>
   );
 };
 
-export {Main};
+export default Main;

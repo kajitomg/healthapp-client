@@ -15,7 +15,6 @@ const CatalogSubTabsCardMedia = (props:CatalogSubTabsCardMediaProps) => {
       component="img"
       alt="Изображение категории"
       height="300px"
-      
       src={props.images?.[0] ? config.api.baseUrl + '/' + props.images?.[0]?.path : cardImage}
     />
   );

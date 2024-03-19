@@ -26,4 +26,4 @@ const Shops = () => {
   );
 };
 
-export {Shops};
+export default Shops;

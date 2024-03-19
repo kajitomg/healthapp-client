@@ -3,59 +3,65 @@ import mainImage  from '../../imgaes/main.jpg';
 import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {useLoadProductsQuery} from "../../entities/product/store/products/api.ts";
 import {CatalogProducts} from "../../widgets/catalog-products";
 import {CatalogSubTabs} from "../../widgets/catalog-sub-tabs";
-import {useLazyLoadCategoryQuery} from "../../entities/product/store/categories/api.ts";
 import {useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
+import {useCategory} from "../../entities/product/hooks/use-category.ts";
+import {useProduct} from "../../entities/product/hooks/use-product.ts";
 
 
 const Catalog = () => {
   const {page} = useSetPage()
-  const {params} = useParams({page})
+  const {params} = useParams()
   const {id} = useReactParams()
-  const [loadCategory,categoryData] = useLazyLoadCategoryQuery()
-
-  const {data:products,isLoading, refetch} = useLoadProductsQuery({
-    params: {
-      ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
-      'include[category]': '',
-      ...(categoryData?.currentData?.item?.id && page?.id === 'catalog' && {'where[category][id]': categoryData?.currentData?.item?.id}),
-      'include[image]': '',
-      'include[document]': '',
-      'include[specification]': '',
-      ...(params?.sort && {sort: JSON.stringify(params?.sort)})
-    }})
-
+  
+  const {category,categoryIsLoading,loadCategory} = useCategory()
+  const {products,productsIsLoading,loadProducts} = useProduct()
+  
+  
   useEffect(() => {
-    if(id){
+    loadProducts({
+      params:{
+        ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
+        ...(category?.item.id && page?.id === 'catalog' && {'where[category][id]': category?.item.id}),
+        ...(params?.sort && {sort: JSON.stringify(params?.sort)})
+      },
+      options:{
+        includeDefaultParams:true
+      }
+    })
+  },[params,category,loadProducts,page?.id])
+  
+  useEffect(() => {
+    if(id) {
       loadCategory({
-        id:id,
-        params:{
-          'include[category]':'childrens',
-          'include[level]':'',
+        data: {
+          id:+id
+        },
+        params: {
+          'include[category]': 'childrens',
+        },
+        options: {
+          includeDefaultParams: true
         }
       })
     }
-  },[id])
-  useEffect(() => {
-    refetch()
-  },[params])
+  },[id,loadCategory])
   
   return (
     <Box display={'flex'} flexDirection={'column'}>
       <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={200} isIndents={true}>
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
-          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{id && categoryData?.currentData?.item?.name || page?.name}</Typography>
+          <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{id && category?.item?.name || page?.name}</Typography>
         </Box>
       </FullsizeImageLayout>
       <MainContentLayout>
-        {!categoryData.isLoading && !isLoading  && products?.list?.length === 0 &&
-          <CatalogSubTabs list={categoryData?.currentData?.item?.childrens} />
+        {!categoryIsLoading && !productsIsLoading  && products?.list?.length === 0 &&
+          <CatalogSubTabs list={category?.item?.childrens} />
         }
-        {!categoryData.isLoading && !isLoading && products?.list && products?.list?.length > 0 &&
+        {!categoryIsLoading && !productsIsLoading && products?.list && products?.list?.length > 0 &&
           <CatalogProducts list={products?.list}/>
         }
       </MainContentLayout>
@@ -63,4 +69,4 @@ const Catalog = () => {
   );
 };
 
-export {Catalog};
+export default Catalog;

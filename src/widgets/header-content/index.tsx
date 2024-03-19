@@ -5,14 +5,11 @@ import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {blue} from "@mui/material/colors";
 import {HeaderHomepageButton} from "../../features/header-homepage-button";
 import {HeaderHomepageIcon} from "../../features/header-homepage-icon";
-import {SignoutButton} from "../../features/signout-button";
 import {useSignoutMutation} from "../../entities/user/store/session/api.ts";
-import {HeaderSessiondataButton} from "../../features/header-sessiondata-button";
 import {HeaderBurgerButton} from "../../features/header-burger-button";
 import {HeaderNavigationMenu} from "../../features/header-navigation-menu";
 import {CatalogSearch} from "../../features/catalog-search";
 import {SessionState} from "../../entities/user/store/session/reducer.ts";
-import {cartsSlice} from "../../entities/user/store/carts/reducer.ts";
 
 
 interface HeaderContentProps {
@@ -44,14 +41,6 @@ const HeaderContent = (props:HeaderContentProps) => {
     }
   },[isBottomNavigationAvailable])
   
-  const callbacks = {
-    
-    signOut: useCallback(() => {
-      signout()
-      cart.clearCart()
-    },[]),
-    
-  }
   
   return (
     <AppBar color={'default'} elevation={0} variant={'elevation'} sx={{background:alpha(blue[50], 0.4),backdropFilter:'blur(5px)'}}>

@@ -5,6 +5,7 @@ import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-sele
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {FullsizeImageLayout} from "../../shared/components/fullsize-image-layout";
 import mainImage from "../../imgaes/main.jpg";
+import mainImageSM  from '../../imgaes/main_SM.jpg'
 import {LikeProducts} from "../../widgets/like-products";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
@@ -28,7 +29,7 @@ const Like = () => {
   
   return (
     <Box>
-      <FullsizeImageLayout image={mainImage} imageAlt={'Изображение'} height={200} isIndents={true}>
+      <FullsizeImageLayout image={mainImage} progressiveImage={mainImageSM} imageAlt={'Изображение'} height={200} isIndents={true}>
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100%'}>
           <Typography fontSize={'xxx-large'} color={'whitesmoke'}>{page?.name || 'Избранное'}</Typography>
         </Box>
@@ -40,4 +41,4 @@ const Like = () => {
   );
 };
 
-export {Like};
+export default Like;

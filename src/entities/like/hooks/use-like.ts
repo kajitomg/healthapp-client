@@ -89,7 +89,7 @@ export const useLike = () => {
         
         await setStorage(productsData?.list)
       }
-    },[addProducts, loadProducts, storage, setStorage]),
+    },[addProducts, loadProducts, storage]),
     
     addProductToLike:useCallback(  (product:IProduct) => {
       setStorage(addProductsToLike([product],storage))
@@ -99,7 +99,7 @@ export const useLike = () => {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[addProducts,likeActions,loadProducts,like,storage,setStorage]),
+    },[addProducts,likeActions,loadProducts,like,storage]),
     
     deleteProductFromLike:useCallback( (product:IProduct) => {
       setStorage(deleteProductsFromLike([product],storage));
@@ -109,7 +109,7 @@ export const useLike = () => {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[deleteProducts,likeActions,loadProducts,like,storage,setStorage]),
+    },[deleteProducts,likeActions,loadProducts,like,storage]),
   }
   
 

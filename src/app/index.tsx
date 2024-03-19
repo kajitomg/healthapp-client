@@ -17,7 +17,7 @@ import {useEffect} from "react";
 import {useAuth} from "../entities/user/hooks/use-auth.ts";
 import {useListenHistory} from "../entities/page-controller/hooks/use-listen-history.ts";
 
-function App() {
+const App = () => {
   const theme = useTheme()
   useListenHistory()
   const {refresh} = useAuth()
@@ -27,10 +27,9 @@ function App() {
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
 
-  
   useEffect(() => {
     refresh()
-  },[])
+  },[page])
 
   return (
     <PageLayout header={<Header/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>

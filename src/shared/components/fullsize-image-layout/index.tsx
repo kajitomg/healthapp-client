@@ -1,12 +1,15 @@
 import {Box, SxProps, Theme} from "@mui/material";
 import {memo, ReactNode} from "react";
 import {useBurger} from "../../../widgets/burger/hooks.ts";
+import {ProgressiveImageLoader} from "../progressive-image-loader";
 
 interface FullsizeImageLayoutProps {
   
   isIndents?:boolean
   
-  image?:string
+  image:string
+  
+  progressiveImage?:string
   
   height?:number
   
@@ -34,7 +37,14 @@ const FullsizeImageLayout = memo((props:FullsizeImageLayoutProps) => {
         width:'calc(100% + 48px)',
         height:props.height ? `calc(100% + ${props.isIndents ? headerHeight : 0}px + ${props.isIndents ? 24 : 0}px)` : '100vh'
       }}>
-        {props.image && <img alt={props.imageAlt} src={props.image} width={'100%'} height={'100%'} style={{objectFit:'cover',opacity:0.5}}/>}
+        <ProgressiveImageLoader
+          alt={props.imageAlt}
+          src={props.image}
+          progressiveSrc={props.progressiveImage}
+          width={'100%'}
+          height={'100%'}
+          style={{objectFit:'cover',opacity:0.5}}
+        />
       </Box>
       <Box position={'relative'} sx={{
         height:'100%',

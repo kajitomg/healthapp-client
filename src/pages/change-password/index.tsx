@@ -22,4 +22,4 @@ const ChangePassword = () => {
   );
 };
 
-export {ChangePassword};
+export default ChangePassword;

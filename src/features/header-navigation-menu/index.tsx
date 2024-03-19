@@ -47,7 +47,7 @@ const HeaderNavigationMenu = () => {
       >
         {pages.navList.map((page) =>
           <Tab
-            icon={<BadgeIcon icon={page.icon} badge={page.id === 'cart' | page.id === 'like'} content={page.id === 'cart' && cartStorage.length ||  page.id === 'like' && likeStorage.length}/>}
+            icon={<BadgeIcon icon={page.icon} badge={page.id === 'cart' || page.id === 'like'} content={(page.id === 'cart' && cartStorage.length) ||  (page.id === 'like' && likeStorage.length)}/>}
             key={page.id}
             id={page.id}
             component="a"
