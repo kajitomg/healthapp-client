@@ -64,5 +64,5 @@ export const useOrder = () => {
     }
   },[products])
   
-  return {orders:memoOrders,orderProducts:memoProducts,...callbacks}
+  return {orders:memoOrders,orderProducts:memoProducts,ordersIsLoading:orders.isLoading,...callbacks}
 }

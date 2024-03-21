@@ -11,6 +11,7 @@ import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {Tabs} from "../../entities/tabs-controller/components/tabs";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
 import {useProduct} from "../../entities/product/hooks/use-product.ts";
+import {ManagerLayout} from "../../shared/components/manager-layout";
 
 
 const Product = () => {
@@ -20,7 +21,7 @@ const Product = () => {
     name:'product',
     tabs:[
       {id:'Description',label:'Описание',component:<ProductDescription description={product?.item?.description}/>},
-      {id:'Specification',label:'Характеристики',component:<ProductSpecifications specifications={product?.item?.specifications}/>}
+      {id:'Specification',label:'Характеристики',component:<ProductSpecifications specifications={product?.item?.specifications} productId={product?.item.id}/>}
     ]
   },[product])
   
@@ -51,12 +52,19 @@ const Product = () => {
           <ProdcutDocuments documents={product?.item?.documents}/>
         </Box>
           <Box display={'flex'} alignItems={'flex-start'}>
-            <Box flex={'0 1 200px '} minWidth={'200px'} bgcolor={'white'} borderRadius={1} boxShadow={theme => theme.shadows[1]} mb={1}>
+            <ManagerLayout sx={{
+              p:0,
+              flex:'0 1 250px',
+              minWidth:'250px'
+            }}>
               <Tabs setTab={setTab} list={list} available={available}/>
-            </Box>
-            <Box flex={'1 1 100% '} bgcolor={'white'} borderRadius={1} boxShadow={theme => theme.shadows[1]} mx={1} p={1}>
+            </ManagerLayout>
+            <ManagerLayout sx={{
+              flex:'1 1 100%',
+              minWidth:'250px'
+            }}>
               <TabPanel list={list} available={available}/>
-            </Box>
+            </ManagerLayout>
           </Box>
       </MainContentLayout>
     </Box>

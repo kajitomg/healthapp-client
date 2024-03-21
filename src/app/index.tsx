@@ -1,6 +1,6 @@
 import './styles.scss'
 import {PageLayout} from "../shared/components/page-layout";
-import {MainLayout} from "../features/main-layout";
+import {MainLayout} from "../shared/components/main-layout";
 import {useBurger} from "../widgets/burger/hooks.ts";
 import {useTypedSelector} from "../shared/services/redux/hooks/use-typed-selector.ts";
 import {routes} from "../entities/page-controller/routes";
@@ -16,9 +16,13 @@ import {useMediaQuery, useTheme} from "@mui/material";
 import {useEffect} from "react";
 import {useAuth} from "../entities/user/hooks/use-auth.ts";
 import {useListenHistory} from "../entities/page-controller/hooks/use-listen-history.ts";
+import {useScrollToTop} from "../shared/hooks/use-scroll-to-top.ts";
+import {useLocation} from "react-router-dom";
 
 const App = () => {
   const theme = useTheme()
+  const {pathname} = useLocation()
+  const ref = useScrollToTop([pathname])
   useListenHistory()
   const {refresh} = useAuth()
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
@@ -30,10 +34,10 @@ const App = () => {
   useEffect(() => {
     refresh()
   },[page])
-
+  
   return (
     <PageLayout header={<Header/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>
-      <DrawerHeader/>
+      <DrawerHeader ref={ref}/>
       <MainLayout
         open={isOpen}
         drawerwidth={drawerWidth}

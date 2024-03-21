@@ -1,17 +1,11 @@
 import {DialogLayout} from "../../shared/components/dialog-layout";
-import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {selectPopSnapData} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
-import {Box, Typography} from "@mui/material";
-import {plural} from "../../shared/utils/plural.ts";
-import {MainPrice} from "../main-price";
-import {useCallback, useState} from "react";
-import {ValidatedFieldEmail} from "../validated-field-email";
-import {ValidatedFieldPhonenumber} from "../validated-field-phonenumber";
-import {ValidatedFieldComment} from "../validated-field-comment";
+import {Box} from "@mui/material";
+import {memo, useCallback, useState} from "react";
+import {OrderCreateDialogContent} from "../order-create-dialog-content";
 
 interface OrderCreateDialogProps {
   
-  popSnapName?:string,
+  popSnapName:string,
   
   isOpen?:boolean,
   
@@ -21,8 +15,7 @@ interface OrderCreateDialogProps {
   
 }
 
-const OrderCreateDialog = (props:OrderCreateDialogProps) => {
-  const data = useTypedSelector(state => selectPopSnapData(state,props.popSnapName))
+const OrderCreateDialog = memo((props:OrderCreateDialogProps) => {
   const [field, setField] = useState<{email?:string,phonenumber?:string,comment?:string}>({})
   
   const callbacks = {
@@ -42,32 +35,10 @@ const OrderCreateDialog = (props:OrderCreateDialogProps) => {
       closeButtonText={'Отменить'}
     >
       <Box display={'flex'} alignItems={'flex-start'} my={4}>
-        <Box
-          flex={'1 1 50%'}
-          noValidate
-          component="form"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            m: 'auto',
-          }}
-        >
-          <ValidatedFieldPhonenumber value={field.phonenumber} setData={setField}/>
-          <ValidatedFieldEmail value={field.email} setData={setField}/>
-          <ValidatedFieldComment value={field.comment} setData={setField}/>
-        </Box>
-        <Box display={'flex'} flex={'1 1 50%'} justifyContent={'space-between'} px={2} alignItems={'center'}>
-          <Box display={'flex'} flexDirection={'column'}>
-            <Typography fontSize={'x-small'}>Итого:</Typography>
-            <Typography fontSize={'medium'} fontWeight={'normal'}>{data?.count} {plural(data?.count,{one:'товар',few:'товара',many:'товаров'})}</Typography>
-          </Box>
-          <Box>
-            <MainPrice price={data?.total}/>
-          </Box>
-        </Box>
+        <OrderCreateDialogContent popSnapName={props.popSnapName} field={field} setField={setField}/>
       </Box>
     </DialogLayout>
   );
-};
+});
 
-export {OrderCreateDialog};
+export default OrderCreateDialog;

@@ -25,7 +25,7 @@ const CartList = (props:CartListProps) => {
   }
   
   return (
-    <Box className={'Cart_list'} display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
+    <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );

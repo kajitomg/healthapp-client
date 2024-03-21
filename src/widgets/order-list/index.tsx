@@ -8,7 +8,7 @@ import {LikeNoItems} from "../../features/order-no-items";
 
 const OrderList = () => {
   const session = useTypedSelector(state => state.session)
-  const {orders,loadOrders} = useOrder()
+  const {orders,loadOrders,ordersIsLoading} = useOrder()
   
   useEffect(() => {
     if(session.exists){
@@ -27,7 +27,7 @@ const OrderList = () => {
       <List list={orders?.list} renderItem={renders.item}/>
     );
   }
-  return <LikeNoItems available={true}/>
+  return <LikeNoItems available={!ordersIsLoading}/>
 };
 
 export {OrderList};

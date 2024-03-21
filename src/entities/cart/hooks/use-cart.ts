@@ -120,26 +120,30 @@ export const useCart = () => {
       await callbacks.loadCartProducts({},products)
     },[deleteProducts,cartActions,loadProducts,cart,storage]),
     
-    incrementProductInCart:useCallback( (product:IProduct) => {
-      const products = incrementProductInCart(product,storage)
-      setStorage(products)
-      if(cart.item?.id){
-        incrementProduct({id:cart.item?.id,product})
-      } else {
-        cartActions.replaceState()
+    incrementProductInCart:useCallback( (product?:IProduct) => {
+      if(product){
+        const products = incrementProductInCart(product,storage)
+        setStorage(products)
+        if(cart.item?.id){
+          incrementProduct({id:cart.item?.id,product})
+        } else {
+          cartActions.replaceState()
+        }
+        callbacks.loadCartProducts({},products)
       }
-      callbacks.loadCartProducts({},products)
     },[incrementProduct,cartActions,loadProducts,cart,storage]),
     
-    decrementProductInCart:useCallback(async (product:IProduct) => {
-      const products = decrementProductInCart(product,storage)
-      setStorage(products)
-      if(cart.item?.id){
-        decrementProduct({id:cart.item?.id,product})
-      } else {
-        cartActions.replaceState()
+    decrementProductInCart:useCallback( (product?:IProduct) => {
+      if(product){
+        const products = decrementProductInCart(product,storage)
+        setStorage(products)
+        if(cart.item?.id){
+          decrementProduct({id:cart.item?.id,product})
+        } else {
+          cartActions.replaceState()
+        }
+        callbacks.loadCartProducts({},products)
       }
-      callbacks.loadCartProducts({},products)
     },[decrementProduct,cartActions,loadProducts,cart,storage]),
   }
   

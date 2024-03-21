@@ -14,7 +14,7 @@ const CatalogCategoriesCardMedia = (props:CatalogCategoriesCardMediaProps) => {
     <CardMedia
       component="img"
       alt="Изображение категории"
-      height="300px"
+      height="220px"
       src={props.images?.[0] ? config.api.baseUrl + '/' + props.images?.[0]?.path : cardImage}
     />
   );

@@ -11,22 +11,22 @@ interface LikeListProps {
   
   list?:IProduct[],
   
-  cartProps?:ReturnType<typeof useCart>,
-  
   likeProps?:ReturnType<typeof useLike>,
 
 }
 
 const LikeList = (props:LikeListProps) => {
+  const cartProps = useCart()
+  
   const renders = {
     item:useCallback((item:IProduct) => (
-      <LikeProductCard item={item} key={item?.id} likeProps={props.likeProps} cartProps={props.cartProps}/>
-    ),[props.likeProps,props.cartProps])
+      <LikeProductCard item={item} key={item?.id} likeProps={props.likeProps} cartProps={cartProps}/>
+    ),[props.likeProps,cartProps])
   }
   
   if(props.list?.length !== 0){
     return (
-      <Box className={'Like_list'} display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
+      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
         <List list={props.list} renderItem={renders.item}/>
       </Box>
     );

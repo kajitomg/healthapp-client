@@ -4,15 +4,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import StoreIcon from '@mui/icons-material/Store';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import {lazy, Suspense} from "react";
-import {Loader} from "../../../shared/components/loader";
+import {lazy} from "react";
 
 const Product = lazy(() => import("../../../pages/product"))
 const Cart = lazy(() => import("../../../pages/cart"))
 const Profile = lazy(() => import("../../../pages/profile"))
 const Login = lazy(() => import("../../../pages/login"))
 const Registration = lazy(() => import("../../../pages/registration"))
-const Like = lazy(() => import("../../../pages/like"))
+const Like = lazy(() => import("../../../pages/personal-account"))
 const Shops = lazy(() => import("../../../pages/shops"))
 const ChangePassword = lazy(() => import("../../../pages/change-password"))
 const Main = lazy(() => import("../../../pages/main"))
@@ -76,8 +75,30 @@ const routes:RoutesType[] = [
     params:{}
   },
   {
+    id:'catalogCategories',
+    path: '/catalog/:id',
+    name:'Каталог',
+    redirect:'/main',
+    element: <Catalog/>,
+    children:[],
+    icon:<ManageSearchIcon/>,
+    nav:false,
+    params:{}
+  },
+  {
+    id:'catalogProducts',
+    path: '/catalog/:id',
+    name:'Каталог',
+    redirect:'/main',
+    element: <Catalog/>,
+    children:[],
+    icon:<ManageSearchIcon/>,
+    nav:false,
+    params:{}
+  },
+  {
     id:'catalogItems',
-    path: '/catalog/',
+    path: '/catalog',
     name:'Каталог',
     redirect:'/main',
     element: <Catalog/>,

@@ -1,9 +1,9 @@
 import {Box, Button, SxProps} from "@mui/material";
 import {ICategory} from "../../entities/product/model/category-model.ts";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import {List} from "../../shared/components/list";
 import {blue} from "@mui/material/colors";
-import {useLoadCategoryQuery} from "../../entities/product/store/categories/api.ts";
+import {useCategory} from "../../entities/product/hooks/use-category.ts";
 
 interface CatalogPopoverTabProps {
   
@@ -22,13 +22,21 @@ interface CatalogPopoverTabProps {
 }
 
 const CatalogPopoverTab = (props:CatalogPopoverTabProps) => {
-  const {data} = useLoadCategoryQuery({
-    id:props.tab?.id,
-    params:{
-      'include[category]':'childrens',
-      'include[level]':'',
-    }
-  })
+  const {category,loadCategory} = useCategory()
+  
+  useEffect(() => {
+    loadCategory({
+      data: {
+        id: props.tab?.id
+      },
+      params: {
+        'include[category]': 'childrens',
+      },
+      options: {
+        includeDefaultParams: true
+      }
+    })
+  },[])
   
   const callbacks = {
     
@@ -67,9 +75,9 @@ const CatalogPopoverTab = (props:CatalogPopoverTabProps) => {
       >
         {props.tab?.name}
       </Button>
-      {props.hasChildrens && data?.item?.childrens &&
+      {props.hasChildrens && category?.item?.childrens &&
         <Box display={'flex'} flexDirection={'column'} flexWrap={'wrap'} maxHeight={'132px'}>
-          <List list={data?.item?.childrens} renderItem={renders.item}/>
+          <List list={category?.item?.childrens} renderItem={renders.item}/>
         </Box>
       }
     </Box>

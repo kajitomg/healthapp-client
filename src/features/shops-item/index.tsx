@@ -1,14 +1,9 @@
-import React from 'react';
 import {Box, Divider, Typography} from "@mui/material";
+import {Address} from "../../shared/models";
 
-export interface address {
-  id:string,
-  address:string,
-  worktime:string,
-}
 
 interface ShopsItemProps {
-  item?:address
+  item?:Address
 }
 
 const ShopsItem = (props:ShopsItemProps) => {
@@ -16,8 +11,8 @@ const ShopsItem = (props:ShopsItemProps) => {
     <Box>
       <Box display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
         <Box display={'flex'} flexDirection={'column'} bgcolor={'white'} borderRadius={1} p={1}>
-          <Typography>{props.item.address}</Typography>
-          <Typography>{props.item.worktime}</Typography>
+          <Typography>{props.item?.address}</Typography>
+          <Typography>{props.item?.worktime}</Typography>
         </Box>
       </Box>
       <Divider/>

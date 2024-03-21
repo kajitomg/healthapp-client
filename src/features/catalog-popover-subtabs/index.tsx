@@ -1,10 +1,10 @@
 import {Box} from "@mui/material";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {List} from "../../shared/components/list";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import {CatalogPopoverTab} from "../catalog-popover-tab";
-import {useLoadCategoryQuery} from "../../entities/product/store/categories/api.ts";
 import {blue} from "@mui/material/colors";
+import {useCategory} from "../../entities/product/hooks/use-category.ts";
 
 interface CatalogPopoverSubTabsProps {
   
@@ -15,13 +15,21 @@ interface CatalogPopoverSubTabsProps {
 }
 
 const CatalogPopoverSubTabs = (props:CatalogPopoverSubTabsProps) => {
-  const {data} = useLoadCategoryQuery({
-    id:props.tab?.id,
-    params:{
-      'include[category]':'childrens',
-      'include[level]':'',
-    }
-  })
+  const {category,loadCategory} = useCategory()
+  
+  useEffect(() => {
+    loadCategory({
+      data: {
+        id: props.tab?.id
+      },
+      params: {
+        'include[category]': 'childrens',
+      },
+      options: {
+        includeDefaultParams: true
+      }
+    })
+  },[])
   
   const renders = {
     item:useCallback((tab:ICategory) => (
@@ -38,7 +46,7 @@ const CatalogPopoverSubTabs = (props:CatalogPopoverSubTabsProps) => {
   }
   return (
     <Box px={1}>
-      <List list={data?.item.childrens} renderItem={renders.item}/>
+      <List list={category?.item.childrens} renderItem={renders.item}/>
     </Box>
   );
 };

@@ -22,6 +22,7 @@ const LoginForm = () => {
     onSubmit:useCallback(async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       await signin(data)
+      await back()
     },[data]),
     
     onSignUp:useCallback(async () => {

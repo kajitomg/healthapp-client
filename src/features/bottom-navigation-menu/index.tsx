@@ -2,7 +2,10 @@ import {BottomNavigation, BottomNavigationAction, Paper} from "@mui/material";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
-import {SyntheticEvent, useCallback} from "react";
+import {SyntheticEvent, useCallback, useMemo} from "react";
+import {useCart} from "../../entities/cart/hooks/use-cart.ts";
+import {useLike} from "../../entities/like/hooks/use-like.ts";
+import {BadgeIcon} from "../../shared/components/badge-icon";
 
 interface BottomNavigationMenuProps {
   isAvailable?:boolean
@@ -10,6 +13,13 @@ interface BottomNavigationMenuProps {
 
 const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
   const {setPage, pages} = useSetPage()
+  const {storage:cartStorage} = useCart()
+  const {storage:likeStorage} = useLike()
+  
+  const badgeData = useMemo<{[name:string]:number}>(() => ({
+    cart:cartStorage.length,
+    like:likeStorage.length
+  }),[cartStorage,likeStorage])
   
   const pageNumber = useTypedSelector(state => selectNavIndex(state))
   
@@ -36,7 +46,11 @@ const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
               id={page.id}
               label={page.name}
               aria-label={page.name}
-              icon={page?.icon}
+              icon={<BadgeIcon
+                icon={page.icon}
+                badge={Boolean(badgeData[page.id])}
+                content={badgeData[page.id]}
+              />}
             />
           )}
         </BottomNavigation>

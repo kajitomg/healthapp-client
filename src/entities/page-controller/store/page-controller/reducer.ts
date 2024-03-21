@@ -34,6 +34,7 @@ export const pageControllerSlice = createSlice({
         const queryPath = path.split(':').length > 1 ? path.split(':')[0] : null
         
         action.payload.redirect && action.payload.redirect(queryPath ? action.payload.query ? queryPath + action.payload.query : queryPath : path ,{state:{back:location.pathname}})
+        
       }
       
     },

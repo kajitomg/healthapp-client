@@ -1,10 +1,10 @@
 import {alpha, InputBase, Paper} from "@mui/material";
 import {blue} from "@mui/material/colors";
-import React, {useCallback, useRef} from "react";
-import {CatalogPopover} from "../catalog-popover";
+import React, {lazy, Suspense, useCallback, useRef} from "react";
 import {CatalogPopoverButton} from "../catalog-popover-button";
 import {CatalogSearchButton} from "../catalog-search-button";
-
+import {Loader} from "../../shared/components/loader";
+const CatalogPopover = lazy(() => import("../catalog-popover"))
 
 /*
   Поиск по названию
@@ -50,7 +50,9 @@ const CatalogSearch = () => {
           placeholder="Поиск по каталогу"
           inputProps={{ 'aria-label': 'введите название' }}
         />
-        <CatalogSearchButton/>
+        <Suspense fallback={<Loader/>}>
+          <CatalogSearchButton/>
+        </Suspense>
       </Paper>
     </>
   );

@@ -1,11 +1,10 @@
 import {alpha, AppBar, Box, useMediaQuery, useTheme} from "@mui/material";
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 import {useBurger} from "../burger/hooks.ts";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {blue} from "@mui/material/colors";
 import {HeaderHomepageButton} from "../../features/header-homepage-button";
 import {HeaderHomepageIcon} from "../../features/header-homepage-icon";
-import {useSignoutMutation} from "../../entities/user/store/session/api.ts";
 import {HeaderBurgerButton} from "../../features/header-burger-button";
 import {HeaderNavigationMenu} from "../../features/header-navigation-menu";
 import {CatalogSearch} from "../../features/catalog-search";
@@ -24,14 +23,11 @@ interface HeaderContentProps {
 
 const HeaderContent = (props:HeaderContentProps) => {
   const theme = useTheme();
-  const {cart} = useActions()
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
   
   const {BurgerBox, headerHeight} = useBurger()
   
   const {popSnap} = useActions()
-  
-  const [signout] = useSignoutMutation()
   
   useEffect(() => {
     if(isBottomNavigationAvailable){

@@ -10,3 +10,16 @@ export enum SortDirections {
 export type ParamsType = {
   [name:string]:string | string[] | number | number[] | ParamsType
 }
+
+export interface Address {
+  
+  id:string,
+  
+  address?:string,
+  
+  phonenumbers?:string[],
+  
+  emails?:string[],
+  
+  worktime?:string,
+}

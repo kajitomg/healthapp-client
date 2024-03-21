@@ -1,6 +1,7 @@
 import {api} from "../../../../shared/services/api";
 import {baseEntitiesState} from "../../../../shared/utils/reducer-handlers.ts";
 import {ICategory} from "../../model/category-model.ts";
+import {ParamsType} from "../../../../shared/models";
 
 
 export const categoryAPI = api.injectEndpoints({
@@ -12,7 +13,7 @@ export const categoryAPI = api.injectEndpoints({
       }),
       providesTags: () => ['Category']
     }),
-    loadCategory: build.query<baseEntitiesState & {item:ICategory},{id?:number | string, params?: {[name:string]:string|number }}>({
+    loadCategory: build.query<baseEntitiesState & {item:ICategory},{id?:number | string, params?: ParamsType}>({
       query: ({id,params}) => ({
         url: `/api/categories/${id || ''}`,
         params,

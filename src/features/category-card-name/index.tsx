@@ -7,7 +7,7 @@ type CategoryCardNameProps = {
 const CategoryCardName = (props:CategoryCardNameProps) => {
   const {name, ...defProps} = props
   return (
-    <Typography gutterBottom variant="h5" {...defProps}>{name}</Typography>
+    <Typography gutterBottom fontWeight={'bold'} variant="h5" {...defProps}>{name}</Typography>
   );
 };
 

@@ -22,7 +22,7 @@ const CatalogProductsList = (props:CatalogProductsListProps) => {
   };
   
   return (
-    <Box className={'Products_list'} display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
+    <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );

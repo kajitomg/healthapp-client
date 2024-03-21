@@ -1,6 +1,6 @@
 import {alpha, Box, Popover, useMediaQuery, useTheme} from "@mui/material";
 import {CatalogPopoverTabs} from "../catalog-popover-tabs";
-import {useCallback, useState} from "react";
+import {memo, useCallback, useState} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {useLoadCategoriesQuery} from "../../entities/product/store/categories/api.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
@@ -17,7 +17,7 @@ interface CatalogPopoverProps {
   
 }
 
-const CatalogPopover = ({anchorEl = null,onClose}:CatalogPopoverProps) => {
+const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
   const theme = useTheme()
   const isCatalogInSearch = useMediaQuery(theme.breakpoints.up('sm'))
   const {pages, page,setPage} = useSetPage()
@@ -65,6 +65,6 @@ const CatalogPopover = ({anchorEl = null,onClose}:CatalogPopoverProps) => {
   }
   return null
   
-};
+});
 
-export {CatalogPopover};
+export default CatalogPopover;

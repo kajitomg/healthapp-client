@@ -7,7 +7,7 @@ import {IProduct} from "../../../product/model/product-model.ts";
 
 export const orderAPI = api.injectEndpoints({
   endpoints: (build) => ({
-    createOrder: build.mutation<baseEntitiesState & {item:IOrder},{body:{email:string,phonenumber:string,comment?:string,customerId?:number,products?:IProduct[]},params?: ParamsType}>({
+    createOrder: build.mutation<baseEntitiesState & {item:IOrder},{body:{email?:string,phonenumber?:string,comment?:string,customerId?:number,products?:IProduct[]},params?: ParamsType}>({
       query: ({params,body}) => ({
         url: `/api/orders/`,
         method:'POST',

@@ -1,4 +1,6 @@
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
+import {ProductNavigationItemLayout} from "../../shared/components/product-navigation-item-layout";
+import {ProductNoDescription} from "../product-no-description";
 
 interface ProductDescriptionProps {
 
@@ -9,12 +11,14 @@ interface ProductDescriptionProps {
 const ProductDescription = (props:ProductDescriptionProps) => {
 
   return (
-    <Box display={'flex'} flexDirection={'column'} width={'100%'} >
-      <Box my={2} mb={3}>
-        <Typography fontWeight={'bold'} fontSize={'x-large'}>Описание</Typography>
-      </Box>
-      <Typography>{props?.description}</Typography>
-    </Box>
+    <ProductNavigationItemLayout title={'Описание'}>
+      {props?.description &&
+        <Typography>{props?.description}</Typography>
+      }
+      {!props?.description &&
+        <ProductNoDescription/>
+      }
+    </ProductNavigationItemLayout>
   );
 };
 

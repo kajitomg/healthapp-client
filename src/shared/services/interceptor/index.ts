@@ -19,11 +19,6 @@ class Interceptor {
     this.publish()
   }
   
-  public subscribe(callback:() => void) {
-    
-    this.subsribers.push(callback);
-  }
-  
   private publish() {
     
     for (const callback of this.subsribers) {

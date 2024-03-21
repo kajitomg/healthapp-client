@@ -27,7 +27,9 @@ const CatalogCategoriesCard = (props:CatalogCategoriesCardProps) => {
   const {item} = props
   
   return (
-    <StyledCard variant={'outlined'} catalogId={item?.id}>
+    <StyledCard variant={'outlined'} catalogId={item?.id} sx={{
+      flexDirection:'column'
+    }}>
       <CatalogCategoriesCardMedia/>
       <CardContent>
         <CatalogCategoriesCardContent name={item?.name}/>

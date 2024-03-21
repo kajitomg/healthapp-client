@@ -14,7 +14,9 @@ export const useSetPage = () => {
   
   const callbacks = {
     setPage:useCallback( (id:string,query?:string) => {
+      
       pageController.setPage({id,redirect:navigate,query})
+      
     },[pageController, navigate])
   }
   

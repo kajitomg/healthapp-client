@@ -1,5 +1,6 @@
 import {Button, useMediaQuery, useTheme} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import {ButtonTypography} from "../../shared/components/button-typography";
 
 interface CatalogPopoverButtonProps {
   onClick?:() => void
@@ -12,7 +13,7 @@ const CatalogPopoverButton = (props:CatalogPopoverButtonProps) => {
   if(isCatalogInSearch){
     return (
       <Button variant="text" endIcon={<KeyboardArrowDownIcon />} sx={{ p: '10px' }} onClick={props.onClick}>
-        Каталог
+        <ButtonTypography>Каталог</ButtonTypography>
       </Button>
     );
   }

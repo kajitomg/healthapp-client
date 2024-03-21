@@ -1,13 +1,15 @@
 import {alpha, Box, Tab, Tabs, useTheme} from "@mui/material";
-import {SyntheticEvent, useCallback, useState} from "react";
+import {SyntheticEvent, useCallback, useMemo, useState} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {blue} from "@mui/material/colors";
-import {ProfileButtonList} from "../profile-button-list";
+import {ProfileButtonList} from "../header-navigation-menu-tabs-profile";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {BadgeIcon} from "../../shared/components/badge-icon";
+import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
+import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
 
 
 const HeaderNavigationMenu = () => {
@@ -16,6 +18,11 @@ const HeaderNavigationMenu = () => {
   const [menuAnchor,setMenuAnchor] = useState<null | {[id:string]:EventTarget & Element}>(null)
   const {storage:cartStorage} = useCart()
   const {storage:likeStorage} = useLike()
+  
+  const badgeData = useMemo<{[name:string]:number}>(() => ({
+    cart:cartStorage.length,
+    like:likeStorage.length
+  }),[cartStorage,likeStorage])
 
   const pageNumber = useTypedSelector(state => selectNavIndex(state))
 
@@ -30,12 +37,20 @@ const HeaderNavigationMenu = () => {
     
     onMenuClick:useCallback((event: SyntheticEvent) => {
       setMenuAnchor({[event.currentTarget.id]:event.currentTarget})
+      setTab(event)
     },[]),
     
     onMenuClose:useCallback(() => {
       setMenuAnchor(null)
     },[]),
   }
+  
+  const {available,setTab,list} = useTabs({
+    name:'header-navigation-menu',
+    tabs:[
+      {id:'profile',label:'Профиль',component:<ProfileButtonList anchorEl={menuAnchor?.['profile']} onClose={callbacks.onMenuClose}/>},
+    ]
+  },[menuAnchor,callbacks.onMenuClose])
   
   return (
     <Box sx={{ width: '100%' }}>
@@ -47,7 +62,11 @@ const HeaderNavigationMenu = () => {
       >
         {pages.navList.map((page) =>
           <Tab
-            icon={<BadgeIcon icon={page.icon} badge={page.id === 'cart' || page.id === 'like'} content={(page.id === 'cart' && cartStorage.length) ||  (page.id === 'like' && likeStorage.length)}/>}
+            icon={<BadgeIcon
+              icon={page.icon}
+              badge={Boolean(badgeData[page.id])}
+              content={badgeData[page.id]}
+            />}
             key={page.id}
             id={page.id}
             component="a"
@@ -68,7 +87,7 @@ const HeaderNavigationMenu = () => {
           />
         )}
       </Tabs>
-      <ProfileButtonList anchorEl={menuAnchor?.['profile']} onClose={callbacks.onMenuClose}/>
+      <TabPanel available={available} list={list}/>
     </Box>
   );
 };

@@ -1,27 +1,29 @@
-import {Typography} from "@mui/material";
+import {Typography, TypographyProps} from "@mui/material";
 
-interface MainPriceProps {
+type MainPriceProps = {
   
   price?:number | string,
   
   isDiscount?:boolean
   
-}
+} & TypographyProps
 
 const MainPrice = (props:MainPriceProps) => {
+  const {price, isDiscount, ...defProps} = props
   
   return (
     <Typography
-      fontSize={props.isDiscount ? 'x-small' : 'medium'}
+      fontSize={isDiscount ? 'x-small' : 'medium'}
       fontWeight={'bold'}
       textAlign={'right'}
       variant={"subtitle1"}
-      color={props.isDiscount ? 'crimson' : 'black'}
+      color={isDiscount ? 'crimson' : 'black'}
       sx={{
-        ...(props.isDiscount && {textDecoration:'line-through'})
+        ...(isDiscount && {textDecoration:'line-through'})
       }}
+      {...defProps}
     >
-      {typeof props.price === 'string' ? props.price : Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(props.price)}
+      {typeof price === 'string' ? price : Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(price)}
     </Typography>
   );
 };

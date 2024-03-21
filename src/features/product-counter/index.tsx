@@ -1,11 +1,8 @@
-import React from 'react';
-import {Box, IconButton, Typography} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import {getProductCartCount} from "../../shared/utils/get-product-cart-count.ts";
-import RemoveIcon from "@mui/icons-material/Remove";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
-import {AvailabledIconButton} from "../../shared/components/availabled-icon-button";
+import {Counter} from "../../shared/components/counter";
+import {useCallback} from "react";
 
 interface ProductCounterProps {
   
@@ -17,17 +14,23 @@ interface ProductCounterProps {
 
 const ProductCounter = (props:ProductCounterProps) => {
   
+  const callbacks = {
+    
+    onIncrement:useCallback(() => {
+      props.cartProps?.incrementProductInCart(props?.product)
+    },[props?.product]),
+    
+    onDecrement:useCallback(() => {
+      props.cartProps?.decrementProductInCart(props?.product)
+    },[props?.product])
+  }
+  
   return (
-    <Box
-      display={'flex'}
-      alignItems={'center'}
-      borderRadius={5}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <AvailabledIconButton icon={<AddIcon/>} onClick={() => props.cartProps?.incrementProductInCart(props?.product)}/>
-      <Typography>{getProductCartCount(props?.product)}</Typography>
-      <AvailabledIconButton icon={<RemoveIcon/>} onClick={() => props.cartProps?.decrementProductInCart(props?.product)}/>
-    </Box>
+    <Counter
+      onIncrement={callbacks.onIncrement}
+      onDecrement={callbacks.onDecrement}
+      count={getProductCartCount(props?.product)}
+    />
   );
 };
 
