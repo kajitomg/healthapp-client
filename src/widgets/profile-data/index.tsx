@@ -1,8 +1,6 @@
 import {Box} from "@mui/material";
-import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 
 const ProfileData = () => {
-  const session = useTypedSelector(state => state.session)
   return (
     <Box
       bgcolor={'white'}

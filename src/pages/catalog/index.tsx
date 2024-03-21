@@ -52,10 +52,10 @@ const Catalog = () => {
   },[id,loadCategory])
   
   const {available,setTab,list} = useTabs({
-    name:'product',
+    name:'catalog',
     tabs:[
-      {id:'catalogCategories',label:'Категории',page:'categories',component:<CatalogCategories list={category?.item?.childrens}/>},
-      {id:'catalogProducts',label:'Продукты',page:'products',component:<CatalogProducts list={products?.list}/>}
+      {id:'categories',label:'Категории',component:<CatalogCategories list={category?.item?.childrens}/>},
+      {id:'products',label:'Продукты',component:<CatalogProducts list={products?.list}/>}
     ]
   },[category,products])
   

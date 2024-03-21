@@ -19,9 +19,6 @@ export const usersSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-  
-  },
 })
 
 export default usersSlice.reducer;

@@ -14,7 +14,7 @@ export const userAPI = api.injectEndpoints({
       invalidatesTags: ['User']
     }),
     updateUser: build.mutation<{item:IUser}, { userId:number,data?:{phonenumber?:string,name?:string},options?:ApiOptions }>({
-      query: ({data,userId,options}) => ({
+      query: ({data,userId}) => ({
         url: `/api/users/${userId}`,
         method: 'PUT',
         body: data
@@ -23,7 +23,7 @@ export const userAPI = api.injectEndpoints({
     }),
     
     updateUserPassword: build.mutation<{item:IUser}, { userId:number,data?:{password?:string,currentPassword?:string},options?:ApiOptions }>({
-      query: ({data,userId,options}) => ({
+      query: ({data,userId}) => ({
         url: `/api/users/password/${userId}`,
         method: 'PUT',
         body: data
@@ -32,7 +32,7 @@ export const userAPI = api.injectEndpoints({
     }),
     
     updateUserEmail: build.mutation<{item:IUser}, { userId:number,data?:{email?:string},options?:ApiOptions }>({
-      query: ({data,userId,options}) => ({
+      query: ({data,userId}) => ({
         url: `/api/users/email/${userId}`,
         method: 'PUT',
         body: data

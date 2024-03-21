@@ -75,28 +75,6 @@ const routes:RoutesType[] = [
     params:{}
   },
   {
-    id:'catalogCategories',
-    path: '/catalog/:id',
-    name:'Каталог',
-    redirect:'/main',
-    element: <Catalog/>,
-    children:[],
-    icon:<ManageSearchIcon/>,
-    nav:false,
-    params:{}
-  },
-  {
-    id:'catalogProducts',
-    path: '/catalog/:id',
-    name:'Каталог',
-    redirect:'/main',
-    element: <Catalog/>,
-    children:[],
-    icon:<ManageSearchIcon/>,
-    nav:false,
-    params:{}
-  },
-  {
     id:'catalogItems',
     path: '/catalog',
     name:'Каталог',
