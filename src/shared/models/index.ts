@@ -11,6 +11,10 @@ export type ParamsType = {
   [name:string]:string | string[] | number | number[] | ParamsType
 }
 
+export type SortTypes = {
+  [name:string]:string
+}
+
 export interface Address {
   
   id:string,
