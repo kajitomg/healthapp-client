@@ -92,24 +92,24 @@ export const useLike = () => {
     },[addProducts, loadProducts, storage]),
     
     addProductToLike:useCallback(  (product:IProduct) => {
-      setStorage(addProductsToLike([product],storage))
+      setStorage((prevState) => addProductsToLike([product],prevState))
       if(like.item?.id){
         addProducts({id:like.item?.id,products:[product]})
       } else {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[addProducts,likeActions,loadProducts,like,storage]),
+    },[addProducts,likeActions,loadProducts,like,setStorage]),
     
     deleteProductFromLike:useCallback( (product:IProduct) => {
-      setStorage(deleteProductsFromLike([product],storage));
+      setStorage((prevState) => deleteProductsFromLike([product],prevState));
       if(like.item?.id){
         deleteProducts({id:like.item?.id,products:[product]})
       } else {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[deleteProducts,likeActions,loadProducts,like,storage]),
+    },[deleteProducts,likeActions,loadProducts,like,setStorage]),
   }
   
 

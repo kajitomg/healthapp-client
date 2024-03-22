@@ -16,7 +16,7 @@ interface ProfileButtonListProps {
   
 }
 
-const ProfileButtonList = (props:ProfileButtonListProps) => {
+const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
   const session = useTypedSelector(state => state.session)
   const {signout} = useAuth()
   const {setPage,pages,page} = useSetPage()
@@ -80,4 +80,4 @@ const ProfileButtonList = (props:ProfileButtonListProps) => {
   );
 };
 
-export {ProfileButtonList};
+export {HeaderNavigationMenuTabsProfile};

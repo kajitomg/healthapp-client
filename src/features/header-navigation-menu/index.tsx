@@ -4,7 +4,7 @@ import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {blue} from "@mui/material/colors";
-import {ProfileButtonList} from "../header-navigation-menu-tabs-profile";
+import {HeaderNavigationMenuTabsProfile} from "../header-navigation-menu-tabs-profile";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {BadgeIcon} from "../../shared/components/badge-icon";
@@ -48,7 +48,7 @@ const HeaderNavigationMenu = () => {
   const {available,setTab,list} = useTabs({
     name:'header-navigation-menu',
     tabs:[
-      {id:'profile',label:'Профиль',component:<ProfileButtonList anchorEl={menuAnchor?.['profile']} onClose={callbacks.onMenuClose}/>},
+      {id:'profile',label:'Профиль',component:<HeaderNavigationMenuTabsProfile anchorEl={menuAnchor?.['profile']} onClose={callbacks.onMenuClose}/>},
     ]
   },[menuAnchor,callbacks.onMenuClose])
   
