@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {Slider} from "@mui/material";
+import Slider from "@mui/material/Slider";
 
 function valuetext(value: number) {
   return `${Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(value)}`;
@@ -18,6 +18,7 @@ interface CatalogManagerFilterPriceSliderProps {
 const CatalogManagerFilterPriceSlider = (props:CatalogManagerFilterPriceSliderProps) => {
   
   const callbacks = {
+    //@ts-expect-error Неиспользуемая константа
     onChange:useCallback((event: Event, newValue: number | number[]) => {
       props.onChange(newValue)
     },[props.onChange])

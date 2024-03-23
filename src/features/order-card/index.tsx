@@ -1,4 +1,8 @@
-import {Box, CardActions, CardContent, Divider, styled} from "@mui/material";
+import Box from "@mui/material/Box";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
+import styled from "@mui/material/styles/styled";
 import {IOrder} from "../../entities/order/model/order-model.ts";
 import {OrderCardContent} from "../order-card-content";
 import {ProductCard} from "../product-card";

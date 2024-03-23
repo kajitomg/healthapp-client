@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
-import {List, SxProps} from "@mui/material";
+import List from "@mui/material/List";
+import {SxProps} from "@mui/system";
 import {BurgerTab} from "../burger-tab";
 import {List as MyList} from "../../shared/components/list";
 

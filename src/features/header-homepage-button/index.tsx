@@ -1,5 +1,5 @@
 import {ReactNode, useCallback} from 'react';
-import {Button} from "@mui/material";
+import Button from "@mui/material/Button";
 
 interface HeaderHomepageButtonProps {
   onClick?:(id:string) => void,

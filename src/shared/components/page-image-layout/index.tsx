@@ -1,5 +1,5 @@
 import {FullsizeImageLayout, FullsizeImageLayoutProps} from "../fullsize-image-layout";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {PageImageTitle} from "../page-image-title";
 import {ReactNode} from "react";
 

@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {List} from "../../shared/components/list";
 import {useCallback, useEffect} from "react";

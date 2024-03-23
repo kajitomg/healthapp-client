@@ -13,6 +13,7 @@ export const sessionAPI = api.injectEndpoints({
         body: data
       }),
       invalidatesTags: ['Session'],
+      //@ts-expect-error Неиспользуемая константа
       transformResponse:(response:baseEntitiesState & {item:IUser,accessToken:string}, meta, arg) => {
         arg.options?.onSuccess && arg.options?.onSuccess()
         return response;
@@ -26,6 +27,7 @@ export const sessionAPI = api.injectEndpoints({
         body: data
       }),
       invalidatesTags: ['Session'],
+      //@ts-expect-error Неиспользуемая константа
       transformResponse:(response:baseEntitiesState & {item:IUser,accessToken:string}, meta, arg) => {
         arg.options?.onSuccess && arg.options?.onSuccess()
         return response;
@@ -45,6 +47,7 @@ export const sessionAPI = api.injectEndpoints({
         url: `/api/users/refresh`,
       }),
       providesTags: () => ['Session'],
+      //@ts-expect-error Неиспользуемая константа
       transformResponse:(response:baseEntitiesState & {item:IUser,accessToken:string}, meta, arg) => {
         arg?.options?.onSuccess && arg?.options?.onSuccess()
         return response;

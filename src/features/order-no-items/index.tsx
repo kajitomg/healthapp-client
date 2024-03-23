@@ -1,4 +1,5 @@
-import {Button, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useCallback} from "react";

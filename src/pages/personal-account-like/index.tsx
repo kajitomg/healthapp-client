@@ -1,5 +1,5 @@
 import {useLike} from "../../entities/like/hooks/use-like.ts";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {useEffect} from "react";
 import {LikeManagerAmount} from "../../widgets/like-manager-amount";
 import {LikeList} from "../../widgets/like-list";

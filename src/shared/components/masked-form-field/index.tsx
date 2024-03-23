@@ -30,13 +30,14 @@ const MaskedFormField = memo(forwardRef<HTMLInputElement,MaskedFormFieldProps>((
       value={props.value}
       onChange={callbacks.onChange(props.name)}
     >
-      {() =>
+      {/*@ts-expect-error ошибка типа передаваемого в ReactInputMask*/}
+      {() => (
         <FormField
           ref={ref}
           {...defProps}
           error={Boolean(props.helperText)}
         />
-      }
+      )}
     </ReactInputMask>
   );
 }));

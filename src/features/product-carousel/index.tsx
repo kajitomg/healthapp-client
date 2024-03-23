@@ -2,7 +2,7 @@ import Carousel from "react-material-ui-carousel";
 import config from "../../config.ts";
 import {IImage} from "../../entities/image/model/image-model.ts";
 import cardImage from "../../imgaes/card.jpg";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ProgressiveImageLoader} from "../../shared/components/progressive-image-loader";
 
 interface ProductCarouselProps {

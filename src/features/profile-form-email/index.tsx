@@ -1,5 +1,5 @@
 import {ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {useFormValidation} from "../../shared/hooks/use-form-validation.ts";
 import {ProfileFormActions} from "../profile-form-actions";
 import {useUpdateUserEmailMutation} from "../../entities/user/store/users/api.ts";

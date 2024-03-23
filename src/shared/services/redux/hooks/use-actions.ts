@@ -16,6 +16,7 @@ const useActions = () => {
   const actions:ActionTypes = {} as ActionTypes
   let item:keyof ActionCreators
   for (item in rootActions){
+    {/*@ts-expect-error ошибка типа при наличии более 1 элемента в actions*/}
     actions[item] = bindActionCreators(rootActions[item],dispatch)
   }
   return actions

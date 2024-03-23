@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ProductCarousel} from "../../features/product-carousel";
 import {ProductData} from "../../features/product-data";
 import {ProductDescription} from "../../features/product-description";

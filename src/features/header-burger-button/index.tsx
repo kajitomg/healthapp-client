@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {IconButton} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {useBurger} from "../../widgets/burger/hooks.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";

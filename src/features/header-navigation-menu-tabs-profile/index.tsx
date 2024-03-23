@@ -1,4 +1,5 @@
-import {Box, Divider} from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {Login, Logout, Settings} from "@mui/icons-material";
 import {useCallback} from "react";

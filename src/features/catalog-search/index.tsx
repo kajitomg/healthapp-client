@@ -1,4 +1,6 @@
-import {alpha, InputBase, Paper} from "@mui/material";
+import {alpha} from "@mui/material";
+import InputBase from "@mui/material/InputBase";
+import Paper from "@mui/material/Paper";
 import {blue} from "@mui/material/colors";
 import React, {lazy, Suspense, useCallback, useRef} from "react";
 import {CatalogPopoverButton} from "../catalog-popover-button";

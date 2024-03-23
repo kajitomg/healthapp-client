@@ -1,4 +1,6 @@
-import {Box, SxProps, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import {SxProps} from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {IOrder} from "../../entities/order/model/order-model.ts";
 import {List} from "../../shared/components/list";
 import {useCallback} from "react";

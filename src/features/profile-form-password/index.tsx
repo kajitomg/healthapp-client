@@ -1,5 +1,5 @@
 import {ChangeEvent, useCallback, useRef, useState} from 'react';
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {useFormValidation} from "../../shared/hooks/use-form-validation.ts";
 import {useUpdateUserPasswordMutation} from "../../entities/user/store/users/api.ts";
 import {IUser} from "../../entities/user/model/user-model.ts";

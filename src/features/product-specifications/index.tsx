@@ -2,7 +2,9 @@ import {ProductNavigationItemLayout} from "../../shared/components/product-navig
 
 import {ISpecification} from "../../entities/product/model/specification-model.ts";
 import {useLoadTypesQuery} from "../../entities/product/store/types/api.ts";
-import {Box, Divider, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import {useSpecifications} from "../../entities/product/hooks/use-specifications.ts";
 import {useEffect} from "react";
 import {ProductNoSpecification} from "../product-no-specification";

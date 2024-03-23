@@ -1,4 +1,7 @@
-import {Box, styled, Typography, useTheme} from "@mui/material";
+import Box from "@mui/material/Box";
+import styled from "@mui/material/styles/styled";
+import Typography from "@mui/material/Typography";
+import useTheme from "@mui/material/styles/useTheme";
 import {blue} from "@mui/material/colors";
 import {pagesData} from "../../mock/data.ts";
 import aboutImage from "../../imgaes/about.jpeg";
@@ -20,6 +23,7 @@ const StyledBox = styled('div')(({theme}) => ({
   }
 }))
 
+//@ts-expect-error Неиспользуемая константа
 const MainAbout = forwardRef<HTMLDivElement,MainAboutProps>((props,ref) => {
   const theme = useTheme()
   

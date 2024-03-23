@@ -1,4 +1,6 @@
-import {Box, SxProps, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import {SxProps} from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {ProductPrice} from "../product-price";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";

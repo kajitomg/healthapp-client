@@ -1,4 +1,8 @@
-import {alpha, Box, Popover, useMediaQuery, useTheme} from "@mui/material";
+import {alpha} from "@mui/material";
+import Box from "@mui/material/Box";
+import Popover from "@mui/material/Popover";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from "@mui/material/styles/useTheme";
 import {CatalogPopoverTabs} from "../catalog-popover-tabs";
 import {memo, useCallback, useState} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";

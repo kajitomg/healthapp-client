@@ -1,4 +1,5 @@
-import {Typography, TypographyProps} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import {TypographyProps} from "@mui/material";
 
 type MainPriceProps = {
   
@@ -23,7 +24,7 @@ const MainPrice = (props:MainPriceProps) => {
       }}
       {...defProps}
     >
-      {typeof price === 'string' ? price : Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(price)}
+      {typeof price === 'string' ? price : price && Intl.NumberFormat('ru',{style: 'currency', currency: 'RUB'}).format(price)}
     </Typography>
   );
 };

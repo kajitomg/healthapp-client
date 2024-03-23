@@ -1,5 +1,5 @@
 import mainImage from "../../imgaes/main.jpg";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {ShopsList} from "../../widgets/shops-list";

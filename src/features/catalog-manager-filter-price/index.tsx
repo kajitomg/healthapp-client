@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {CatalogManagerFilterPriceSlider} from "../catalog-manager-filter-price-slider";
 import {CatalogManagerFilterPriceSelect} from "../catalog-manager-filter-price-select";
 import {useCallback, useEffect, useState} from "react";

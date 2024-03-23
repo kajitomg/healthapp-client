@@ -1,4 +1,5 @@
-import {Box, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import {IDocument} from "../../entities/document/model/document-model.ts";
 import {ManagerLayout} from "../../shared/components/manager-layout";
 import {DocumentLayout} from "../../shared/components/document-layout";

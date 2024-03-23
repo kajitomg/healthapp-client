@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {Option, SelectForm} from "../../shared/components/select";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";

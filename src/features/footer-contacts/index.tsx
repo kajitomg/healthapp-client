@@ -1,4 +1,6 @@
-import {Box, SxProps, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import {SxProps} from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {shops} from "../../mock/data.ts";
 
 interface FooterContactsProps {

@@ -1,4 +1,6 @@
-import {CardActions, CardContent, styled} from "@mui/material";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import styled from "@mui/material/styles/styled";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";

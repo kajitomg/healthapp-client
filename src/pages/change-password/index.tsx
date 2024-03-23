@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import {FullheightContentLayout} from "../../shared/components/fullheight-content-layout";
 import {ProfileFormPassword} from "../../features/profile-form-password";

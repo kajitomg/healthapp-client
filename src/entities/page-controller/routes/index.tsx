@@ -4,19 +4,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import StoreIcon from '@mui/icons-material/Store';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import {lazy} from "react";
-
-const Product = lazy(() => import("../../../pages/product"))
-const Cart = lazy(() => import("../../../pages/cart"))
-const Profile = lazy(() => import("../../../pages/profile"))
-const Login = lazy(() => import("../../../pages/login"))
-const Registration = lazy(() => import("../../../pages/registration"))
-const Like = lazy(() => import("../../../pages/personal-account"))
-const Shops = lazy(() => import("../../../pages/shops"))
-const ChangePassword = lazy(() => import("../../../pages/change-password"))
-const Main = lazy(() => import("../../../pages/main"))
-const Error = lazy(() => import("../../../pages/error"))
-const Catalog = lazy(() => import("../../../pages/catalog"))
+import Main from "../../../pages/main";
+import PersonalAccount from "../../../pages/personal-account";
+import Cart from "../../../pages/cart";
+import Catalog from "../../../pages/catalog";
+import Shops from "../../../pages/shops";
+import Profile from "../../../pages/profile";
+import Product from "../../../pages/product";
+import Login from "../../../pages/login";
+import ChangePassword from "../../../pages/change-password";
+import Registration from "../../../pages/registration";
+import Error from "../../../pages/error";
 
 const routes:RoutesType[] = [
   {
@@ -34,7 +32,7 @@ const routes:RoutesType[] = [
     path: '/profile/like',
     name:'Избранное',
     redirect:'/main',
-    element: <Like/>,
+    element: <PersonalAccount/>,
     icon:<FavoriteIcon/>,
     children:[],
     nav:true,
@@ -46,7 +44,7 @@ const routes:RoutesType[] = [
     path: '/profile/order',
     name:'Заказы',
     redirect:'/login',
-    element: <Like/>,
+    element: <PersonalAccount/>,
     icon:<FavoriteIcon/>,
     children:[],
     nav:false,
@@ -100,7 +98,7 @@ const routes:RoutesType[] = [
     id:'profile',
     path: '/profile',
     name:'Профиль',
-    redirect:'/main',
+    redirect:'/login',
     element: <Profile/>,
     icon:<AccountCircleIcon/>,
     children:[],

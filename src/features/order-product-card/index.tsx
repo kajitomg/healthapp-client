@@ -1,5 +1,6 @@
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {CardContent, styled} from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import styled from "@mui/material/styles/styled";
 import {OrderProductCardMedia} from "../order-product-card-media";
 import {OrderProductCardContent} from "../order-product-card-content";
 import {ProductCard} from "../product-card";

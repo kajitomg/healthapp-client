@@ -1,5 +1,6 @@
 import {IImage} from "../../entities/image/model/image-model.ts";
-import {CardMedia, CardMediaProps} from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
+import {CardMediaProps} from "@mui/material";
 import cardImage from "../../imgaes/card.jpg";
 import config from "../../config.ts";
 

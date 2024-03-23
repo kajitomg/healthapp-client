@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import mainImage from "../../imgaes/main.jpg";
 import {CartNoProducts} from "../../features/cart-no-products";

@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {MainPrice} from "../main-price";
 import {plural} from "../../shared/utils/plural.ts";

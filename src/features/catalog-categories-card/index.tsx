@@ -1,4 +1,5 @@
-import { CardContent, styled} from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import styled from "@mui/material/styles/styled";
 import {CatalogCategoriesCardMedia} from "../catalog-categories-card-media";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {CatalogCategoriesCardContent} from "../catalog-categories-card-content";

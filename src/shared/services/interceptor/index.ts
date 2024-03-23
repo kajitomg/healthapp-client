@@ -1,4 +1,5 @@
 import {BaseQueryApi, BaseQueryFn} from "@reduxjs/toolkit/query/react";
+{/*@ts-expect-error ошибка*/}
 import {QueryReturnValue} from "@reduxjs/toolkit/query/baseQueryTypes";
 
 
@@ -7,6 +8,7 @@ class Interceptor {
   private subsribers:(() => void)[] = []
   
   public add = (callback:(result:QueryReturnValue,baseQuery:BaseQueryFn,api:BaseQueryApi,extraOptions:Record<string, any>) => void) => {
+    //@ts-expect-error Определить тип
     this.list.push(callback)
     this.publish()
   }

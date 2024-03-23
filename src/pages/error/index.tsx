@@ -1,5 +1,7 @@
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {Box, Button, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 
 const Error = () => {

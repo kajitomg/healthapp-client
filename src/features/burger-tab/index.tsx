@@ -1,5 +1,12 @@
-import {Box, Checkbox, Collapse, ListItem, ListItemButton, ListItemIcon, ListItemText, SxProps} from "@mui/material";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import Collapse from "@mui/material/Collapse";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import {BurgerTabs} from "../burger-tabs";
+import {SxProps} from "@mui/system";
 
 interface BurgerTabProps {
   

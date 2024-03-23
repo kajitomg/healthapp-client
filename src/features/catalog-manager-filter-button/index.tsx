@@ -1,4 +1,5 @@
-import {Button, ButtonProps} from "@mui/material";
+import Button from "@mui/material/Button";
+import {ButtonProps} from "@mui/material";
 import {ButtonTypography} from "../../shared/components/button-typography";
 
 type CatalogManagerFilterButtonProps = {

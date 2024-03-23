@@ -1,4 +1,4 @@
-import {styled} from "@mui/material";
+import styled from "@mui/material/styles/styled";
 import {memo} from "react";
 
 const MainLayout = memo(styled('main', { shouldForwardProp: (prop) => prop !== 'open'  })<{

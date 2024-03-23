@@ -7,13 +7,13 @@ export type FormFieldProps = {
   
   setData?:Dispatch<SetStateAction<{ [name:string]:string | number}>>
   
-} & TextFieldProps
+} & Omit<TextFieldProps, 'ref'>
 
 const FormField = forwardRef<HTMLInputElement,FormFieldProps>((props,ref) => {
   const {setData,onChange, ...defProps} = props
 
   const callbacks = {
-    onChange: useCallback((name?: string) => {
+    onChange: useCallback( (name?: string) => {
       return (event: ChangeEvent<HTMLInputElement>) => {
         if(name){
           setData && setData((prevData) => ({...prevData, [name]: event.target.value}));

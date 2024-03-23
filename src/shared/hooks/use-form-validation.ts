@@ -1,4 +1,5 @@
 import {ChangeEvent, useCallback, useState} from "react";
+import {useDebounce} from "./use-debounce.ts";
 
 
 export const useFormValidation = (validate:RegExp,errorText:string = '',initError:string = 'Поле не может быть пустым') => {
@@ -7,7 +8,7 @@ export const useFormValidation = (validate:RegExp,errorText:string = '',initErro
   
   const callbacks = {
     
-    onChange:useCallback((e:ChangeEvent<HTMLInputElement>) => {
+    onChange:useDebounce<[e:ChangeEvent<HTMLInputElement>]>(useCallback((e:ChangeEvent<HTMLInputElement>) => {
       if(!blur){
         setBlur(true)
       }
@@ -19,15 +20,15 @@ export const useFormValidation = (validate:RegExp,errorText:string = '',initErro
       }else {
         setError(errorText)
       }
-    },[setBlur,setError]),
+    },[setBlur,setError]),200),
     
-    setError:useCallback((error:string) => {
+    setError:useDebounce(useCallback((error:string) => {
      setError(error)
-    },[setError]),
+    },[setError]),200),
     
-    setBlur:useCallback((blur:boolean) => {
+    setBlur:useDebounce(useCallback((blur:boolean) => {
       setBlur(blur)
-    },[setBlur]),
+    },[setBlur]),200),
     
   }
   

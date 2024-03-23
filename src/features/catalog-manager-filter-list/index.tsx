@@ -1,4 +1,5 @@
-import {Box,List} from "@mui/material";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
 import {useCallback, useState} from "react";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {FilterItemLayout} from "../../shared/components/filter-item-layout";

@@ -1,4 +1,6 @@
-import {CardActions, CardContent, styled} from "@mui/material";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import styled from "@mui/material/styles/styled";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {CatalogProductsCardActions} from "../catalog-products-card-actions";
 import {CatalogProductsCardContent} from "../catalog-products-card-content";

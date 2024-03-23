@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ProductPrice} from "../product-price";
 import {useCallback} from "react";
 import {IProduct} from "../../entities/product/model/product-model.ts";

@@ -1,4 +1,6 @@
-import {Button, useMediaQuery, useTheme} from "@mui/material";
+import Button from "@mui/material/Button";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from "@mui/material/styles/useTheme";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {ButtonTypography} from "../../shared/components/button-typography";
 

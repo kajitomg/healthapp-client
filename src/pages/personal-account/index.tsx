@@ -1,5 +1,5 @@
 import {MainContentLayout} from "../../shared/components/main-content-layout";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import mainImage from "../../imgaes/main.jpg";
 import mainImageSM  from '../../imgaes/main_SM.jpg'
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";

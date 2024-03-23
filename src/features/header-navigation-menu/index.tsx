@@ -1,4 +1,8 @@
-import {alpha, Box, Tab, Tabs, useTheme} from "@mui/material";
+import {alpha} from "@mui/material";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import useTheme from "@mui/material/styles/useTheme";
 import {SyntheticEvent, useCallback, useMemo, useState} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";

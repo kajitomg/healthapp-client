@@ -1,5 +1,7 @@
 import services from "../../../../shared/services";
 import {retry} from "@reduxjs/toolkit/query/react";
+
+{/*@ts-expect-error ошибка*/}
 import {QueryReturnValue} from "@reduxjs/toolkit/query/baseQueryTypes";
 
 

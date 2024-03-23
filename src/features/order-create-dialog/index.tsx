@@ -1,5 +1,5 @@
 import {DialogLayout} from "../../shared/components/dialog-layout";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {memo, useCallback, useState} from "react";
 import {OrderCreateDialogContent} from "../order-create-dialog-content";
 

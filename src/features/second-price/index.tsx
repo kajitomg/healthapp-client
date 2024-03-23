@@ -1,4 +1,5 @@
-import {Typography, TypographyProps} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import {TypographyProps} from "@mui/material";
 
 type SecondPriceProps = {
   

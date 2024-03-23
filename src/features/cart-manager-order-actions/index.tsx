@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {OrderButtonBuy} from "../order-button-buy";
 import {lazy, Suspense, useCallback, useState} from "react";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";

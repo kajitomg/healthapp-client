@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {CategoryCardName} from "../category-card-name";
 
 interface CatalogCategoriesCardContentProps {

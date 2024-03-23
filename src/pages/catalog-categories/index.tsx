@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {CatalogCategoriesList} from "../../widgets/catalog-categories-list";
 

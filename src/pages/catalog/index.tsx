@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import mainImage  from '../../imgaes/main.jpg';
 import mainImageSM  from '../../imgaes/main_SM.jpg';
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";

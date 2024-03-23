@@ -5,8 +5,9 @@ export const useListenHistory = () => {
   const {redirect} = useRedirect()
   
   const callbacks = {
+    //@ts-expect-error Найти тип
     onPopstate:useCallback((history) => {
-      redirect(history.currentTarget.location.pathname)
+      redirect(history.currentTarget?.location.pathname)
     },[redirect])
   }
   

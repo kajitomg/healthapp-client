@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {ProductButtonLike} from "../product-button-like";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";

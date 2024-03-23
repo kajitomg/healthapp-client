@@ -13,6 +13,7 @@ export const useTabs = ({name, tabs,availableId}:{name:string, tabs:TabsControll
   
   const callbacks = {
     
+    //@ts-expect-error Неиспользуемая константа
     setTab:useCallback((event?: React.SyntheticEvent, index: number = 1) => {
       tabsController.setAvailable({name, tabs, index})
       const tab = tabs[index]

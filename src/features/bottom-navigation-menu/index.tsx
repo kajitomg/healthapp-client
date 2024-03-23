@@ -1,4 +1,6 @@
-import {BottomNavigation, BottomNavigationAction, Paper} from "@mui/material";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import Paper from "@mui/material/Paper";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";

@@ -1,4 +1,4 @@
-import {Typography} from "@mui/material";
+import Typography from "@mui/material/Typography";
 import {ProductNavigationItemLayout} from "../../shared/components/product-navigation-item-layout";
 import {ProductNoDescription} from "../product-no-description";
 

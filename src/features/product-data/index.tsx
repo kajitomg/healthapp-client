@@ -1,4 +1,5 @@
-import {Box, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {ProductPrice} from "../product-price";
 import {ProductButtonBuy} from "../product-button-buy";

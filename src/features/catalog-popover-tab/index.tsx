@@ -1,4 +1,6 @@
-import {Box, Button, SxProps} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import {SxProps} from "@mui/material";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {useCallback, useEffect} from "react";
 import {List} from "../../shared/components/list";

@@ -1,5 +1,6 @@
 import {IProduct} from "../../entities/product/model/product-model.ts";
-import {Box, styled} from "@mui/material";
+import Box from "@mui/material/Box";
+import styled from "@mui/material/styles/styled";
 import {CatalogManagerFilter} from "../../widgets/catalog-manager-filter";
 import {CatalogManagerSort} from "../../widgets/catalog-manager-sort";
 import {CatalogProductsList} from "../../widgets/catalog-products-list";
