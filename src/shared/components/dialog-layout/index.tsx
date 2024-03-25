@@ -24,6 +24,8 @@ interface DialogLayoutProps {
   
   closeButtonText?:string,
   
+  disabled?:boolean,
+  
   submitButtonText?:string,
   
   maxWidth?:Breakpoint
@@ -58,7 +60,7 @@ const DialogLayout = memo((props:DialogLayoutProps) => {
         <Button variant={'text'} color={'inherit'} onClick={callbacks.onClose}>
           <Typography textTransform={'none'}>{props.closeButtonText || 'Закрыть'}</Typography>
         </Button>
-        {props.submitButtonText && <Button variant={'contained'} color={'primary'} onClick={callbacks.onSubmit}>
+        {props.submitButtonText && <Button disabled={props.disabled} variant={'contained'} color={'primary'} onClick={callbacks.onSubmit}>
           <Typography textTransform={'none'}>{props.submitButtonText}</Typography>
         </Button>}
       </DialogActions>

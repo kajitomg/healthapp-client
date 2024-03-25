@@ -12,6 +12,7 @@ const ProfieEdit = () => {
   const {setPage,pages} = useSetPage()
   const {setParams} = useParams()
   
+  
   const callbacks = {
     
     onChangePassword:useCallback(() => {

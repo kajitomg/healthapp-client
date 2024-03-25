@@ -2,6 +2,7 @@ import {DialogLayout} from "../../shared/components/dialog-layout";
 import Box from "@mui/material/Box";
 import {memo, useCallback, useState} from "react";
 import {OrderCreateDialogContent} from "../order-create-dialog-content";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 interface OrderCreateDialogProps {
   
@@ -11,12 +12,12 @@ interface OrderCreateDialogProps {
   
   onClose?:() => void,
   
-  onSubmit?:(field:{ email?: string, phonenumber?: string, comment?: string}) => void,
+  onSubmit?:(field:{ email?: FormFieldDataType, phonenumber?: FormFieldDataType, comment?: FormFieldDataType}) => void,
   
 }
 
 const OrderCreateDialog = memo((props:OrderCreateDialogProps) => {
-  const [field, setField] = useState<{email?:string,phonenumber?:string,comment?:string}>({})
+  const [field, setField] = useState<{email?:FormFieldDataType,phonenumber?:FormFieldDataType,comment?:FormFieldDataType}>({})
   
   const callbacks = {
     
@@ -34,6 +35,7 @@ const OrderCreateDialog = memo((props:OrderCreateDialogProps) => {
       title={'Заявка на оформление заказа'}
       submitButtonText={'Оставить заявку'}
       closeButtonText={'Отменить'}
+      disabled={field.comment?.error || field.email?.error || !field.email?.value || field.phonenumber?.error || !field.phonenumber?.value}
     >
       <Box display={'flex'} alignItems={'flex-start'} my={4}>
         <OrderCreateDialogContent popSnapName={props.popSnapName} field={field} setField={setField}/>

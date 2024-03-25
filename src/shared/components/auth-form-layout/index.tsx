@@ -7,7 +7,7 @@ interface AuthFormLayoutProps {
   
   children?:ReactNode,
   
-  onSubmit?:(e: FormEvent<HTMLFormElement>) => void
+  onSubmit?:(e: FormEvent<HTMLFormElement>) => void,
   
   onReset?:(e: FormEvent<HTMLFormElement>) => void
   

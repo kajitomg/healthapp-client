@@ -1,12 +1,12 @@
 import {Dispatch, SetStateAction, useRef} from 'react';
 import {useFormValidation} from "../../shared/hooks/use-form-validation.ts";
-import {FormField} from "../../shared/components/form-field";
+import {FormField, FormFieldDataType} from "../../shared/components/form-field";
 
 interface ValidatedFieldEmailProps {
   
   label?:string,
   
-  setData?:Dispatch<SetStateAction<{email?:string}>>,
+  setData?:Dispatch<SetStateAction<{email?:FormFieldDataType}>>,
   
   value?:string | number,
   

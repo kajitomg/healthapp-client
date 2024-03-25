@@ -8,14 +8,15 @@ import {MainPrice} from "../main-price";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectPopSnapData} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
 import {Dispatch, SetStateAction} from "react";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 interface OrderCreateDialogContentProps {
   
   popSnapName:string,
   
-  field?:{email?: string, phonenumber?: string, comment?: string},
+  field?:{email?: FormFieldDataType, phonenumber?: FormFieldDataType, comment?: FormFieldDataType},
   
-  setField?:Dispatch<SetStateAction<{email?: string, phonenumber?: string, comment?: string}>>
+  setField?:Dispatch<SetStateAction<{email?: FormFieldDataType, phonenumber?: FormFieldDataType, comment?: FormFieldDataType}>>
 }
 
 const OrderCreateDialogContent =(props:OrderCreateDialogContentProps) => {
@@ -35,9 +36,9 @@ const OrderCreateDialogContent =(props:OrderCreateDialogContentProps) => {
           m: 'auto',
         }}
       >
-        <ValidatedFieldPhonenumber value={field?.phonenumber} setData={setField}/>
-        <ValidatedFieldEmail value={field?.email} setData={setField}/>
-        <ValidatedFieldComment value={field?.comment} setData={setField}/>
+        <ValidatedFieldPhonenumber value={field?.phonenumber?.value} setData={setField}/>
+        <ValidatedFieldEmail value={field?.email?.value} setData={setField}/>
+        <ValidatedFieldComment value={field?.comment?.value} setData={setField}/>
       </Box>
       <Box display={'flex'} flex={'1 1 50%'} justifyContent={'space-between'} px={2} alignItems={'center'}>
         <Box display={'flex'} flexDirection={'column'}>

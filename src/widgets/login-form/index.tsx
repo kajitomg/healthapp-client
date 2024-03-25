@@ -8,6 +8,7 @@ import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {AuthFormLayout} from "../../shared/components/auth-form-layout";
 import {useRedirect} from "../../entities/page-controller/hooks/use-redirect.ts";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 
 const LoginForm = () => {
@@ -15,13 +16,17 @@ const LoginForm = () => {
   const {back} = useRedirect()
   const {setPage,pages} = useSetPage()
   const {setParams} = useParams()
-  const [data, setData] = useState<{email?:string,password?:string}>({})
+  const [data, setData] = useState<{email?:FormFieldDataType,password?:FormFieldDataType}>({})
   
   const callbacks = {
     
     onSubmit:useCallback(async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      await signin(data)
+      const reformedData:Record<string, string | number> = {}
+      for (const [key, value] of Object.entries(data)) {
+        reformedData[key] = value.value
+      }
+      await signin(reformedData)
       await back()
     },[data]),
     
@@ -33,10 +38,10 @@ const LoginForm = () => {
   
   return (
     <AuthFormLayout title={'Авторизация аккаунта'} onSubmit={callbacks.onSubmit}>
-      <ValidatedFieldEmail value={data.email} setData={setData}/>
-      <ValidatedFieldPassword value={data.password} setData={setData}/>
+      <ValidatedFieldEmail value={data.email?.value} setData={setData}/>
+      <ValidatedFieldPassword value={data.password?.value} setData={setData}/>
       <Box display={'flex'} alignItems={'flex-end'} justifyContent={'space-between'} mt={2}>
-        <FormButton type={'submit'} textTransform={'capitalize'} size={'medium'} fontWeight={'normal'} fontSize={'small'}>Войти</FormButton>
+        <FormButton disabled={data.email?.error || !data.email?.value || data.password?.error || !data.password?.value} type={'submit'} textTransform={'capitalize'} size={'medium'} fontWeight={'normal'} fontSize={'small'}>Войти</FormButton>
         <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
           <Typography fontSize={'small'} fontWeight={'lighter'}>Нет аккаунта?</Typography><Button onClick={callbacks.onSignUp} size={'small'} variant={'text'}><Typography textTransform={'none'} fontSize={'small'} fontWeight={'lighter'}>Зарегистрируйте его</Typography></Button>
         </Box>

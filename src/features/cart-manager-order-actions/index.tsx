@@ -9,6 +9,7 @@ import {useCreateOrderMutation} from "../../entities/order/store/orders/api.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLazyLoadProductsQuery} from "../../entities/product/store/products/api.ts";
 import {ButtonTypography} from "../../shared/components/button-typography";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 const OrderCreateDialog = lazy(() => import("../order-create-dialog"))
 
@@ -43,7 +44,7 @@ const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
       popSnap.close({id:createOrderId})
     },[popSnap]),
     
-    onAcceptCreateOrder:useCallback(async (data:{ email?: string, phonenumber?: string, comment?: string}) => {
+    onAcceptCreateOrder:useCallback(async (data:{ email?: FormFieldDataType, phonenumber?: FormFieldDataType, comment?: FormFieldDataType}) => {
       if(session.user.id && props.products){
         const products = await loadProducts({
           params:{
@@ -53,7 +54,11 @@ const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
           }
         }).unwrap()
         if(products?.list){
-          const order = await createOrder({body:{...data,products:products.list,customerId:session.user.id}}).unwrap()
+          const reformedData:Record<string, string | number> = {}
+          for (const [key, value] of Object.entries(data)) {
+            reformedData[key] = value.value
+          }
+          const order = await createOrder({body:{...reformedData,products:products.list,customerId:session.user.id}}).unwrap()
           if(order?.item){
             await props.cartProps?.deleteProductFromCart(products.list)
             await callbacks.onCloseCreateOrder()

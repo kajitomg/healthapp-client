@@ -5,17 +5,20 @@ import {ProfileFormActions} from "../profile-form-actions";
 import {useUpdateUserEmailMutation} from "../../entities/user/store/users/api.ts";
 import {IUser} from "../../entities/user/model/user-model.ts";
 import {ValidatedFieldEmail} from "../validated-field-email";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 interface ProfileFormEmailProps {
   
-  user?:IUser
+  user?:IUser,
+  
+  prevState?:string
   
 }
 
 const ProfileFormEmail = (props:ProfileFormEmailProps) => {
   const ref = useRef<HTMLFormElement>(null)
-  const [data, setData] = useState<{email?:string}>({
-    email:props.user?.email || '',
+  const [data, setData] = useState<{email?:FormFieldDataType}>({
+    email:{value:props.user?.email || '',error:false}
   })
   const validation = useFormValidation(new RegExp(/^\S+@\S+\.\S+$/),'Некорректный email')
   
@@ -28,7 +31,7 @@ const ProfileFormEmail = (props:ProfileFormEmailProps) => {
       }
       if(props.user?.id){
         try {
-          const userData = await updateUserEmail({data,userId:props.user.id}).unwrap()
+          const userData = await updateUserEmail({data:{email:data.email?.value.toString()},userId:props.user.id}).unwrap()
           if(userData.item){
             validation.setBlur(false)
             ref.current?.blur();
@@ -41,15 +44,16 @@ const ProfileFormEmail = (props:ProfileFormEmailProps) => {
     
     onReset:useCallback(async (e:ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
-      e.target.value = ''
+      e.target.value = props.user?.email || ''
       validation.onChange(e)
-      setData({email:props.user?.email || ''})
-    },[validation]),
+      validation.setBlur(false)
+      setData({email:{value:props.user?.email || '',error:false}})
+    },[validation,props.user?.email]),
   }
   
   useEffect(() => {
     setData({
-      email:props.user?.email || '',
+      email:{value:props.user?.email || '',error:false}
     })
   },[props.user?.id])
   
@@ -63,7 +67,7 @@ const ProfileFormEmail = (props:ProfileFormEmailProps) => {
       onReset={callbacks.onReset}
     >
       <Box>
-       <ValidatedFieldEmail value={data.email} setData={setData} validation={validation}/>
+       <ValidatedFieldEmail value={data.email?.value} setData={setData} validation={validation}/>
         {validation.blur && !validation.error &&
           <Box my={1}>
             <ProfileFormActions/>

@@ -1,12 +1,13 @@
 import {Dispatch, SetStateAction, useRef} from 'react';
 import {useFormValidation} from "../../shared/hooks/use-form-validation.ts";
 import {MaskedFormField} from "../../shared/components/masked-form-field";
+import {FormFieldDataType} from "../../shared/components/form-field";
 
 interface ValidatedFieldPhonenumberProps {
   
   label?:string,
   
-  setData?:Dispatch<SetStateAction<{phonenumber?:string}>>,
+  setData?:Dispatch<SetStateAction<{phonenumber?:FormFieldDataType}>>,
   
   value?:string | number,
   

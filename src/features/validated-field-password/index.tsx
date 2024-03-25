@@ -1,12 +1,12 @@
 import {Dispatch, SetStateAction, useRef} from 'react';
 import {useFormValidation} from "../../shared/hooks/use-form-validation.ts";
-import {FormField} from "../../shared/components/form-field";
+import {FormField, FormFieldDataType} from "../../shared/components/form-field";
 
 interface ValidatedFieldPasswordProps {
   
   label?:string,
   
-  setData?:Dispatch<SetStateAction<{password?:string}>>,
+  setData?:Dispatch<SetStateAction<{password?:FormFieldDataType}>>,
   
   value?:string | number,
   

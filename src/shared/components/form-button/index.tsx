@@ -16,6 +16,8 @@ interface FormButtonProps {
   
   textTransform?:'uppercase' | 'capitalize' | 'unset' | 'none'
   
+  disabled?:boolean,
+  
   sx?:SxProps,
   
   fullWidth?:boolean,
@@ -23,7 +25,7 @@ interface FormButtonProps {
 
 const FormButton = (props:FormButtonProps) => {
   return (
-    <Button fullWidth={props.fullWidth} type={props.type} variant={props.variant || 'contained'} color={'primary'} size={props.size} sx={props.sx}>
+    <Button disabled={props.disabled} fullWidth={props.fullWidth} type={props.type} variant={props.variant || 'contained'} color={'primary'} size={props.size} sx={props.sx}>
       <Typography fontSize={props.fontSize} fontWeight={props.fontWeight} textTransform={props.textTransform}>{props.children}</Typography>
     </Button>
   );
