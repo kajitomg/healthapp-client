@@ -5,7 +5,7 @@ import {ICart} from "../../model/cart-model.ts";
 import {IProduct} from "../../../product/model/product-model.ts";
 
 
-export const cartAPI = api.injectEndpoints({
+export const cartAPI = api.injectEndpoints({ //UPD Протестировать api catalog и при успехе переделать подобно
   endpoints: (build) => ({
     loadCart: build.query<baseEntitiesState & {item:ICart}, { id:number,params?:ParamsType }>({
       query: ({id,params}) => {

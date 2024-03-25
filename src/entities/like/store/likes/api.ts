@@ -5,7 +5,7 @@ import {IProduct} from "../../../product/model/product-model.ts";
 import {ILike} from "../../model/like-model.ts";
 
 
-export const cartAPI = api.injectEndpoints({
+export const cartAPI = api.injectEndpoints({ //UPD Протестировать api catalog и при успехе переделать подобно
   endpoints: (build) => ({
     loadLike: build.query<baseEntitiesState & {item:ILike}, { id:number,params?:ParamsType }>({
       query: ({id,params}) => {

@@ -1,21 +1,24 @@
 import {useActions} from "../../../../shared/services/redux/hooks/use-actions.ts";
-import {ReactNode, useLayoutEffect} from "react";
+import {memo, ReactNode, useLayoutEffect} from "react";
 import {routes} from "../../routes";
 import {findPageBy} from "../../../../shared/utils/find-page-by.ts";
 import {useParams} from "react-router-dom";
+import {getLocationQuery} from "../../../../shared/utils/get-location-query.ts";
 
 interface PageControllerLayoutProps {
   children?:ReactNode
 }
 
-const PageControllerLayout = (props:PageControllerLayoutProps) => {
+const PageControllerLayout = memo((props:PageControllerLayoutProps) => {
   const {id} = useParams()
   const {pageController} = useActions()
   
   useLayoutEffect(() => {
-    const queryPath = window.location.pathname.split('/').length > 3 ? window.location.pathname.split('/')[1] : null
+    const query = getLocationQuery()
+    
+    const queryPath = (query && window.location.pathname.split(query.toString())) ? window.location.pathname.split(query.toString())[0] : null
 
-    const path = queryPath ? `/${queryPath}/:id`:window.location.pathname
+    const path = queryPath ? `${queryPath}:id`:window.location.pathname
 
     pageController.setPages({pages:routes})
     pageController.setPage({id:findPageBy(routes,'path',path)?.id,query:id})
@@ -25,6 +28,6 @@ const PageControllerLayout = (props:PageControllerLayoutProps) => {
       {props.children}
     </>
   );
-};
+});
 
 export {PageControllerLayout};

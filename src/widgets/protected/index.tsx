@@ -1,6 +1,6 @@
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useLocation} from "react-router-dom";
-import {ReactNode, useEffect} from "react";
+import {memo, ReactNode, useEffect} from "react";
 import {Loader} from "../../shared/components/loader";
 import {useRedirect} from "../../entities/page-controller/hooks/use-redirect.ts";
 
@@ -14,7 +14,7 @@ interface ProtectedProps {
   
 }
 
-const Protected = (props:ProtectedProps) => {
+const Protected =  memo((props:ProtectedProps) => {
   const session = useTypedSelector(state => state.session)
   
   const location = useLocation()
@@ -34,6 +34,6 @@ const Protected = (props:ProtectedProps) => {
   } else
     return props.children;
   
-};
+});
 
 export {Protected};

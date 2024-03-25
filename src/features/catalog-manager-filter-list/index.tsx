@@ -1,17 +1,11 @@
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import {useCallback, useState} from "react";
-import {IProduct} from "../../entities/product/model/product-model.ts";
 import {FilterItemLayout} from "../../shared/components/filter-item-layout";
 import {CatalogManagerFilterPrice} from "../catalog-manager-filter-price";
 
-interface CatalogManagerFilterListProps {
-  
-  list:IProduct[]
-  
-}
 
-const CatalogManagerFilterList = (props:CatalogManagerFilterListProps) => {
+const CatalogManagerFilterList = () => {
   const [open, setOpen] = useState(true);
   
   const callbacks = {
@@ -30,7 +24,7 @@ const CatalogManagerFilterList = (props:CatalogManagerFilterListProps) => {
         aria-labelledby="nested-list-subheader"
       >
         <FilterItemLayout open={open} onClick={callbacks.onClick} title={'Цена'}>
-          <CatalogManagerFilterPrice list={props.list}/>
+          <CatalogManagerFilterPrice/>
         </FilterItemLayout>
       </List>
     </Box>

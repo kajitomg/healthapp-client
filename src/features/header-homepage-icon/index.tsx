@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import {memo} from "react";
 
-const HeaderHomepageIcon = () => {
+const HeaderHomepageIcon = memo(() => {
   
   return (
     <Box display={'flex'} flexDirection={'column'}>
@@ -9,6 +10,6 @@ const HeaderHomepageIcon = () => {
       <Typography color={'whitesmoke'} fontWeight={'lighter'} fontSize={'small'} textTransform={'capitalize'} lineHeight={1} noWrap>health technologies</Typography>
     </Box>
   );
-};
+});
 
 export {HeaderHomepageIcon};

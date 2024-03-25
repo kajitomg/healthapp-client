@@ -1,5 +1,5 @@
 import {alpha, AppBar, Box, useMediaQuery, useTheme} from "@mui/material";
-import {useEffect} from "react";
+import {memo, useEffect} from "react";
 import {useBurger} from "../burger/hooks.ts";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {blue} from "@mui/material/colors";
@@ -9,6 +9,7 @@ import {HeaderBurgerButton} from "../../features/header-burger-button";
 import {HeaderNavigationMenu} from "../../features/header-navigation-menu";
 import {CatalogSearch} from "../../features/catalog-search";
 import {SessionState} from "../../entities/user/store/session/reducer.ts";
+import {BurgerBox} from "../../shared/components/burger-box";
 
 
 interface HeaderContentProps {
@@ -21,11 +22,11 @@ interface HeaderContentProps {
   
 }
 
-const HeaderContent = (props:HeaderContentProps) => {
+const HeaderContent =  memo((props:HeaderContentProps) => {
   const theme = useTheme();
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
   
-  const {BurgerBox, headerHeight} = useBurger()
+  const { headerHeight,drawerWidth} = useBurger()
   
   const {popSnap} = useActions()
   
@@ -41,7 +42,7 @@ const HeaderContent = (props:HeaderContentProps) => {
   return (
     <AppBar color={'default'} elevation={0} variant={'elevation'} sx={{background:alpha(blue[50], 0.4),backdropFilter:'blur(5px)'}}>
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={headerHeight}>
-        <BurgerBox position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={3} justifyContent={'space-between'}>
+        <BurgerBox drawerWidth={drawerWidth} position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={3} justifyContent={'space-between'}>
           <HeaderBurgerButton/>
           <HeaderHomepageButton onClick={props.setPage}>
             <HeaderHomepageIcon/>
@@ -60,6 +61,6 @@ const HeaderContent = (props:HeaderContentProps) => {
       </Box>
     </AppBar>
   );
-};
+});
 
 export {HeaderContent};

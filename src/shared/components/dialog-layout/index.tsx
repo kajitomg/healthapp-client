@@ -1,12 +1,12 @@
-import {
-  Breakpoint, Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle, Typography
-} from "@mui/material";
-import React, {ReactNode, useCallback} from "react";
+import {Breakpoint} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Typography from "@mui/material/Typography";
+import React, {memo, ReactNode, useCallback} from "react";
 
 interface DialogLayoutProps {
   
@@ -30,7 +30,7 @@ interface DialogLayoutProps {
   
 }
 
-const DialogLayout = (props:DialogLayoutProps) => {
+const DialogLayout = memo((props:DialogLayoutProps) => {
   
   const callbacks = {
     
@@ -64,6 +64,6 @@ const DialogLayout = (props:DialogLayoutProps) => {
       </DialogActions>
     </Dialog>
   );
-};
+});
 
 export {DialogLayout};

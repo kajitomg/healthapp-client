@@ -2,13 +2,13 @@ import {Route, Routes} from "react-router-dom";
 import {RoutesType} from "../../models.ts";
 import {Protected} from "../../../../widgets/protected";
 import {nestedListInList} from "../../../../shared/utils/nested-list-in-list.ts";
-import {Suspense} from "react";
+import {memo, Suspense} from "react";
 import {Loader} from "../../../../shared/components/loader";
 
 interface SubRoutesProps {
   routes:RoutesType[]
 }
-const SubRoutes = (props:SubRoutesProps) => {
+const SubRoutes = memo((props:SubRoutesProps) => {
 
   return (
     <Routes>
@@ -22,6 +22,6 @@ const SubRoutes = (props:SubRoutesProps) => {
       )}
     </Routes>
   )
-};
+});
 
 export {SubRoutes};

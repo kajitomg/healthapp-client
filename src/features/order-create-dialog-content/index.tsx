@@ -18,7 +18,7 @@ interface OrderCreateDialogContentProps {
   setField?:Dispatch<SetStateAction<{email?: string, phonenumber?: string, comment?: string}>>
 }
 
-const OrderCreateDialogContent = (props:OrderCreateDialogContentProps) => {
+const OrderCreateDialogContent =(props:OrderCreateDialogContentProps) => {
   const {popSnapName,field,setField} = props
   
   const data = useTypedSelector(state => selectPopSnapData(state,popSnapName))

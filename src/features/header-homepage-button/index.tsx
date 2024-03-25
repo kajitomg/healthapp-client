@@ -1,4 +1,4 @@
-import {ReactNode, useCallback} from 'react';
+import {memo, ReactNode, useCallback} from 'react';
 import Button from "@mui/material/Button";
 
 interface HeaderHomepageButtonProps {
@@ -6,12 +6,12 @@ interface HeaderHomepageButtonProps {
   children:ReactNode
 }
 
-const HeaderHomepageButton = (props:HeaderHomepageButtonProps) => {
+const HeaderHomepageButton = memo((props:HeaderHomepageButtonProps) => {
   
   const callbacks = {
     onCLick:useCallback(() => {
       props.onClick && props.onClick('main')
-    },[])
+    },[props.onClick])
   }
   
   return (
@@ -19,6 +19,6 @@ const HeaderHomepageButton = (props:HeaderHomepageButtonProps) => {
       {props.children}
     </Button>
   );
-};
+});
 
 export {HeaderHomepageButton};

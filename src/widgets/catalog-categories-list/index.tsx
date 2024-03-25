@@ -1,4 +1,4 @@
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {Box} from "@mui/material";
 import {List} from "../../shared/components/list";
@@ -10,7 +10,7 @@ interface CatalogCategoriesListProps {
   
 }
 
-const CatalogCategoriesList = (props:CatalogCategoriesListProps) => {
+const CatalogCategoriesList = memo((props:CatalogCategoriesListProps) => {
 
   
   const renders = {
@@ -24,6 +24,6 @@ const CatalogCategoriesList = (props:CatalogCategoriesListProps) => {
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );
-};
+});
 
 export {CatalogCategoriesList};

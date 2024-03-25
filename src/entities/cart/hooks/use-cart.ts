@@ -154,5 +154,5 @@ export const useCart = () => {
   },[products])
   
   
-  return {cart,cartProducts:memoProducts,localStorageName,storage,...callbacks}
+  return {cart,cartProducts:memoProducts,localStorageName,isCartProductsLoading:products.isLoading,storage,...callbacks}
 }

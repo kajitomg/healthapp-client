@@ -9,6 +9,7 @@ import {productState} from "../../entities/product/store";
 import {cartActions,cartState} from "../../entities/cart/store";
 import {likeActions,likeState} from "../../entities/like/store";
 import {tabsControllerActions,tabsControllerState} from "../../entities/tabs-controller/store";
+import {catalogState} from "../../entities/catalog/store";
 
 const rootState = combineReducers({
   ...userState,
@@ -19,6 +20,7 @@ const rootState = combineReducers({
   ...cartState,
   ...likeState,
   ...tabsControllerState,
+  ...catalogState,
   [api.reducerPath]: api.reducer,
 })
 const rootActions = {

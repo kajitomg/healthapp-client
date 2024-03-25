@@ -1,18 +1,15 @@
 import Box from "@mui/material/Box";
-import {ICategory} from "../../entities/product/model/category-model.ts";
 import {CatalogCategoriesList} from "../../widgets/catalog-categories-list";
+import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 
-interface CatalogCategoriesProps {
-  
-  list?:ICategory[]
-  
-}
 
-const CatalogCategories = (props:CatalogCategoriesProps) => {
+
+const CatalogCategories = () => {
+  const catalog = useTypedSelector(state => state.catalog)
   
   return (
     <Box display={'flex'} width={'100%'} justifyContent={'flex-start'}>
-      <CatalogCategoriesList list={props.list}/>
+      <CatalogCategoriesList list={catalog.category?.item.childrens}/>
     </Box>
   );
 };

@@ -3,21 +3,22 @@ import {CatalogManagerFilterPriceSlider} from "../catalog-manager-filter-price-s
 import {CatalogManagerFilterPriceSelect} from "../catalog-manager-filter-price-select";
 import {useCallback, useEffect, useState} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {ParamsType} from "../../shared/models";
-import {IProduct} from "../../entities/product/model/product-model.ts";
-import {getPriceValues} from "../../shared/utils/get-price-values.ts";
 import {CatalogManagerFilterButton} from "../catalog-manager-filter-button";
-
-interface CatalogManagerFilterPriceProps {
-  
-  list:IProduct[]
-  
-}
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
+import {useLazyLoadPricesRangeQuery} from "../../entities/catalog/store/catalog/api.ts";
+import {useParams as useReactParams} from "react-router-dom";
 
 
-const CatalogManagerFilterPrice = (props:CatalogManagerFilterPriceProps) => {
-  const [prices, setPrices] = useState<{ min:number,max:number }>(getPriceValues(props.list))
+
+
+
+const CatalogManagerFilterPrice = () => {
+  const {id} = useReactParams()
+  const catalog = useTypedSelector(state => state.catalog)
+  const [loadRange] = useLazyLoadPricesRangeQuery()
+  const [prices, setPrices] = useState<{ min:number,max:number }>({min:0,max:0})
   const {page} = useSetPage()
   const {setParams,params} = useParams({page})
   const [value, setValue] = useState<number[]>((params?.filter as ParamsType)?.price as number[] || [0,0]);
@@ -29,14 +30,25 @@ const CatalogManagerFilterPrice = (props:CatalogManagerFilterPriceProps) => {
     
     onApply: useCallback(() => {
       setParams({filter:{price:value}})
-    },[value,setParams])
+    },[value,setParams]),
+    
   }
   
   useEffect(() => {
-    
-    setPrices(getPriceValues(props.list))
-    
-  },[props.list])
+    loadRange({
+      params: {
+        'include[category]': '',
+        ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
+        ...(page?.id === 'catalog' && id && {'where[category][id]': id}),
+      },
+    })
+  },[page?.id,params?.filter,id])
+  
+  useEffect(() => {
+    if(catalog.pricesRange){
+      setPrices(catalog.pricesRange)
+    }
+  },[catalog.pricesRange])
   
   useEffect(() => {
     

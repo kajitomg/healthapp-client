@@ -1,5 +1,5 @@
 import {Box, Button, Typography} from "@mui/material";
-import {FormEvent, useCallback, useState} from "react";
+import {FormEvent, memo, useCallback, useState} from "react";
 import {FormButton} from "../../shared/components/form-button";
 import {useAuth} from "../../entities/user/hooks/use-auth.ts";
 import {ValidatedFieldEmail} from "../../features/validated-field-email";
@@ -9,7 +9,7 @@ import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {AuthFormLayout} from "../../shared/components/auth-form-layout";
 
 
-const LoginForm = () => {
+const ChangePasswordForm = memo(() => {
   const {signin} = useAuth()
   const {setPage,pages} = useSetPage()
   const {setParams} = useParams()
@@ -40,6 +40,6 @@ const LoginForm = () => {
       </Box>
     </AuthFormLayout>
   );
-};
+});
 
-export {LoginForm};
+export {ChangePasswordForm};

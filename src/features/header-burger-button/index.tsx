@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {memo, useCallback} from 'react';
 import IconButton from "@mui/material/IconButton";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {useBurger} from "../../widgets/burger/hooks.ts";
@@ -11,7 +11,7 @@ interface HeaderBurgerButtonProps {
   isAvailable?:boolean
 }
 
-const HeaderBurgerButton = (props:HeaderBurgerButtonProps) => {
+const HeaderBurgerButton = memo((props:HeaderBurgerButtonProps) => {
   const {popSnap} = useActions()
   
   const {name} = useBurger()
@@ -39,6 +39,6 @@ const HeaderBurgerButton = (props:HeaderBurgerButtonProps) => {
     );
   }
   return null
-};
+});
 
 export {HeaderBurgerButton};

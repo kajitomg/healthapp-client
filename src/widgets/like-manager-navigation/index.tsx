@@ -2,6 +2,7 @@ import {Tabs} from "../../entities/tabs-controller/components/tabs";
 import {useTheme} from "@mui/material";
 import {TabsControllerElementState} from "../../entities/tabs-controller/store/tabs-controller/reducer.ts";
 import {ManagerStickyLayout} from "../../shared/components/manager-layout-sticky";
+import {memo} from "react";
 
 interface LikeManagerNavigationProps {
   
@@ -12,7 +13,7 @@ interface LikeManagerNavigationProps {
   list?:TabsControllerElementState[]
 }
 
-const LikeManagerNavigation = (props:LikeManagerNavigationProps) => {
+const LikeManagerNavigation =  memo((props:LikeManagerNavigationProps) => {
   const theme = useTheme()
   
   return (
@@ -30,6 +31,6 @@ const LikeManagerNavigation = (props:LikeManagerNavigationProps) => {
       <Tabs available={props.available} setTab={props.setTab} list={props.list}/>
     </ManagerStickyLayout>
   );
-};
+});
 
 export {LikeManagerNavigation};

@@ -1,13 +1,14 @@
-import {IProduct} from "../../entities/product/model/product-model.ts";
 import Box from "@mui/material/Box";
 import styled from "@mui/material/styles/styled";
 import {CatalogManagerFilter} from "../../widgets/catalog-manager-filter";
 import {CatalogManagerSort} from "../../widgets/catalog-manager-sort";
 import {CatalogProductsList} from "../../widgets/catalog-products-list";
+import {Pagination} from "../../shared/components/pagination";
+import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 
 interface CatalogProductsProps {
   
-  list?:IProduct[]
+  onPageChange?:(page?:number) => void
   
 }
 
@@ -23,21 +24,20 @@ const StyledBox = styled('div')(({theme}) => ({
 }))
 
 const CatalogProducts = (props:CatalogProductsProps) => {
+  const catalog = useTypedSelector(state => state.catalog)
   
-  if(props.list){
     return (
       <StyledBox>
-        <CatalogManagerFilter list={props?.list}/>
+        <CatalogManagerFilter/>
         <Box width={'100%'} display={'flex'} justifyContent={'center'} flexDirection={'column'}>
           <Box>
             <CatalogManagerSort/>
           </Box>
-          <CatalogProductsList list={props?.list}/>
+          <CatalogProductsList list={catalog.products?.list}/>
+          {catalog.products?.count && catalog.products?.list?.length ? <Pagination count={catalog.products?.count} maxCount={10} onChange={props?.onPageChange}/> : null}
         </Box>
       </StyledBox>
     );
-  }
-  return null
 };
 
 export {CatalogProducts};

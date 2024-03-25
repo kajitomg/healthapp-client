@@ -6,7 +6,7 @@ import {blue} from "@mui/material/colors";
 import {pagesData} from "../../mock/data.ts";
 import aboutImage from "../../imgaes/about.jpeg";
 import aboutImageSM from "../../imgaes/about_SM.jpeg";
-import {forwardRef} from "react";
+import {forwardRef, memo} from "react";
 import {ProgressiveImageLoader} from "../../shared/components/progressive-image-loader";
 
 interface MainAboutProps {
@@ -24,7 +24,7 @@ const StyledBox = styled('div')(({theme}) => ({
 }))
 
 //@ts-expect-error Неиспользуемая константа
-const MainAbout = forwardRef<HTMLDivElement,MainAboutProps>((props,ref) => {
+const MainAbout = memo(forwardRef<HTMLDivElement,MainAboutProps>( (props,ref) => {
   const theme = useTheme()
   
   return (
@@ -38,6 +38,6 @@ const MainAbout = forwardRef<HTMLDivElement,MainAboutProps>((props,ref) => {
       </Box>
     </StyledBox>
   );
-});
+}));
 
 export default MainAbout;

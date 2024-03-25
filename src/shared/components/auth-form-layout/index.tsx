@@ -1,5 +1,5 @@
 import {Box, Typography} from "@mui/material";
-import {FormEvent, ReactNode} from "react";
+import {FormEvent, memo, ReactNode} from "react";
 
 interface AuthFormLayoutProps {
   
@@ -13,7 +13,7 @@ interface AuthFormLayoutProps {
   
 }
 
-const AuthFormLayout = (props:AuthFormLayoutProps) => {
+const AuthFormLayout = memo((props:AuthFormLayoutProps) => {
   return (
     <Box
       bgcolor={'white'}
@@ -39,6 +39,6 @@ const AuthFormLayout = (props:AuthFormLayoutProps) => {
       </Box>
     </Box>
   );
-};
+});
 
 export {AuthFormLayout};

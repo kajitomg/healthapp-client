@@ -17,7 +17,7 @@ const PersonalAccount = () => {
     name:'product',
     tabs:[
       {id:'like',label:'Избранное',page:'like',component:<PersonalAccountLike/>},
-      {id:'order',label:'Заказы',page:'order',component:<PersonalAccountOrder/>}
+      {id:'order',label:'Заказы',page:'order',component:<PersonalAccountOrder/>},
     ],
     availableId:page?.id
   },[page])

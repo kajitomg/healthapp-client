@@ -3,77 +3,101 @@ import mainImage  from '../../imgaes/main.jpg';
 import mainImageSM  from '../../imgaes/main_SM.jpg';
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
-import {useCategory} from "../../entities/product/hooks/use-category.ts";
-import {useProducts} from "../../entities/product/hooks/use-products.ts";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {CatalogCategories} from "../catalog-categories";
 import {CatalogProducts} from "../catalog-products";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
+import {Loader} from "../../shared/components/loader";
+import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
+import {
+  useLazyLoadCatalogCategoryQuery,
+  useLazyLoadCatalogProductsQuery
+} from "../../entities/catalog/store/catalog/api.ts";
 
 
-const Catalog = () => {
+const Catalog = () => { //UPD Найти способ декомпозировать функционал компонентов по страницам
   const {page} = useSetPage()
   
-  const {params} = useParams()
+  const {params} = useParams({page})
   const {id} = useReactParams()
   
-  const {category,categoryIsLoading,loadCategory} = useCategory()
-  const {products,productsIsLoading,loadProducts} = useProducts()
+  const catalog = useTypedSelector((state) => state.catalog)
+  
+  const [loadProducts] = useLazyLoadCatalogProductsQuery()
+  const [loadCategory] = useLazyLoadCatalogCategoryQuery()
+  
+  const callbacks = {
+    onProductPageChange:useCallback((pageId?:number) => {
+      if(page?.id){
+        loadProducts({
+          params: {
+            'include[category]': '',
+            'include[image]': '',
+            'include[document]': '',
+            'include[specification]': '',
+            ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
+            ...(page?.id === 'catalog' && id && {'where[category][id]': id}),
+            ...(params?.sort && {sort: JSON.stringify(params?.sort)}),
+            ...(pageId && {page: pageId}),
+            limit:10
+          },
+        })
+      }
+    },[page?.id,params?.filter,params?.sort,id])
+  }
+  
   
   useEffect(() => {
-    loadProducts({
-      params:{
-        ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
-        ...(category?.item.id && page?.id === 'catalog' && {'where[category][id]': category?.item.id}),
-        ...(params?.sort && {sort: JSON.stringify(params?.sort)})
-      },
-      options:{
-        includeDefaultParams:true
-      }
-    })
-  },[params,category,loadProducts,page?.id])
-  
-  useEffect(() => {
-    loadCategory({
-      data: {
-        id:id
-      },
-      params: {
-        'include[category]': 'childrens',
-      },
-      options: {
-        includeDefaultParams: true
-      }
-    })
+    if(id){
+      loadCategory({
+        query:{
+          id:+id
+        },
+        params: {
+          'include[level]':'',
+          'include[category]': 'childrens',
+        },
+      })
+    }
   },[id,loadCategory])
+  
+  useEffect(() => {
+    if(page?.id){
+      callbacks.onProductPageChange(1)
+    }
+  },[callbacks.onProductPageChange])
   
   const {available,setTab,list} = useTabs({
     name:'catalog',
     tabs:[
-      {id:'categories',label:'Категории',component:<CatalogCategories list={category?.item?.childrens}/>},
-      {id:'products',label:'Продукты',component:<CatalogProducts list={products?.list}/>}
-    ]
-  },[category,products])
+      {id:'categories',label:'Категории',component:<CatalogCategories/>},
+      {id:'products',label:'Продукты',component:<CatalogProducts onPageChange={callbacks.onProductPageChange}/>},
+      {id:'loader',label:'Загрузка',component:<Loader/>}
+    ],
+    availableId:'loader'
+  },[])
   
   useEffect(() => {
-    if(!categoryIsLoading && !productsIsLoading && products?.list?.length === 0){
-      setTab(undefined, 0)
-    } else if(!categoryIsLoading && !productsIsLoading && products?.list && products?.list?.length > 0){
-      setTab(undefined, 1)
+    if(!catalog.waiting){
+      if(catalog.products?.count || catalog.products?.count !== undefined && !catalog.category?.item?.childrens.length){
+        setTab(undefined, 1)
+      } else if(catalog.products?.count !== undefined && catalog.category?.item?.childrens.length){
+        setTab(undefined, 0)
+      }
     }
-  },[categoryIsLoading,productsIsLoading,products])
-  
+  },[catalog])
+
   return (
     <Box display={'flex'} flexDirection={'column'}>
       <PageImageLayout
         image={mainImage}
         progressiveImage={mainImageSM}
         imageAlt={'Изображение'}
-        title={id && category?.item?.name || page?.name}
+        title={id && catalog.category?.item?.name || page?.name}
       />
       <MainContentLayout>
         <TabPanel list={list} available={available}/>

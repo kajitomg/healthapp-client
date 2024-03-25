@@ -4,6 +4,7 @@ import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {ManagerTitle} from "../../shared/components/manager-title";
 import {ManagerStickyLayout} from "../../shared/components/manager-layout-sticky";
+import {memo} from "react";
 
 
 interface CartManagerOrderProps {
@@ -14,7 +15,7 @@ interface CartManagerOrderProps {
   
 }
 
-const CartManagerOrder = (props:CartManagerOrderProps) => {
+const CartManagerOrder = memo((props:CartManagerOrderProps) => {
   
   return (
     <ManagerStickyLayout sx={{
@@ -26,6 +27,6 @@ const CartManagerOrder = (props:CartManagerOrderProps) => {
       <CartManagerOrderActions products={props.products} cartProps={props.cartProps}/>
     </ManagerStickyLayout>
   );
-};
+});
 
 export {CartManagerOrder};

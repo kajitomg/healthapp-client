@@ -13,6 +13,13 @@ export const productAPI = api.injectEndpoints({
       }),
       providesTags: () => ['Product']
     }),
+    loadProductsPriceRange: build.query<baseEntitiesState & {item:{min:number,max:number}},{params?: ParamsType}>({
+      query: ({params}) => ({
+        url: `/api/products/price/range`,
+        params
+      }),
+      providesTags: () => ['Product']
+    }),
     loadProduct: build.query<baseEntitiesState & {item:IProduct},{id?:number | string, params?: ParamsType}>({
       query: ({id,params}) => ({
         url: `/api/products/${id || ''}`,
@@ -26,5 +33,6 @@ export const productAPI = api.injectEndpoints({
 export const {
   useLoadProductsQuery,
   useLazyLoadProductsQuery,
-  useLazyLoadProductQuery
+  useLazyLoadProductQuery,
+  useLazyLoadProductsPriceRangeQuery
 } = productAPI

@@ -1,6 +1,6 @@
 import {Box, Divider, SxProps, Typography} from "@mui/material";
 import {List} from "../../shared/components/list";
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 import {ShopsItem} from "../../features/shops-item";
 import {Address} from "../../shared/models";
 import {shops} from "../../mock/data.ts";
@@ -12,7 +12,7 @@ interface ShopsListProps {
   
 }
 
-const ShopsList = (props:ShopsListProps) => {
+const ShopsList =  memo((props:ShopsListProps) => {
   
   const renders = {
     item:useCallback((shop:Address) => (
@@ -32,6 +32,6 @@ const ShopsList = (props:ShopsListProps) => {
       </Box>
     </ManagerLayout>
   );
-};
+});
 
 export {ShopsList};

@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {memo, useCallback} from 'react';
 import {Box} from "@mui/material";
 import {List} from "../../shared/components/list";
 import {IProduct} from "../../entities/product/model/product-model.ts";
@@ -16,7 +16,7 @@ interface CartListProps {
   
 }
 
-const CartList = (props:CartListProps) => {
+const CartList = memo((props:CartListProps) => {
   
   const renders = {
     item:useCallback((item:IProduct) => (
@@ -29,6 +29,6 @@ const CartList = (props:CartListProps) => {
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );
-};
+});
 
 export {CartList};

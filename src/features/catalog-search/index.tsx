@@ -2,7 +2,7 @@ import {alpha} from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import {blue} from "@mui/material/colors";
-import React, {lazy, Suspense, useCallback, useRef} from "react";
+import React, {lazy, memo, Suspense, useCallback, useRef} from "react";
 import {CatalogPopoverButton} from "../catalog-popover-button";
 import {CatalogSearchButton} from "../catalog-search-button";
 import {Loader} from "../../shared/components/loader";
@@ -11,7 +11,7 @@ const CatalogPopover = lazy(() => import("../catalog-popover"))
 /*
   Поиск по названию
  */
-const CatalogSearch = () => {
+const CatalogSearch = memo(() => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLFormElement | null>(null);
   const ref = useRef<HTMLFormElement>(null)
   
@@ -58,6 +58,6 @@ const CatalogSearch = () => {
       </Paper>
     </>
   );
-};
+});
 
 export {CatalogSearch};

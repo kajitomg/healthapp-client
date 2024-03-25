@@ -1,16 +1,9 @@
 import {useTheme} from "@mui/material";
-
-import {IProduct} from "../../entities/product/model/product-model.ts";
 import {ManagerStickyLayout} from "../../shared/components/manager-layout-sticky";
 import {CatalogManagerFilterList} from "../../features/catalog-manager-filter-list";
+import {memo} from "react";
 
-interface CatalogFilterControllerProps {
-  
-  list:IProduct[]
-  
-}
-
-const CatalogManagerFilter = (props:CatalogFilterControllerProps) => {
+const CatalogManagerFilter = memo(() => {
   const theme = useTheme()
   
   return (
@@ -26,9 +19,9 @@ const CatalogManagerFilter = (props:CatalogFilterControllerProps) => {
         width:`calc(100% - ${theme.spacing(2)})`
       }
     }}>
-      <CatalogManagerFilterList list={props.list}/>
+      <CatalogManagerFilterList/>
     </ManagerStickyLayout>
   );
-};
+});
 
 export {CatalogManagerFilter};

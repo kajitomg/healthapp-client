@@ -3,6 +3,7 @@ import {FooterLayout} from "../../shared/components/footer-layout";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectIsPopSnapOpen} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
 import {FooterContacts} from "../../features/footer-contacts";
+import {memo} from "react";
 
 interface FooterProps {
   
@@ -12,7 +13,7 @@ interface FooterProps {
   
 }
 
-const Footer = (props:FooterProps) => {
+const Footer = memo((props:FooterProps) => {
   const isBottomNavigationAvailable = useTypedSelector(state => selectIsPopSnapOpen(state, 'bottom-navigation-available'))
   
   return (
@@ -30,6 +31,6 @@ const Footer = (props:FooterProps) => {
       {isBottomNavigationAvailable && <Box height={'56px'}/>}
     </Box>
   );
-};
+});
 
 export {Footer};

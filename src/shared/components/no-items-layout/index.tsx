@@ -15,6 +15,7 @@ const NoItemsLayout = (props:NoItemsLayoutProps) => {
   if(props.available){
     return (
       <Card sx={{
+        m:1,
         display:'flex',
         minHeight:'350px',
         justifyContent:'center',

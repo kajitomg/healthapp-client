@@ -1,6 +1,5 @@
-import Box from "@mui/material/Box";
 import {OrderButtonBuy} from "../order-button-buy";
-import {lazy, Suspense, useCallback, useState} from "react";
+import {lazy, memo, Suspense, useCallback, useState} from "react";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectIsPopSnapOpen} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
@@ -9,7 +8,6 @@ import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCreateOrderMutation} from "../../entities/order/store/orders/api.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLazyLoadProductsQuery} from "../../entities/product/store/products/api.ts";
-import {Loader} from "../../shared/components/loader";
 import {ButtonTypography} from "../../shared/components/button-typography";
 
 const OrderCreateDialog = lazy(() => import("../order-create-dialog"))
@@ -21,7 +19,7 @@ interface CartManagerOrderActionsProps {
   cartProps?:ReturnType<typeof useCart>,
 }
 
-const CartManagerOrderActions = (props:CartManagerOrderActionsProps) => {
+const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
   const [createOrderId] = useState('create-order-dialog')
   const {popSnap} = useActions()
   const isOpenCreateOrder = useTypedSelector(state => selectIsPopSnapOpen(state,createOrderId))
@@ -64,25 +62,24 @@ const CartManagerOrderActions = (props:CartManagerOrderActionsProps) => {
       }else {
         console.log('Не авторизован')
       }
-    },[popSnap,props.products,session.user.id,createOrder,props?.cartProps?.deleteProductFromCart,props?.cartProps?.cart,popSnap])
+    },[props.products,session.user.id,createOrder,props?.cartProps?.deleteProductFromCart,props?.cartProps?.cart])
     
   }
-  
   if(session.exists){
     return (
-      <Box>
+      <>
         <OrderButtonBuy fullWidth onClick={callbacks.onOpenCreateOrder}>
           <ButtonTypography>
             Перейти к оформлению
           </ButtonTypography>
         </OrderButtonBuy>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={null}>
           <OrderCreateDialog onClose={callbacks.onCloseCreateOrder} onSubmit={callbacks.onAcceptCreateOrder} isOpen={isOpenCreateOrder} popSnapName={createOrderId}/>
         </Suspense>
-      </Box>
+      </>
     );
   }
   return null
-};
+});
 
 export {CartManagerOrderActions};

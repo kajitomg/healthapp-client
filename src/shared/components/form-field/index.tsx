@@ -1,5 +1,5 @@
 import {TextField, TextFieldProps} from "@mui/material";
-import {ChangeEvent, Dispatch, forwardRef, SetStateAction, useCallback} from "react";
+import {ChangeEvent, Dispatch, forwardRef, memo, SetStateAction, useCallback} from "react";
 
 export type FormFieldProps = {
   
@@ -9,7 +9,7 @@ export type FormFieldProps = {
   
 } & Omit<TextFieldProps, 'ref'>
 
-const FormField = forwardRef<HTMLInputElement,FormFieldProps>((props,ref) => {
+const FormField = memo(forwardRef<HTMLInputElement,FormFieldProps>((props,ref) => {
   const {setData,onChange, ...defProps} = props
 
   const callbacks = {
@@ -31,6 +31,6 @@ const FormField = forwardRef<HTMLInputElement,FormFieldProps>((props,ref) => {
       error={Boolean(props.helperText)}
     />
   );
-});
+}));
 
 export {FormField};

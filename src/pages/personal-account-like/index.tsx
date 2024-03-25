@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import {useEffect} from "react";
 import {LikeManagerAmount} from "../../widgets/like-manager-amount";
 import {LikeList} from "../../widgets/like-list";
+import {Loader} from "../../shared/components/loader";
 
 const PersonalAccountLike = () => {
   const likeProps = useLike()
@@ -12,12 +13,15 @@ const PersonalAccountLike = () => {
   },[likeProps.loadLikeProducts])
   
   
-  return (
-    <Box>
-      {likeProps.likeProducts?.list && likeProps.likeProducts?.list.length > 0 && <LikeManagerAmount list={likeProps.likeProducts?.list}/>}
-      <LikeList list={likeProps.likeProducts?.list} likeProps={likeProps}/>
-    </Box>
-  );
+  if(!likeProps.isLikeProductsLoading){
+    return (
+      <Box>
+        {likeProps.likeProducts?.list && likeProps.likeProducts?.list.length > 0 && <LikeManagerAmount list={likeProps.likeProducts?.list}/>}
+        <LikeList list={likeProps.likeProducts?.list} likeProps={likeProps}/>
+      </Box>
+    );
+  }
+  return <Loader/>
 };
 
 export {PersonalAccountLike};

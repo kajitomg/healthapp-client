@@ -32,6 +32,7 @@ const App = () => {
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
 
+  
   useEffect(() => {
     refresh()
   },[page])
