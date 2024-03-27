@@ -35,7 +35,7 @@ const MainAbout = memo(forwardRef<HTMLDivElement,MainAboutProps>( (props,ref) =>
         <Typography color={blue[500]} fontSize={isSm ? '55px' :'80px'}>О нас</Typography>
         <Typography color={'black'} fontSize={isSm ? 'small' : "medium"}>{pagesData.about.title}</Typography>
       </Box>
-      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px', minWidth:'500px'}}} padding={isSm ?1:3}>
+      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px', minWidth:isSm ? '100%' :'500px'}}} padding={isSm ?1:3}>
         <ProgressiveImageLoader alt={'Доверие'} src={aboutImage} progressiveSrc={aboutImageSM} width={'100%'} height={'100%'} style={{objectFit:'cover'}}/>
       </Box>
     </StyledBox>

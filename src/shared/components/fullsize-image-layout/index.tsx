@@ -38,7 +38,7 @@ const FullsizeImageLayout = memo((props:FullsizeImageLayoutProps) => {
         margin:props.isIndents ? '-88px -24px' : '0 -24px',
         top:0,
         left:0,
-        width:'calc(100% + 48px)',
+        width:`calc(100% + ${isMediaQuerySm? '32px' :'48px'})`,
         height:props.height ? `calc(100% + ${props.isIndents ? headerHeight : 0}px + ${props.isIndents ? 24 : 0}px + ${isMediaQuerySm ? 16 :0}px)` : '100vh'
       }}>
         <ProgressiveImageLoader
