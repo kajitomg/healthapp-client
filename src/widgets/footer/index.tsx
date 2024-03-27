@@ -4,6 +4,8 @@ import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-sele
 import {selectIsPopSnapOpen} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
 import {FooterContacts} from "../../features/footer-contacts";
 import {memo} from "react";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface FooterProps {
   
@@ -15,13 +17,15 @@ interface FooterProps {
 
 const Footer = memo((props:FooterProps) => {
   const isBottomNavigationAvailable = useTypedSelector(state => selectIsPopSnapOpen(state, 'bottom-navigation-available'))
+  const theme = useTheme()
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
   return (
     <Box  bgcolor={'white'} borderRadius={1}>
       <Divider/>
       <FooterLayout drawerwidth={props.drawerWidth} open={props.isOpen}>
         <Box display={'flex'} justifyContent={'flex-end'}>
-          <FooterContacts sx={{flex:'0 1 33.333%'}}/>
+          <FooterContacts sx={{flex:`0 1 ${isMediaQuerySm ? '100%' :'33.333%'}`}}/>
         </Box>
         <Divider/>
         <Box paddingTop={3}>

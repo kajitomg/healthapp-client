@@ -25,6 +25,7 @@ interface HeaderContentProps {
 const HeaderContent =  memo((props:HeaderContentProps) => {
   const theme = useTheme();
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
   const { headerHeight,drawerWidth} = useBurger()
   
@@ -42,14 +43,14 @@ const HeaderContent =  memo((props:HeaderContentProps) => {
   return (
     <AppBar color={'default'} elevation={0} variant={'elevation'} sx={{background:alpha(blue[50], 0.4),backdropFilter:'blur(5px)'}}>
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={headerHeight}>
-        <BurgerBox drawerWidth={drawerWidth} position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={3} justifyContent={'space-between'}>
+        <BurgerBox drawerWidth={drawerWidth} position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={isMediaQuerySm ?1:3} justifyContent={'space-between'}>
           <HeaderBurgerButton/>
           <HeaderHomepageButton onClick={props.setPage}>
             <HeaderHomepageIcon/>
           </HeaderHomepageButton>
         </BurgerBox>
-        <Box paddingX={3} display={'flex'} alignItems={'center'} flex={'1 0 auto'}>
-          <Box flex={'1 1 100%'}>
+        <Box paddingX={isMediaQuerySm ? 1:3} display={'flex'} alignItems={'center'} flex={'1 0 auto'}>
+          <Box flex={isMediaQuerySm ?'0 1 240px':'1 1 100%'}>
             <CatalogSearch/>
           </Box>
           {!isBottomNavigationAvailable &&

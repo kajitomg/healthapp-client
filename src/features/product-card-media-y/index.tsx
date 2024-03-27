@@ -18,6 +18,10 @@ const ProductCardMediaY = (props:ProductCardMediaYProps) => {
       component="img"
       alt="Изображение товара"
       height="300px"
+      sx={{
+        minHeight:'300px',
+        objectFit:'cover',
+      }}
       src={image ? config.api.baseUrl + '/' + image?.path : cardImage}
       {...defProps}
     />

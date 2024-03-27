@@ -6,12 +6,14 @@ import React, {lazy, memo, Suspense, useCallback, useRef} from "react";
 import {CatalogPopoverButton} from "../catalog-popover-button";
 import {CatalogSearchButton} from "../catalog-search-button";
 import {Loader} from "../../shared/components/loader";
+import useTheme from "@mui/material/styles/useTheme";
 const CatalogPopover = lazy(() => import("../catalog-popover"))
 
 /*
   Поиск по названию
  */
 const CatalogSearch = memo(() => {
+  const theme = useTheme()
   const [anchorEl, setAnchorEl] = React.useState<HTMLFormElement | null>(null);
   const ref = useRef<HTMLFormElement>(null)
   
@@ -43,12 +45,22 @@ const CatalogSearch = memo(() => {
           '&:hover':{
             cursor:'pointer',
             boxShadow:(theme) => theme.shadows[5],
-          }
+          },
+          [theme.breakpoints.down('sm')]: {
+            mx: 1,
+          },
+          
         }}
       >
         <CatalogPopoverButton onClick={callbacks.onOpenPopover}/>
         <InputBase
-          sx={{ ml: 1, flex: 1 }}
+          sx={{
+            ml: 1,
+            flex: 1,
+            [theme.breakpoints.down('sm')]: {
+              mx: 1,
+            },
+        }}
           placeholder="Поиск по каталогу"
           inputProps={{ 'aria-label': 'введите название' }}
         />

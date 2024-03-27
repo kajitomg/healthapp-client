@@ -10,8 +10,11 @@ import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {ProductCard} from "../product-card";
 
 
-const StyledCartProductCard = styled(ProductCard)(() => ({
-  width:'100%'
+const StyledCartProductCard = styled(ProductCard)(({theme}) => ({
+  width:'100%',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection:'column'
+  },
 }))
 
 interface CartProductCardProps {
@@ -26,7 +29,6 @@ interface CartProductCardProps {
 
 const CartProductCard = (props:CartProductCardProps) => {
   const {item,cartProps,likeProps} = props
-  
   return (
     <StyledCartProductCard productId={item?.id}>
       <CartProductCardMedia images={item?.images}/>

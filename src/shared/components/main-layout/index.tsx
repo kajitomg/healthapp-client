@@ -19,6 +19,12 @@ const MainLayout = memo(styled('main', { shouldForwardProp: (prop) => prop !== '
     }),
     marginLeft: `${drawerwidth}px`,
   }),
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(2),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(1),
+  },
 })));
 
 export {MainLayout}

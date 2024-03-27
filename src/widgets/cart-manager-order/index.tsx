@@ -5,6 +5,7 @@ import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {ManagerTitle} from "../../shared/components/manager-title";
 import {ManagerStickyLayout} from "../../shared/components/manager-layout-sticky";
 import {memo} from "react";
+import {useTheme} from "@mui/material";
 
 
 interface CartManagerOrderProps {
@@ -16,11 +17,19 @@ interface CartManagerOrderProps {
 }
 
 const CartManagerOrder = memo((props:CartManagerOrderProps) => {
+  const theme = useTheme()
   
   return (
     <ManagerStickyLayout sx={{
       flex:'0 1 300px',
       minWidth:'300px',
+      [theme.breakpoints.down('md')]:{
+        top:`auto`,
+        position:'relative',
+        minHeight:'auto',
+        flex:'1 1 100%',
+        width:`calc(100% - ${theme.spacing(2)})`
+      }
     }}>
       <ManagerTitle title={'Заказ'}/>
       <CartManagerOrderContent products={props.products}/>

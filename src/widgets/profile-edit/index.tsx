@@ -6,12 +6,15 @@ import {ProfileFormEmail} from "../../features/profile-form-email";
 import {useCallback} from "react";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ProfieEdit = () => {
   const session = useTypedSelector(state => state.session)
   const {setPage,pages} = useSetPage()
   const {setParams} = useParams()
-  
+  const theme = useTheme()
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
   const callbacks = {
     
@@ -31,7 +34,7 @@ const ProfieEdit = () => {
       display={'flex'}
       justifyContent={'flex-start'}
     >
-      <Box width={350}>
+      <Box width={isMediaQuerySm ? '100%' :350}>
         <ProfileFormPhonenumber user={session.user}/>
         <ProfileFormEmail user={session.user}/>
         {/*<FormField type={'firstname'} value={data.firstname} name={'firstname'} label={'Имя'} setData={setData}/>

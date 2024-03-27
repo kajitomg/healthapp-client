@@ -7,7 +7,9 @@ interface HeaderNavigationMenuTabsLayoutProps {
   
   onClose?:() => void
   
-  children?:ReactNode
+  children?:ReactNode,
+  
+  origin?:'top'
   
 }
 
@@ -36,8 +38,8 @@ const HeaderNavigationMenuTabsLayout = (props:HeaderNavigationMenuTabsLayoutProp
           
         },
       }}
-      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      transformOrigin={{ horizontal: 'right', vertical: props.origin === 'top' ? 'bottom' : 'top' }}
+      anchorOrigin={{ horizontal: 'right', vertical: props.origin === 'top' ? 'top' : 'bottom' }}
       
     >
       {props.children}

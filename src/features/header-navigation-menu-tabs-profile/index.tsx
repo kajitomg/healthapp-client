@@ -13,7 +13,9 @@ interface ProfileButtonListProps {
   
   anchorEl?:EventTarget & Element | null,
   
-  onClose?:() => void
+  onClose?:() => void,
+  
+  origin?:'top'
   
 }
 
@@ -46,6 +48,7 @@ const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
     <HeaderNavigationMenuTabsLayout
       onClose={props.onClose}
       anchorEl={props.anchorEl}
+      origin={props.origin}
     >
       {session.user.id &&
         <Box>

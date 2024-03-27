@@ -12,6 +12,7 @@ interface FullheightContentLayoutProps {
 }
 const FullheightContentLayout = memo((props:FullheightContentLayoutProps) => {
   const {headerHeight} = useBurger()
+  
   return (
     <Box position={'relative'} sx={{
       width:'100%',

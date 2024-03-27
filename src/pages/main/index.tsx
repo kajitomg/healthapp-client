@@ -7,6 +7,21 @@ import {useRef} from "react"
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import MainAbout from "../../widgets/main-about";
+import styled from "@mui/material/styles/styled";
+
+const StyledScrollToBottomContainer = styled(Box)(({theme}) => ({
+  width:'100%',
+  display:'flex',
+  height:'auto',
+  marginTop:theme.spacing(10),
+  marginBottom:theme.spacing(10),
+  justifyContent:'center',
+  alignItems:'center',
+  [theme.breakpoints.down('sm')]: {
+    marginTop:theme.spacing(0),
+  },
+}))
+
 
 const Main = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -20,11 +35,11 @@ const Main = () => {
         imageAlt={'Главное изображение'}
         title={'Сеть магазинов медицинской техники в Санкт-Петербурге'}
       >
-        <Box width={'100%'} display={'flex'} height={'auto'} my={10} justifyContent={'center'} alignItems={'center'}>
+        <StyledScrollToBottomContainer>
           <IconButton onClick={() => ref?.current?.scrollIntoView({behavior:"smooth"})} size={'large'}>
             <KeyboardArrowDownIcon sx={{color:'whitesmoke'}} fontSize={'large'}/>
           </IconButton>
-        </Box>
+        </StyledScrollToBottomContainer>
       </PageImageLayout>
       <MainContentLayout>
         <MainAbout ref={ref}/>

@@ -2,6 +2,8 @@ import {Box, SxProps, Theme} from "@mui/material";
 import {memo, ReactNode} from "react";
 import {useBurger} from "../../../widgets/burger/hooks.ts";
 import {ProgressiveImageLoader} from "../progressive-image-loader";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export interface FullsizeImageLayoutProps {
   
@@ -22,6 +24,8 @@ export interface FullsizeImageLayoutProps {
 }
 
 const FullsizeImageLayout = memo((props:FullsizeImageLayoutProps) => {
+  const theme = useTheme()
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   const {headerHeight} = useBurger()
   return (
     <Box position={'relative'} sx={{
@@ -35,7 +39,7 @@ const FullsizeImageLayout = memo((props:FullsizeImageLayoutProps) => {
         top:0,
         left:0,
         width:'calc(100% + 48px)',
-        height:props.height ? `calc(100% + ${props.isIndents ? headerHeight : 0}px + ${props.isIndents ? 24 : 0}px)` : '100vh'
+        height:props.height ? `calc(100% + ${props.isIndents ? headerHeight : 0}px + ${props.isIndents ? 24 : 0}px + ${isMediaQuerySm ? 16 :0}px)` : '100vh'
       }}>
         <ProgressiveImageLoader
           alt={props.imageAlt}

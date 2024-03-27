@@ -7,6 +7,8 @@ import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {memo} from "react";
 import {Loader} from "../../shared/components/loader";
 import {CartNoProducts} from "../../features/cart-no-products";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface CartProductsProps {
   
@@ -21,11 +23,12 @@ interface CartProductsProps {
 }
 
 const CartProducts = memo((props:CartProductsProps) => {
-  
+  const theme = useTheme()
+  const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   
   if(props.available && props.cartProps?.cartProducts?.list.length && !props.cartProps?.isCartProductsLoading) {
     return (
-      <Box display={'flex'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'} pt={2}>
+      <Box display={'flex'} flexDirection={isMediaQueryMd ? 'column-reverse' : 'row'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'} pt={2}>
         <Box flex={'1 1 auto'}>
           <CartList list={props.products} cartProps={props.cartProps} likeProps={props.likeProps}/>
         </Box>

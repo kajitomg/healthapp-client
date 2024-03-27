@@ -8,32 +8,34 @@ import aboutImage from "../../imgaes/about.jpeg";
 import aboutImageSM from "../../imgaes/about_SM.jpeg";
 import {forwardRef, memo} from "react";
 import {ProgressiveImageLoader} from "../../shared/components/progressive-image-loader";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface MainAboutProps {
 }
 
 const StyledBox = styled('div')(({theme}) => ({
   display:'flex',
-  height:'100vh',
+  minHeight:'100vh',
   alignItems:'center',
   [theme.breakpoints.down('md')]:{
     flexDirection:'column',
     width:'100%',
     justifyContent:'center'
-  }
+  },
 }))
 
 //@ts-expect-error Неиспользуемая константа
 const MainAbout = memo(forwardRef<HTMLDivElement,MainAboutProps>( (props,ref) => {
   const theme = useTheme()
+  const isSm = useMediaQuery(theme.breakpoints.down('sm'))
   
   return (
     <StyledBox ref={ref}>
-      <Box sx={{maxWidth:'700px'}} padding={3}>
-        <Typography color={blue[500]} fontSize={'80px'}>О нас</Typography>
-        <Typography color={'black'} fontSize={"medium"}>{pagesData.about.title}</Typography>
+      <Box sx={{maxWidth:'700px'}} padding={3} pt={'64px'}>
+        <Typography color={blue[500]} fontSize={isSm ? '55px' :'80px'}>О нас</Typography>
+        <Typography color={'black'} fontSize={isSm ? 'small' : "medium"}>{pagesData.about.title}</Typography>
       </Box>
-      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px', minWidth:'500px'}}} padding={3}>
+      <Box sx={{[theme.breakpoints.down('md')]:{maxWidth:'700px', minWidth:'500px'}}} padding={isSm ?1:3}>
         <ProgressiveImageLoader alt={'Доверие'} src={aboutImage} progressiveSrc={aboutImageSM} width={'100%'} height={'100%'} style={{objectFit:'cover'}}/>
       </Box>
     </StyledBox>
