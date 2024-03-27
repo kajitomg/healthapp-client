@@ -10,7 +10,10 @@ import {LikeProductCardContent} from "../like-product-card-content";
 import {ProductCard} from "../product-card";
 
 const StyledLikeProductCard = styled(ProductCard)(() => ({
-  width:'100%'
+  width:'100%',
+  '@container (max-width: 562px)': {
+    flexDirection:'column'
+  },
 }))
 
 interface LikeProductCardProps {

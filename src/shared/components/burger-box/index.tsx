@@ -5,7 +5,7 @@ import MuiBox from "@mui/material/Box";
 
 interface BoxProps extends MuiBoxProps {
   
-  drawerWidth?:number
+  drawerWidth?:number | string
   
   open?: boolean;
   
@@ -25,6 +25,9 @@ const BurgerBoxLayout = styled(MuiBox, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('md')]: {
+      width:'auto',
+    },
   }),
 }));
 

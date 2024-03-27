@@ -18,7 +18,7 @@ const ProductCarousel = (props:ProductCarouselProps) => {
       <Box width={'500px'}>
         <Carousel height={'400px'} swipe autoPlay={false} animation={'slide'}>
           {props?.images?.map((image) =>
-            <Box width={'500px'} height={'400px'} key={image.id}>
+            <Box maxWidth={'500px'} height={'400px'} key={image.id}>
               <ProgressiveImageLoader
                 alt={'Изображение товара'}
                 progressiveSrc={config.api.baseUrl + '/' + image?.path}

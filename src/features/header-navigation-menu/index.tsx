@@ -78,11 +78,12 @@ const HeaderNavigationMenu = () => {
             sx={{
               [theme.breakpoints.down('lg')]:{
                 fontSize:'12px',
+                padding:0.5,
               },
               
               '&:hover': {
                 backgroundColor: alpha(blue[50], 0.1)
-              }
+              },
             }}
             label={page.name}
             onClick={page.menu ? callbacks.onChange : undefined}

@@ -6,9 +6,11 @@ import useTheme from "@mui/material/styles/useTheme";
 
 export const useBurger = () => {
   const theme = useTheme()
-  const isHeaderSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  const drawerWidth = 240
-  const headerHeight = isHeaderSmall ? 50 : 64
+  const isHeaderSm = useMediaQuery(theme.breakpoints.down('sm'))
+  const isHeaderMd = useMediaQuery(theme.breakpoints.down('md'))
+  const drawerWidth = isHeaderMd ? '100%' : 240
+  const headerHeight = isHeaderSm ? 50 : 64
+  const bottomNavigationHeight = isHeaderSm ? 50 : 56
   const name = 'burger'
   
     
@@ -20,5 +22,5 @@ export const useBurger = () => {
       justifyContent: 'flex-start',
     }));
     
-    return {drawerWidth,headerHeight,DrawerHeader,name}
+    return {drawerWidth,headerHeight,DrawerHeader,bottomNavigationHeight,name}
 }

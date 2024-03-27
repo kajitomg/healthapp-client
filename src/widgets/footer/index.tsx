@@ -9,7 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface FooterProps {
   
-  drawerWidth:number
+  drawerWidth:number | string
   
   isOpen:boolean
   

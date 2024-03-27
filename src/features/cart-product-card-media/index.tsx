@@ -1,8 +1,5 @@
 import {IImage} from "../../entities/image/model/image-model.ts";
 import {ProductCardMediaX} from "../product-card-media-x";
-import useTheme from "@mui/material/styles/useTheme";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import {ProductCardMediaY} from "../product-card-media-y";
 
 interface CartProductCardMediaProps {
   
@@ -11,17 +8,23 @@ interface CartProductCardMediaProps {
 }
 
 const CartProductCardMedia = (props:CartProductCardMediaProps) => {
-  const theme = useTheme()
-  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
-  if(!isMediaQuerySm){
     return (
-      <ProductCardMediaX image={props.images?.[0]}/>
+      <ProductCardMediaX image={props.images?.[0]} sx={{
+        width:'160px',
+        height:'160px',
+        objectFit:'cover',
+        maxHeight:'200px',
+        maxWidth:'200px',
+        '@container (max-width: 492px)': {
+          width:'100%',
+          height:'300px',
+          objectFit:'cover',
+          maxHeight:'none',
+          maxWidth:'100%'
+        },
+      }}/>
     );
-  }
-  return (
-    <ProductCardMediaY image={props.images?.[0]}/>
-  );
 };
 
 export {CartProductCardMedia};

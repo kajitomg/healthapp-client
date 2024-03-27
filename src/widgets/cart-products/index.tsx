@@ -29,7 +29,7 @@ const CartProducts = memo((props:CartProductsProps) => {
   if(props.available && props.cartProps?.cartProducts?.list.length && !props.cartProps?.isCartProductsLoading) {
     return (
       <Box display={'flex'} flexDirection={isMediaQueryMd ? 'column-reverse' : 'row'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'} pt={2}>
-        <Box flex={'1 1 auto'}>
+        <Box width={'100%'}>
           <CartList list={props.products} cartProps={props.cartProps} likeProps={props.likeProps}/>
         </Box>
         <CartManagerOrder products={props.products} cartProps={props.cartProps}/>

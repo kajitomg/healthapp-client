@@ -5,7 +5,6 @@ import {blue} from "@mui/material/colors";
 import React, {lazy, memo, Suspense, useCallback, useRef} from "react";
 import {CatalogPopoverButton} from "../catalog-popover-button";
 import {CatalogSearchButton} from "../catalog-search-button";
-import {Loader} from "../../shared/components/loader";
 import useTheme from "@mui/material/styles/useTheme";
 const CatalogPopover = lazy(() => import("../catalog-popover"))
 
@@ -27,10 +26,12 @@ const CatalogSearch = memo(() => {
       setAnchorEl(null);
     },[ref])
   }
-  
+
   return (
     <>
-    <CatalogPopover anchorEl={anchorEl} onClose={callbacks.onClosePopover}/>
+      <Suspense fallback={null}>
+        <CatalogPopover anchorEl={anchorEl} onClose={callbacks.onClosePopover}/>
+      </Suspense>
       <Paper
         ref={ref}
         component="form"
@@ -41,6 +42,7 @@ const CatalogSearch = memo(() => {
           boxShadow:'none',
           alignItems: 'center',
           width: 'auto',
+          flex: 1,
           background:alpha(blue[50], 0.3),
           '&:hover':{
             cursor:'pointer',
@@ -57,16 +59,12 @@ const CatalogSearch = memo(() => {
           sx={{
             ml: 1,
             flex: 1,
-            [theme.breakpoints.down('sm')]: {
-              mx: 1,
-            },
+            
         }}
           placeholder="Поиск по каталогу"
           inputProps={{ 'aria-label': 'введите название' }}
         />
-        <Suspense fallback={<Loader/>}>
-          <CatalogSearchButton/>
-        </Suspense>
+        <CatalogSearchButton/>
       </Paper>
     </>
   );

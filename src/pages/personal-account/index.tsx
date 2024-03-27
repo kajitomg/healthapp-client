@@ -9,9 +9,13 @@ import {PersonalAccountLike} from "../personal-account-like";
 import {PersonalAccountOrder} from "../presonal-account-order";
 import {LikeManagerNavigation} from "../../widgets/like-manager-navigation";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from "@mui/material/styles/useTheme";
 
 const PersonalAccount = () => {
   const {page} = useSetPage()
+  const theme = useTheme()
+  const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   
   const {available,setTab,list} = useTabs({
     name:'product',
@@ -32,7 +36,7 @@ const PersonalAccount = () => {
       />
       <MainContentLayout>
         <Box display={'flex'} alignItems={'flex-start'} position={'relative'} pt={2}>
-          <LikeManagerNavigation available={available} setTab={setTab} list={list}/>
+          {!isMediaQueryMd && <LikeManagerNavigation available={available} setTab={setTab} list={list}/>}
           <Box flex={'1 1 100%'}>
             <TabPanel available={available} list={list}/>
           </Box>

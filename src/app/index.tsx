@@ -32,16 +32,15 @@ const App = () => {
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
 
-  
   useEffect(() => {
     refresh()
   },[page])
   
   return (
-    <PageLayout header={<Header/>} footer={<Footer isOpen={isOpen} drawerWidth={drawerWidth}/>}>
+    <PageLayout header={<Header isOpen={isOpen && isBottomNavigationAvailable && (page?.id === 'like' || page?.id === 'order')}/>} footer={<Footer isOpen={isOpen && isBottomNavigationAvailable && (page?.id === 'like' || page?.id === 'order')} drawerWidth={drawerWidth}/>}>
       <DrawerHeader ref={ref}/>
       <MainLayout
-        open={isOpen}
+        open={isOpen && isBottomNavigationAvailable && (page?.id === 'like' || page?.id === 'order')}
         drawerwidth={drawerWidth}
         headerheight={headerHeight}
       >

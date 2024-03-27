@@ -21,14 +21,14 @@ interface CatalogProductsCardProps {
   
 }
 
-const StyledCatalogProductsCard = styled(ProductCard)(({theme}) => ({
+const StyledCatalogProductsCard = styled(ProductCard)(() => ({
   flexDirection:'column',
   justifyContent:'space-between',
   width: 'calc(33.333% - 16px)',
-  [theme.breakpoints.down('md')]:{
+  '@container (max-width: 900px)': {
     width: 'calc(50% - 16px)'
   },
-  [theme.breakpoints.down('sm')]:{
+  "@container (max-width: 600px)": {
     width: 'calc(100% - 16px)'
   },
 }))

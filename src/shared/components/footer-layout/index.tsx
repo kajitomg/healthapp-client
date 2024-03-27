@@ -2,7 +2,7 @@ import {styled} from "@mui/material";
 
 const FooterLayout = styled('main', { shouldForwardProp: (prop) => prop !== 'open'  })<{
   open?: boolean;
-  drawerwidth?:number;
+  drawerwidth?:number | string;
 }>(({ theme, open, drawerwidth}) => ({
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {

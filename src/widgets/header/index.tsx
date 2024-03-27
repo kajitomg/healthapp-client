@@ -4,8 +4,14 @@ import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-sele
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {HeaderContent} from "../header-content";
 
+interface HeaderProps {
+  
+  isOpen?:boolean
+  
+}
 
-const Header = memo(() => {
+
+const Header = memo((props:HeaderProps) => {
   const {setPage} = useSetPage()
   
   const session = useTypedSelector(state => state.session)
@@ -21,7 +27,7 @@ const Header = memo(() => {
   return (
     <Box display={'flex'}>
       <CssBaseline/>
-      <HeaderContent session={session} setPage={callbacks.setPage}/>
+      <HeaderContent isBurgerOpen={props.isOpen} session={session} setPage={callbacks.setPage}/>
     </Box>
   );
 });

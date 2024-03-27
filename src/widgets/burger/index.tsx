@@ -2,8 +2,12 @@ import {Box, Drawer} from "@mui/material";
 import {useCallback} from "react";
 import {useBurger} from "./hooks.ts";
 import {RoutesType} from "../../entities/page-controller/models.ts";
-import {BurgerTabs} from "../../features/burger-tabs";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
+import {PersonalAccountLike} from "../../pages/personal-account-like";
+import {PersonalAccountOrder} from "../../pages/presonal-account-order";
+import {Tabs} from "../../entities/tabs-controller/components/tabs";
+import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 
 interface BurgerProps {
   
@@ -19,20 +23,33 @@ interface BurgerProps {
 
 
 const Burger = (props:BurgerProps) => {
-  const {drawerWidth,headerHeight} = useBurger()
-  const {pages} = useSetPage()
+  const {drawerWidth,headerHeight,bottomNavigationHeight} = useBurger()
+  const {page} = useSetPage()
+  const {popSnap} = useActions()
+  
+  const {name} = useBurger()
+
+  const {available,setTab,list} = useTabs({
+    name:'product',
+    tabs:[
+      {id:'like',label:'Избранное',page:'like',component:<PersonalAccountLike/>},
+      {id:'order',label:'Заказы',page:'order',component:<PersonalAccountOrder/>},
+    ],
+    availableId:page?.id
+  },[page])
 
   const callbacks = {
     closeMenu:useCallback(() => {
     },[]),
     
-    setPage:useCallback((id:string) => {
-      props.setPage && props.setPage(id)
-    },[]),
-    
+    setPage:useCallback((event?: (React.SyntheticEvent<Element, Event> | undefined), index?: number) => {
+      setTab(event,index)
+      
+      popSnap.close({id: name})
+    },[setTab,popSnap,name]),
   }
   
-  if(props.isAvailable){
+  if(page?.id === 'like' || page?.id === 'order'){
     return (
       <Drawer
         anchor={'left'}
@@ -49,12 +66,12 @@ const Burger = (props:BurgerProps) => {
             top:headerHeight,
             width: drawerWidth,
             boxSizing: 'border-box',
-            height:`calc(100% - ${headerHeight}px)`,
+            height:`calc(100% - ${headerHeight}px - ${bottomNavigationHeight}px)`,
           },
         }}
       >
         <Box display={'flex'} flexDirection={'column'}>
-          <BurgerTabs list={pages.navList} onClick={callbacks.setPage}/>
+          <Tabs setTab={callbacks.setPage} list={list} available={available}/>
         </Box>
       </Drawer>
     );

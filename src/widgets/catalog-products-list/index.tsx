@@ -26,7 +26,7 @@ const CatalogProductsList = memo((props:CatalogProductsListProps) => {
   
   if(props.list?.length){
     return (
-      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
+      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} sx={{containerType: "inline-size"}}>
         <List list={props.list} renderItem={renders.item}/>
       </Box>
     );

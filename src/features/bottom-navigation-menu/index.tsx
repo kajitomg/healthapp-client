@@ -13,11 +13,12 @@ import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {HeaderNavigationMenuTabsProfile} from "../header-navigation-menu-tabs-profile";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
 
-const StyledCartProductCard = styled(Paper)(({theme}) => ({
+const StyledBottomNavigationMenu = styled(Paper)(({theme}) => ({
   position: 'fixed',
   bottom: 0,
   left: 0,
   right: 0,
+  zIndex:10000,
   [theme.breakpoints.down('sm')]: {
     height:'50px'
   },
@@ -70,7 +71,7 @@ const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
   
   if(props.isAvailable){
     return (
-      <StyledCartProductCard elevation={3}>
+      <StyledBottomNavigationMenu elevation={3}>
         <BottomNavigation
           showLabels
           value={pageNumber === -1 ? false : pageNumber}
@@ -98,7 +99,7 @@ const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
           )}
         </BottomNavigation>
         <TabPanel available={available} list={list}/>
-      </StyledCartProductCard>
+      </StyledBottomNavigationMenu>
       
     );
   }

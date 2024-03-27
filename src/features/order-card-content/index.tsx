@@ -7,6 +7,8 @@ import {useCallback} from "react";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {OrderProductCard} from "../order-product-card";
 import {OrderCardContentInfo} from "../order-card-content-info";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface OrderCardContentProps {
   
@@ -17,6 +19,8 @@ interface OrderCardContentProps {
 }
 
 const OrderCardContent = (props:OrderCardContentProps) => {
+  const theme = useTheme()
+  const isMediaQueryMd = useMediaQuery(theme.breakpoints.up('md'))
   
   const renders = {
     
@@ -27,11 +31,11 @@ const OrderCardContent = (props:OrderCardContentProps) => {
   }
   
   return (
-    <Box>
+    <Box sx={{containerType: "inline-size"}}>
       <Typography fontSize={'medium'} fontWeight={'bold'}>Заказ: {props.order?.id}</Typography>
       <OrderCardContentInfo order={props.order}/>
       <Typography fontWeight={'bold'}>Товары:</Typography>
-      <Box display={'flex'} justifyContent={'flex-start'} overflow={'auto'} maxWidth={'390px'}>
+      <Box display={'flex'} justifyContent={'flex-start'} overflow={'auto'} maxWidth={isMediaQueryMd ? '195px' : '390px'}>
         <List list={props.order?.products} renderItem={renders.item}/>
       </Box>
     </Box>

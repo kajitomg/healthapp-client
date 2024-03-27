@@ -3,7 +3,7 @@ import {memo} from "react";
 
 const MainLayout = memo(styled('main', { shouldForwardProp: (prop) => prop !== 'open'  })<{
   open?: boolean;
-  drawerwidth?:number;
+  drawerwidth?:number | string;
   headerheight?:number;
 }>(({ theme, open, drawerwidth, headerheight}) => ({
   padding: theme.spacing(3),

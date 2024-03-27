@@ -10,6 +10,8 @@ import {HeaderNavigationMenu} from "../../features/header-navigation-menu";
 import {CatalogSearch} from "../../features/catalog-search";
 import {SessionState} from "../../entities/user/store/session/reducer.ts";
 import {BurgerBox} from "../../shared/components/burger-box";
+import {Burger} from "../burger";
+import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 
 
 interface HeaderContentProps {
@@ -24,7 +26,8 @@ interface HeaderContentProps {
 
 const HeaderContent =  memo((props:HeaderContentProps) => {
   const theme = useTheme();
-  const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
+  const {page} = useSetPage()
+  const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
   const { headerHeight,drawerWidth} = useBurger()
@@ -32,35 +35,38 @@ const HeaderContent =  memo((props:HeaderContentProps) => {
   const {popSnap} = useActions()
   
   useEffect(() => {
-    if(isBottomNavigationAvailable){
+    if(isMediaQueryMd){
       popSnap.open({id:'bottom-navigation-available'})
     }else{
       popSnap.close({id:'bottom-navigation-available'})
     }
-  },[isBottomNavigationAvailable])
+  },[isMediaQueryMd])
   
   
   return (
-    <AppBar color={'default'} elevation={0} variant={'elevation'} sx={{background:alpha(blue[50], 0.4),backdropFilter:'blur(5px)'}}>
-      <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={headerHeight}>
-        <BurgerBox drawerWidth={drawerWidth} position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={isMediaQuerySm ?1:3} justifyContent={'space-between'}>
-          <HeaderBurgerButton/>
-          <HeaderHomepageButton onClick={props.setPage}>
-            <HeaderHomepageIcon/>
-          </HeaderHomepageButton>
-        </BurgerBox>
-        <Box paddingX={isMediaQuerySm ? 1:3} display={'flex'} alignItems={'center'} flex={'1 0 auto'}>
-          <Box flex={isMediaQuerySm ?'0 1 240px':'1 1 100%'}>
-            <CatalogSearch/>
-          </Box>
-          {!isBottomNavigationAvailable &&
-            <Box>
-              <HeaderNavigationMenu/>
+    <>
+      <AppBar color={'default'} elevation={0} variant={'elevation'} sx={{background:alpha(blue[50], 0.4),backdropFilter:'blur(5px)'}}>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} height={headerHeight}>
+          <BurgerBox drawerWidth={drawerWidth} position={'relative'} display={'flex'} open={props.isBurgerOpen} sx={{background:blue[500]}} height={'100%'} alignItems={'center'} paddingX={isMediaQuerySm ?1:3} justifyContent={'space-between'}>
+            <HeaderBurgerButton isAvailable={isMediaQueryMd && (page?.id === 'like' || page?.id === 'order')}/>
+            <HeaderHomepageButton onClick={props.setPage}>
+              <HeaderHomepageIcon/>
+            </HeaderHomepageButton>
+          </BurgerBox>
+          <Box paddingX={isMediaQuerySm ? 1:3} display={'flex'} alignItems={'center'} flex={'1 1 auto'}>
+            <Box flex={'0 1 100%'}>
+              <CatalogSearch/>
             </Box>
-          }
+            {!isMediaQueryMd &&
+              <Box>
+                <HeaderNavigationMenu/>
+              </Box>
+            }
+          </Box>
         </Box>
-      </Box>
-    </AppBar>
+      </AppBar>
+      <Burger isOpen={props.isBurgerOpen}/>
+    </>
   );
 });
 

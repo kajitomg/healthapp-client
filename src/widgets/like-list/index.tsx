@@ -26,7 +26,7 @@ const LikeList =  memo((props:LikeListProps) => {
   
   if(props.list?.length !== 0){
     return (
-      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'}>
+      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} sx={{containerType: "inline-size"}}>
         <List list={props.list} renderItem={renders.item}/>
       </Box>
     );
