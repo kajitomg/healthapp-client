@@ -9,7 +9,7 @@ const config = {
     }
   },
   api: {
-    baseUrl: 'http://localhost:5000'
+    baseUrl: 'http://5.35.95.221:5000'
   },
   redux: {
   
