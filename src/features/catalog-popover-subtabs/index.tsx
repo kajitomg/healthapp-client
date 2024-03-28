@@ -29,7 +29,7 @@ const CatalogPopoverSubTabs = (props:CatalogPopoverSubTabsProps) => {
         includeDefaultParams: true
       }
     })
-  },[])
+  },[props.tab?.id])
   
   const renders = {
     item:useCallback((tab:ICategory) => (

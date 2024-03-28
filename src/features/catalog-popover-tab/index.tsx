@@ -44,11 +44,11 @@ const CatalogPopoverTab = (props:CatalogPopoverTabProps) => {
     
     onClick:useCallback(() => {
       props.tab?.id && props.onClick && props.onClick(props.tab?.id)
-    },[]),
+    },[props.tab?.id,props.onClick]),
     
     onMouseEnter:useCallback(() => {
       props.tab && props.onHover && props.onHover(props.tab)
-    },[])
+    },[props.onHover,props.tab])
     
   }
   

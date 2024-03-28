@@ -8,6 +8,8 @@ import {useLoadCategoriesQuery} from "../../entities/product/store/categories/ap
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {CatalogPopoverSubTabs} from "../catalog-popover-subtabs";
+import useTheme from "@mui/material/styles/useTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface CatalogPopoverProps {
   
@@ -24,7 +26,9 @@ const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
   const {setParams} = useParams({page})
   const {data:categories} = useLoadCategoriesQuery({levelId:1})
   const [subTab,setSubTab] = useState<ICategory>()
-
+  const theme = useTheme()
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.up('sm'))
+  
   const callbacks = {
     
     onTabClick:useCallback((id:number) => {
@@ -34,8 +38,9 @@ const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
     },[setParams,setPage,page]),
     
     onTabHover:useCallback((tab:ICategory) => {
+      if(isMediaQuerySm) return
       setSubTab(tab)
-    },[])
+    },[isMediaQuerySm])
   }
   
   const isOpen = Boolean(anchorEl);
@@ -57,7 +62,7 @@ const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
       >
         <Box display={'flex'} pt={2}>
           <CatalogPopoverTabs tabs={categories?.list} onHover={callbacks.onTabHover} onClick={callbacks.onTabClick}/>
-          {subTab && <CatalogPopoverSubTabs tab={subTab} onClick={callbacks.onTabClick}/>}
+          {subTab && isMediaQuerySm && <CatalogPopoverSubTabs tab={subTab} onClick={callbacks.onTabClick}/>}
         </Box>
       </Popover>
     );

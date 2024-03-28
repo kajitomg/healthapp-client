@@ -19,7 +19,7 @@ const CatalogPopoverTabs = (props:CatalogPopoverTabsProps) => {
   const renders = {
     item:useCallback((tab:ICategory) => (
       <CatalogPopoverTab tab={tab} key={tab.id} onHover={props.onHover} onClick={props.onClick}/>
-    ),[])
+    ),[props.onHover,props.onClick])
   }
   
   return (
