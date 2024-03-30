@@ -14,8 +14,6 @@ interface CartProductsProps {
   
   products?:IProduct[],
   
-  available?:boolean,
-  
   cartProps?:ReturnType<typeof useCart>,
   
   likeProps?:ReturnType<typeof useLike>,
@@ -26,7 +24,7 @@ const CartProducts = memo((props:CartProductsProps) => {
   const theme = useTheme()
   const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   
-  if(props.available && props.cartProps?.cartProducts?.list.length && !props.cartProps?.isCartProductsLoading) {
+  if(props.cartProps?.cartProducts?.list.length && !props.cartProps?.isCartProductsLoading) {
     return (
       <Box display={'flex'} flexDirection={isMediaQueryMd ? 'column-reverse' : 'row'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'} pt={2}>
         <Box width={'100%'}>
@@ -36,7 +34,8 @@ const CartProducts = memo((props:CartProductsProps) => {
       </Box>
     );
   }
-  if(props.available && props.cartProps?.cartProducts?.list.length === 0 && !props.cartProps?.isCartProductsLoading){
+
+  if(props.cartProps?.cartProducts?.list.length === 0 && !props.cartProps?.isCartProductsLoading){
     return (
       <CartNoProducts available={true}/>
     )

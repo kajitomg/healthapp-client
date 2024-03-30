@@ -29,7 +29,7 @@ const Cart = () => {
         title={page?.name}
       />
       <MainContentLayout>
-        <CartProducts products={cartProps.cartProducts?.list} available={cartProps.cartProducts?.list?.length !== 0} cartProps={cartProps} likeProps={likeProps}/>
+        <CartProducts products={cartProps.cartProducts?.list} cartProps={cartProps} likeProps={likeProps}/>
       </MainContentLayout>
     </Box>
   );
