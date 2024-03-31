@@ -13,11 +13,9 @@ import {deleteProductsFromLike} from "../../../shared/utils/delete-products-from
 import {baseEntitiesState} from "../../../shared/utils/reducer-handlers.ts";
 import {ParamsType} from "../../../shared/models";
 import {ILike} from "../model/like-model.ts";
-import useLocalStorage from "use-local-storage";
 
 export const useLike = () => {
   const localStorageName = 'likeItems'
-  const [storage,setStorage] = useLocalStorage<IProduct[]>(localStorageName,JSON.parse(localStorage.getItem(localStorageName) || JSON.stringify([])))
   
   const {like:likeActions} = useActions()
   const like = useTypedSelector(state => state.like)
@@ -51,15 +49,20 @@ export const useLike = () => {
     
     clearLikeState:useCallback(() => {
       likeActions.clearState()
-      setStorage([])
+      
+      localStorage.setItem(localStorageName,JSON.stringify([]))
     },[likeActions]),
     
     isLikeAvailable:useCallback((product?:IProduct) => {
+      const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
+      
       const list:IProduct[] = storage
       return Boolean(list?.find((item) => item.id === product?.id))
-    },[products.currentData, storage]),
+    },[products.currentData]),
     
     loadLikeProducts:useCallback(async (params?:ParamsType) => {
+      const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
+      
       try {
         const products = await loadProducts({
           params:{
@@ -72,9 +75,11 @@ export const useLike = () => {
       }catch (e) {
         return
       }
-    },[loadProducts, storage]),
+    },[loadProducts]),
     
     syncLikeProducts:useCallback( async (likeId?:number) => {
+      const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
+      
       if(likeId){
         const products = storage
         
@@ -87,29 +92,35 @@ export const useLike = () => {
           ...(likeId && {'where[like-product][likeId]':likeId})
         })
         
-        await setStorage(productsData?.list)
+        localStorage.setItem(localStorageName,JSON.stringify(productsData?.list))
       }
-    },[addProducts, loadProducts, storage]),
+    },[addProducts, loadProducts]),
     
     addProductToLike:useCallback(  (product:IProduct) => {
-      setStorage((prevState) => addProductsToLike([product],prevState))
+      const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
+      
+      localStorage.setItem(localStorageName,JSON.stringify(addProductsToLike([product],storage)))
+      
       if(like.item?.id){
         addProducts({id:like.item?.id,products:[product]})
       } else {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[addProducts,likeActions,loadProducts,like,setStorage]),
+    },[addProducts,likeActions,loadProducts,like]),
     
     deleteProductFromLike:useCallback( (product:IProduct) => {
-      setStorage((prevState) => deleteProductsFromLike([product],prevState));
+      
+      const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
+      
+      localStorage.setItem(localStorageName,JSON.stringify(deleteProductsFromLike([product],storage)))
       if(like.item?.id){
         deleteProducts({id:like.item?.id,products:[product]})
       } else {
         likeActions.replaceState()
       }
       callbacks.loadLikeProducts()
-    },[deleteProducts,likeActions,loadProducts,like,setStorage]),
+    },[deleteProducts,likeActions,loadProducts,like]),
   }
   
 
@@ -120,5 +131,5 @@ export const useLike = () => {
   },[products])
   
   
-  return {like,likeProducts:memoProducts,storage,isLikeProductsLoading:products?.isLoading,...callbacks}
+  return {like,likeProducts:memoProducts,likelocalStorageName:localStorageName,isLikeProductsLoading:products?.isLoading,...callbacks}
 }

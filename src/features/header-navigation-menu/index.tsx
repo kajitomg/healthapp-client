@@ -20,8 +20,10 @@ const HeaderNavigationMenu = () => {
   const theme = useTheme()
   const {setPage, pages} = useSetPage()
   const [menuAnchor,setMenuAnchor] = useState<null | {[id:string]:EventTarget & Element}>(null)
-  const {storage:cartStorage} = useCart()
-  const {storage:likeStorage} = useLike()
+  const {cartlocalStorageName} = useCart()
+  const {likelocalStorageName} = useLike()
+  const cartStorage = JSON.parse(localStorage.getItem(cartlocalStorageName) || '[]')
+  const likeStorage = JSON.parse(localStorage.getItem(likelocalStorageName) || '[]')
   
   const badgeData = useMemo<{[name:string]:number}>(() => ({
     cart:cartStorage.length,
