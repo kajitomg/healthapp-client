@@ -28,7 +28,7 @@ const Cart = () => {
         imageAlt={'Изображение'}
         title={page?.name}
       />
-      <MainContentLayout>
+      <MainContentLayout sx={{pt:2}}>
         <CartProducts products={cartProps.cartProducts?.list} cartProps={cartProps} likeProps={likeProps}/>
       </MainContentLayout>
     </Box>

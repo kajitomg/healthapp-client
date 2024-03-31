@@ -26,7 +26,7 @@ const CartProducts = memo((props:CartProductsProps) => {
   
   if(props.cartProps?.cartProducts?.list.length && !props.cartProps?.isCartProductsLoading) {
     return (
-      <Box display={'flex'} flexDirection={isMediaQueryMd ? 'column-reverse' : 'row'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'} pt={2}>
+      <Box display={'flex'} flexDirection={isMediaQueryMd ? 'column-reverse' : 'row'} justifyContent={'flex-end'} alignItems={'flex-start'} minHeight={'600px'} position={'relative'}>
         <Box width={'100%'}>
           <CartList list={props.products} cartProps={props.cartProps} likeProps={props.likeProps}/>
         </Box>

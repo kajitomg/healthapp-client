@@ -12,9 +12,9 @@ const PersonalAccountOrder = () => {
     if(session.exists){
       orderProps?.loadOrders(session.user.id)
     }
-  },[session,orderProps?.loadOrders])
+  },[session.exists,orderProps?.loadOrders])
 
-  if(!orderProps.ordersIsLoading && !session.waiting && orderProps.orders?.list !== undefined) {
+  if(!orderProps.ordersIsLoading && !session.waiting && orderProps.orders?.list !== undefined || !orderProps.ordersIsLoading && !session.waiting && !session.exists) {
     return (
       <OrderList list={orderProps.orders?.list} orderProps={orderProps}/>
     );

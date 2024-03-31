@@ -21,7 +21,7 @@ import useLocalStorage from "use-local-storage";
 export const useCart = () => {
   const [localStorageName] = useState('cartItems')
   const [storage,setStorage] = useLocalStorage<IProduct[]>(localStorageName,JSON.parse(localStorage.getItem(localStorageName) || JSON.stringify([])))
-  
+
   const {cart:cartActions} = useActions()
   const cart = useTypedSelector(state => state.cart)
   
@@ -93,6 +93,7 @@ export const useCart = () => {
           ...(cartId && {'include[cart-product]':''}),
           ...(cartId && {'where[cart-product][cartId]':cartId}),
         })
+        console.log(productsData?.list)
         await setStorage(productsData?.list)
       }
     },[addProducts, loadProducts, storage]),

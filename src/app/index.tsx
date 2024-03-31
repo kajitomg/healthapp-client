@@ -34,7 +34,7 @@ const App = () => {
 
   useEffect(() => {
     refresh()
-  },[page])
+  },[])
   
   return (
     <PageLayout header={<Header isOpen={isOpen && isBottomNavigationAvailable && (page?.id === 'like' || page?.id === 'order')}/>} footer={<Footer isOpen={isOpen && isBottomNavigationAvailable && (page?.id === 'like' || page?.id === 'order')} drawerWidth={drawerWidth}/>}>

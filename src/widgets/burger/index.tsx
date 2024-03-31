@@ -5,7 +5,7 @@ import {RoutesType} from "../../entities/page-controller/models.ts";
 import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {PersonalAccountLike} from "../../pages/personal-account-like";
-import {PersonalAccountOrder} from "../../pages/presonal-account-order";
+import {PersonalAccountOrder} from "../../pages/personal-account-order";
 import {Tabs} from "../../entities/tabs-controller/components/tabs";
 import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 

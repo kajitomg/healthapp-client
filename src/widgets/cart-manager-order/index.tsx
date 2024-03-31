@@ -26,10 +26,11 @@ const CartManagerOrder = memo((props:CartManagerOrderProps) => {
       [theme.breakpoints.down('md')]:{
         top:`auto`,
         position:'relative',
-        minHeight:'auto',
-        flex:'1 1 100%',
+        minWidth:'auto',
+        flex:'0 1 auto',
         width:`calc(100% - ${theme.spacing(2)})`
-      }
+      },
+      
     }}>
       <ManagerTitle title={'Заказ'}/>
       <CartManagerOrderContent products={props.products}/>

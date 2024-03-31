@@ -6,7 +6,7 @@ import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {PersonalAccountLike} from "../personal-account-like";
-import {PersonalAccountOrder} from "../presonal-account-order";
+import {PersonalAccountOrder} from "../personal-account-order";
 import {LikeManagerNavigation} from "../../widgets/like-manager-navigation";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
 import useMediaQuery from "@mui/material/useMediaQuery";
