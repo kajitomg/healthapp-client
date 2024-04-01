@@ -38,14 +38,14 @@ const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
     },[setParams,setPage,page]),
     
     onTabHover:useCallback((tab:ICategory) => {
-      if(isMediaQuerySm) return
+      if(!isMediaQuerySm) return
       setSubTab(tab)
     },[isMediaQuerySm])
   }
   
   const isOpen = Boolean(anchorEl);
   const id = isOpen ? 'catalog-popover' : undefined;
-  
+
     return (
       <Popover
         id={id}

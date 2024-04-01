@@ -8,7 +8,7 @@ export enum SortDirections {
   DESC = 'DESC',
 }
 
-export type ParamsType = Record<string, string | string[] | number | number[] | Record<string, string | string[] | number | number[]>>
+export type ParamsType = {[name:string]: string | string[] | number | number[] | ParamsType}
 
 export type SortTypes = Record<string, string>
 

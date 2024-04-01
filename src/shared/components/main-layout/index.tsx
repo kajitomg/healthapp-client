@@ -7,7 +7,7 @@ const MainLayout = memo(styled('main', { shouldForwardProp: (prop) => prop !== '
   headerheight?:number;
 }>(({ theme, open, drawerwidth, headerheight}) => ({
   padding: theme.spacing(3),
-  minHeight:`calc(100% - ${headerheight}px)`,
+  minHeight:`calc(100vh - ${headerheight}px)`,
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

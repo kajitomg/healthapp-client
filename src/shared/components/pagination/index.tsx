@@ -36,7 +36,7 @@ const Pagination = (props:PaginationProps) => {
         size={'large'}
         onChange={callbacks.onChange}
         {...defProps}
-      />;
+      />
     </Box>
   )
 };

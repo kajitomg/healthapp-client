@@ -6,7 +6,12 @@ export default function cleaningParams(params:ParamsType):ParamsType{
   const keysParams: string[] = Object.keys(params)
   for (const key of keysParams) {
     if(!isEmptyParam(params[key])){
-      result[key] = params[key]
+      const nestedParams = params[key]
+      const cleanedParams = typeof nestedParams === 'object' && !Array.isArray(nestedParams) ? cleaningParams(nestedParams) : nestedParams
+      if(!isEmptyParam(cleanedParams)) {
+        result[key] = cleanedParams
+      }
+      
     }
   }
   return result

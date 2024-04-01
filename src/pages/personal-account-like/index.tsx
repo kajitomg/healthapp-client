@@ -1,6 +1,6 @@
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import Box from "@mui/material/Box";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {LikeManagerAmount} from "../../widgets/like-manager-amount";
 import {LikeList} from "../../widgets/like-list";
 import {Loader} from "../../shared/components/loader";
@@ -8,9 +8,11 @@ import {Loader} from "../../shared/components/loader";
 const PersonalAccountLike = () => {
   const likeProps = useLike()
   
+  const storage = useMemo(() => localStorage.getItem(likeProps.likelocalStorageName),[localStorage.getItem(likeProps.likelocalStorageName)])
+  
   useEffect(() => {
     likeProps.loadLikeProducts()
-  },[likeProps.loadLikeProducts])
+  },[likeProps.loadLikeProducts,storage])
   
   
   if(!likeProps.isLikeProductsLoading){

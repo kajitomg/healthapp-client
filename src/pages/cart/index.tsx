@@ -16,9 +16,11 @@ const Cart = () => {
   const cartProps = useCart()
   const likeProps = useLike()
   
+  const storage = localStorage.getItem(cartProps.cartlocalStorageName)
+  
   useEffect(() => {
     cartProps.loadCartProducts()
-  },[cartProps.loadCartProducts])
+  },[cartProps.loadCartProducts,storage])
   
   return (
     <Box display={'flex'} flexDirection={'column'}>

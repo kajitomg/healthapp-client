@@ -10,9 +10,12 @@ import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {ProductCard} from "../product-card";
 
 
-const StyledCartProductCard = styled(ProductCard)(() => ({
+const StyledCartProductCard = styled(ProductCard)(({theme}) => ({
   width:'100%',
   '@container (max-width: 508px)': {
+    flexDirection:'column'
+  },
+  [theme.breakpoints.down('sm')]: {
     flexDirection:'column'
   },
 }))

@@ -42,12 +42,13 @@ const Catalog = () => { //UPD Найти способ декомпозирова
             ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
             ...(page?.id === 'catalog' && id && {'where[category][id]': id}),
             ...(params?.sort && {sort: JSON.stringify(params?.sort)}),
+            ...(params?.search && {search: JSON.stringify(params?.search)}),
             ...(pageId && {page: pageId}),
             limit:10
           },
         })
       }
-    },[page?.id,params?.filter,params?.sort,id])
+    },[page?.id,params?.filter,params?.sort,params?.search,id])
   }
   
   

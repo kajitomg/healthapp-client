@@ -1,9 +1,10 @@
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import useTheme from "@mui/material/styles/useTheme";
+import {MouseEventHandler} from "react";
 
 interface CatalogSearchButtonProps {
-  onClick?:() => void
+  onClick?:MouseEventHandler<HTMLButtonElement>
 }
 
 const CatalogSearchButton = (props:CatalogSearchButtonProps) => {
@@ -11,7 +12,7 @@ const CatalogSearchButton = (props:CatalogSearchButtonProps) => {
   
   
   return (
-    <IconButton type="button" sx={{
+    <IconButton type="submit" sx={{
       p: '10px',
       [theme.breakpoints.down('sm')]: {
         p: '0',

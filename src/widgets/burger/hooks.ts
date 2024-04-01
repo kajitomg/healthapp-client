@@ -17,8 +17,9 @@ export const useBurger = () => {
     const DrawerHeader = styled('div')(({ theme }) => ({
       display: 'flex',
       alignItems: 'center',
-      padding:headerHeight / 8,
       ...theme.mixins.toolbar,
+      minHeight:'auto',
+      height:headerHeight,
       justifyContent: 'flex-start',
     }));
     
