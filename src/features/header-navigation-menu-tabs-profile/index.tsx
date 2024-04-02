@@ -3,7 +3,7 @@ import Divider from "@mui/material/Divider";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {Login, Logout, Settings} from "@mui/icons-material";
 import {useCallback} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useAuth} from "../../entities/user/hooks/use-auth.ts";
 import {HeaderNavigationMenuTabsLayout} from "../../shared/components/header-navigation-menu-tabs-layout";
@@ -22,7 +22,7 @@ interface ProfileButtonListProps {
 const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
   const session = useTypedSelector(state => state.session)
   const {signout} = useAuth()
-  const {setPage,pages,page} = useSetPage()
+  const {setPage,pages,page} = usePage()
   const {setParams} = useParams()
   
   

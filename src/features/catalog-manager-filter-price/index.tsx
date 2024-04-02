@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import {CatalogManagerFilterPriceSlider} from "../catalog-manager-filter-price-slider";
 import {CatalogManagerFilterPriceSelect} from "../catalog-manager-filter-price-select";
 import {useCallback, useEffect, useState} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {ParamsType} from "../../shared/models";
 import {CatalogManagerFilterButton} from "../catalog-manager-filter-button";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
@@ -19,7 +19,7 @@ const CatalogManagerFilterPrice = () => {
   const catalog = useTypedSelector(state => state.catalog)
   const [loadRange] = useLazyLoadPricesRangeQuery()
   const [prices, setPrices] = useState<{ min:number,max:number }>({min:0,max:0})
-  const {page} = useSetPage()
+  const {page} = usePage()
   const {setParams,params} = useParams({page})
   const [value, setValue] = useState<number[]>((params?.filter as ParamsType)?.price as number[] || [0,0]);
 

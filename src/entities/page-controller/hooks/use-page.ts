@@ -4,7 +4,7 @@ import {useActions} from "../../../shared/services/redux/hooks/use-actions.ts";
 import {selectCurrentPage} from "../store/page-controller/reducer.ts";
 import {useNavigate} from "react-router-dom";
 
-export const useSetPage = () => {
+export const usePage = () => {
   const navigate = useNavigate()
   
   const pages = useTypedSelector(state => state.pageController)

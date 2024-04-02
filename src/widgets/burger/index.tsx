@@ -2,7 +2,7 @@ import {Box, Drawer} from "@mui/material";
 import {useCallback} from "react";
 import {useBurger} from "./hooks.ts";
 import {RoutesType} from "../../entities/page-controller/models.ts";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {PersonalAccountLike} from "../../pages/personal-account-like";
 import {PersonalAccountOrder} from "../../pages/personal-account-order";
@@ -24,7 +24,7 @@ interface BurgerProps {
 
 const Burger = (props:BurgerProps) => {
   const {drawerWidth,headerHeight,bottomNavigationHeight} = useBurger()
-  const {page} = useSetPage()
+  const {page} = usePage()
   const {popSnap} = useActions()
   
   const {name} = useBurger()

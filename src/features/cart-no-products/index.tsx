@@ -1,4 +1,4 @@
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useCallback} from "react";
 import Button from "@mui/material/Button";
@@ -12,7 +12,7 @@ interface CartNoProductsProps {
 }
 
 const CartNoProducts = (props:CartNoProductsProps) => {
-  const {setPage} = useSetPage()
+  const {setPage} = usePage()
   const session = useTypedSelector(state => state.session)
   
   const callbacks = {

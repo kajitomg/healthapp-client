@@ -12,7 +12,7 @@ const ParamsControllerLayout = (props:ParamsControllerLayoutProps) => {
   const {setParams} = useParams({page:props.page})
 
   useEffect(() => {
-    setParams(createParamsWithLocation(),props.page || undefined)
+    setParams(createParamsWithLocation(),props.page || undefined,true)
   },[props.page])
   
   return (

@@ -2,11 +2,11 @@ import {selectTabsElement, TabsControllerElementState} from "../store/tabs-contr
 import {useActions} from "../../../shared/services/redux/hooks/use-actions.ts";
 import {DependencyList, useCallback, useEffect} from "react";
 import {useTypedSelector} from "../../../shared/services/redux/hooks/use-typed-selector.ts";
-import {useSetPage} from "../../page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../page-controller/hooks/use-page.ts";
 import {useParams} from "../../params-controller/hooks/use-params.ts";
 
 export const useTabs = ({name, tabs,availableId}:{name:string, tabs:TabsControllerElementState[],availableId?:string}, deps: DependencyList,) => {
-  const {setPage,pages} = useSetPage()
+  const {setPage,pages} = usePage()
   const {setParams} = useParams()
   const {tabsController} = useActions()
   const state = useTypedSelector(state => selectTabsElement(state, name))
@@ -31,7 +31,7 @@ export const useTabs = ({name, tabs,availableId}:{name:string, tabs:TabsControll
   
   useEffect(() => {
     callbacks.set()
-  },[...deps])
+  },deps)
   
   return {list:state?.list || tabs,available:state?.available, ...callbacks}
 }

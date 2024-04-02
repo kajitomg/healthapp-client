@@ -82,7 +82,6 @@ export const useCart = () => {
     
     syncCartProducts:useCallback( async (cartId?:number) => {
       const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
-      
       if(cartId){
         const products = storage
         

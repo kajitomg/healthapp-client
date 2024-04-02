@@ -17,7 +17,6 @@ export const sessionInterceptors = {
         // retry the initial query
       } else {
         localStorage.removeItem('token')
-        localStorage.removeItem('cartItems');
         await baseQuery({url:`/api/users/signout`,method:'POST'},api,extraOptions)
         retry.fail(result.error)
       }

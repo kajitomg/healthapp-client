@@ -18,7 +18,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import {useLazySearchCategoriesQuery, useLazySearchProductsQuery} from "../../entities/search/store/search/api.ts";
 import {useDebounce} from "../../shared/hooks/use-debounce.ts";
 import Box from "@mui/material/Box";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 const CatalogPopover = lazy(() => import("../catalog-popover"))
 const CatalogSearchPopper= lazy(() => import("../catalog-search-popper"))
@@ -35,7 +35,7 @@ const CatalogSearch = memo(() => {
   const [value, setValue] = useState<string>('')
   const [searchProducts] = useLazySearchProductsQuery()
   const [searchCategories] = useLazySearchCategoriesQuery()
-  const {setPage,pages,page} = useSetPage()
+  const {setPage,pages,page} = usePage()
   const {setParams,params} = useParams({page})
   
   const callbacks = {
@@ -51,6 +51,7 @@ const CatalogSearch = memo(() => {
     
     onCloseSearchPopover:useCallback(() => {
       setAnchorSearchEl(null)
+      setValue('')
     },[ref]),
     
     onChange:useCallback<ChangeEventHandler<HTMLInputElement>>((event) => {

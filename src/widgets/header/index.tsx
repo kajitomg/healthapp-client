@@ -1,7 +1,7 @@
 import {Box, CssBaseline} from "@mui/material";
 import {memo, useCallback} from "react";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {HeaderContent} from "../header-content";
 
 interface HeaderProps {
@@ -12,7 +12,7 @@ interface HeaderProps {
 
 
 const Header = memo((props:HeaderProps) => {
-  const {setPage} = useSetPage()
+  const {setPage} = usePage()
   
   const session = useTypedSelector(state => state.session)
 

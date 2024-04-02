@@ -1,7 +1,7 @@
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {SyntheticEvent, useCallback, useMemo, useState} from "react";
@@ -29,7 +29,7 @@ interface BottomNavigationMenuProps {
 }
 
 const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
-  const {setPage, pages} = useSetPage()
+  const {setPage, pages} = usePage()
   const {cartlocalStorageName} = useCart()
   const {likelocalStorageName} = useLike()
   const cartStorage = JSON.parse(localStorage.getItem(cartlocalStorageName) || '[]')

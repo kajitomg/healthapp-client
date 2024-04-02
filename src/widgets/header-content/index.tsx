@@ -11,7 +11,7 @@ import {CatalogSearch} from "../../features/catalog-search";
 import {SessionState} from "../../entities/user/store/session/reducer.ts";
 import {BurgerBox} from "../../shared/components/burger-box";
 import {Burger} from "../burger";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 
 
 interface HeaderContentProps {
@@ -26,7 +26,7 @@ interface HeaderContentProps {
 
 const HeaderContent =  memo((props:HeaderContentProps) => {
   const theme = useTheme();
-  const {page} = useSetPage()
+  const {page} = usePage()
   const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   

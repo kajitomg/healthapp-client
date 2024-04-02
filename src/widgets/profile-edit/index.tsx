@@ -4,14 +4,14 @@ import {ProfileFormName} from "../../features/profile-form-name";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {ProfileFormEmail} from "../../features/profile-form-email";
 import {useCallback} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import useTheme from "@mui/material/styles/useTheme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ProfieEdit = () => {
   const session = useTypedSelector(state => state.session)
-  const {setPage,pages} = useSetPage()
+  const {setPage,pages} = usePage()
   const {setParams} = useParams()
   const theme = useTheme()
   const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))

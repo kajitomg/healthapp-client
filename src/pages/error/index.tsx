@@ -1,11 +1,11 @@
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 
 const Error = () => {
-  const {setPage} = useSetPage()
+  const {setPage} = usePage()
   
   return (
     <Box>

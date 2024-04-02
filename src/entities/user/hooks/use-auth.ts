@@ -53,6 +53,7 @@ export const useAuth = () => {
         {
           options
         }).unwrap()
+      
       if(refreshData.item){
         await callbacks.syncCartData(refreshData.item.id)
         await callbacks.syncLikeData(refreshData.item.id)

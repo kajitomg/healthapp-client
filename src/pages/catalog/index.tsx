@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import mainImage  from '../../imgaes/main.jpg';
 import mainImageSM  from '../../imgaes/main_SM.jpg';
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useCallback, useEffect} from "react";
 import {useParams as useReactParams} from "react-router-dom";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
@@ -20,7 +20,7 @@ import {
 
 
 const Catalog = () => { //UPD Найти способ декомпозировать функционал компонентов по страницам
-  const {page} = useSetPage()
+  const {page} = usePage()
   
   const {params} = useParams({page})
   const {id} = useReactParams()

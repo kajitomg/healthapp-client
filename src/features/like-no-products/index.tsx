@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useCallback} from "react";
 import {NoItemsLayout} from "../../shared/components/no-items-layout";
@@ -12,7 +12,7 @@ interface LikeNoProductsProps {
 }
 
 const LikeNoProducts = (props:LikeNoProductsProps) => {
-  const {setPage} = useSetPage()
+  const {setPage} = usePage()
   const session = useTypedSelector(state => state.session)
   
   const callbacks = {

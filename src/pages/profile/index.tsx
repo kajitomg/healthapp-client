@@ -1,13 +1,13 @@
 import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import mainImage from "../../imgaes/main.jpg";
 import {ProfieEdit} from "../../widgets/profile-edit";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import mainImageSM from "../../imgaes/main_SM.jpg";
 
 const Profile = () => {
-  const {page} = useSetPage()
+  const {page} = usePage()
   
   return (
     <Box>

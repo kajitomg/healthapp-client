@@ -19,7 +19,7 @@ interface ValidatedFieldCommentProps {
 const ValidatedFieldComment = (props:ValidatedFieldCommentProps) => {
   const ref = useRef(null)
   
-  const validation = useFormValidation(new RegExp(/^\S}$/),'Некорректный комментарий)')
+  const validation = useFormValidation(new RegExp(/\S{1,100}$/),'Некорректный комментарий')
   const {error,onChange,blur} = props.validation || validation
 
   return (

@@ -23,7 +23,7 @@ const paramsControllerSlice = createSlice({
   initialState,
   reducers:{
     set: (state, action: PayloadAction<{page?:RoutesType | null,newParams?:ParamsType,replace?:boolean}>) => {
-      const { page, newParams, replace } = action.payload;
+      const { page, newParams, replace = false } = action.payload;
       if(page){
         const params = cleaningParams(merge({...page?.params},state[page?.id]?.list,newParams))
 

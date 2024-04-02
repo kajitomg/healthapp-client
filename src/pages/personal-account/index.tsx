@@ -2,7 +2,7 @@ import {MainContentLayout} from "../../shared/components/main-content-layout";
 import Box from "@mui/material/Box";
 import mainImage from "../../imgaes/main.jpg";
 import mainImageSM  from '../../imgaes/main_SM.jpg'
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {PersonalAccountLike} from "../personal-account-like";
@@ -13,7 +13,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import useTheme from "@mui/material/styles/useTheme";
 
 const PersonalAccount = () => {
-  const {page} = useSetPage()
+  const {page} = usePage()
   const theme = useTheme()
   const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   

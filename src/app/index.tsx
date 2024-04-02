@@ -14,7 +14,6 @@ import {Footer} from "../widgets/footer";
 import {BottomNavigationMenu} from "../features/bottom-navigation-menu";
 import {useEffect} from "react";
 import {useAuth} from "../entities/user/hooks/use-auth.ts";
-import {useListenHistory} from "../entities/page-controller/hooks/use-listen-history.ts";
 import {useScrollToTop} from "../shared/hooks/use-scroll-to-top.ts";
 import {useLocation} from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -24,7 +23,6 @@ const App = () => {
   const theme = useTheme()
   const {pathname} = useLocation()
   const ref = useScrollToTop([pathname])
-  useListenHistory()
   const {refresh} = useAuth()
   const isBottomNavigationAvailable = useMediaQuery(theme.breakpoints.down('md'))
   

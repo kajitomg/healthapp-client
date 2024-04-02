@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import useTheme from "@mui/material/styles/useTheme";
 import {SyntheticEvent, useCallback, useMemo, useState} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {blue} from "@mui/material/colors";
@@ -18,7 +18,7 @@ import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
 
 const HeaderNavigationMenu = () => {
   const theme = useTheme()
-  const {setPage, pages} = useSetPage()
+  const {setPage, pages} = usePage()
   const [menuAnchor,setMenuAnchor] = useState<null | {[id:string]:EventTarget & Element}>(null)
   const {cartlocalStorageName} = useCart()
   const {likelocalStorageName} = useLike()

@@ -4,7 +4,7 @@ import {FormButton} from "../../shared/components/form-button";
 import {useAuth} from "../../entities/user/hooks/use-auth.ts";
 import {ValidatedFieldEmail} from "../../features/validated-field-email";
 import {ValidatedFieldPassword} from "../../features/validated-field-password";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {AuthFormLayout} from "../../shared/components/auth-form-layout";
 import {useRedirect} from "../../entities/page-controller/hooks/use-redirect.ts";
@@ -14,7 +14,7 @@ import {FormFieldDataType} from "../../shared/components/form-field";
 const LoginForm = () => {
   const {signin} = useAuth()
   const {back} = useRedirect()
-  const {setPage,pages} = useSetPage()
+  const {setPage,pages} = usePage()
   const {setParams} = useParams()
   const [data, setData] = useState<{email?:FormFieldDataType,password?:FormFieldDataType}>({})
   

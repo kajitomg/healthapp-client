@@ -1,5 +1,5 @@
 import {useCallback} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {CardProps} from "@mui/material";
 import {StyledCard} from "../../shared/components/styled-card";
@@ -13,7 +13,7 @@ type CategoryCardProps = {
 const CategoryCard = (props:CategoryCardProps) => {
   const {catalogId, ...defProps} = props
   
-  const {setPage,pages} = useSetPage()
+  const {setPage,pages} = usePage()
   const {setParams} = useParams()
   
   const callbacks = {

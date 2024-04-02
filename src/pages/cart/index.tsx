@@ -7,11 +7,11 @@ import {CartProducts} from "../../widgets/cart-products";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import mainImageSM from "../../imgaes/main_SM.jpg";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 
 
 const Cart = () => {
-  const {page} = useSetPage()
+  const {page} = usePage()
   
   const cartProps = useCart()
   const likeProps = useLike()

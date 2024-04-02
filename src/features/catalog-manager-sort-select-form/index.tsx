@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import {Option, SelectForm} from "../../shared/components/select";
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {ParamsType, SortDirections} from "../../shared/models";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
@@ -16,7 +16,7 @@ interface SortOption extends Option {
  
 
 const CatalogManagerSortSelectForm = () => {
-  const {page} = useSetPage()
+  const {page} = usePage()
   const {params,setParams, deleteParams} = useParams({page})
 
   const options = {

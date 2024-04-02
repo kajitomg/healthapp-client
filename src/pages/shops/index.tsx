@@ -1,7 +1,7 @@
 import mainImage from "../../imgaes/main.jpg";
 import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {ShopsList} from "../../widgets/shops-list";
 import {FullheightContentLayout} from "../../shared/components/fullheight-content-layout";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
@@ -10,7 +10,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Shops = () => {
-  const {page} = useSetPage()
+  const {page} = usePage()
   const theme = useTheme()
   const isMediaQueryMd = useMediaQuery(theme.breakpoints.down('md'))
   

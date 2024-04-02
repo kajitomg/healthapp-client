@@ -1,6 +1,6 @@
 import {Popper, PopperProps, Typography} from "@mui/material";
 import {memo, useCallback} from "react";
-import {useSetPage} from "../../entities/page-controller/hooks/use-set-page.ts";
+import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import Box from "@mui/material/Box";
@@ -20,7 +20,7 @@ type CatalogSearchPopperProps = {
 
 const CatalogSearchPopper = memo((props:CatalogSearchPopperProps) => {
   const {anchorEl = null, onClose, ...defProps} = props
-  const {pages, page,setPage} = useSetPage()
+  const {pages, page,setPage} = usePage()
   const {setParams} = useParams({page})
   const search = useTypedSelector(state => state.search)
   
