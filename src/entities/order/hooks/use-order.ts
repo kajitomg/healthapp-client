@@ -5,16 +5,22 @@ import {IOrder} from "../model/order-model.ts";
 import {useLazyLoadOrdersQuery} from "../store/orders/api.ts";
 import {useLazyLoadProductsQuery} from "../../product/store/products/api.ts";
 import {IProduct} from "../../product/model/product-model.ts";
+import {useActions} from "../../../shared/services/redux/hooks/use-actions.ts";
 
 export const useOrder = () => {
   
   const [loadOrders,orders] = useLazyLoadOrdersQuery()
   const [loadProducts,products] = useLazyLoadProductsQuery()
+  const {order:orderActions} = useActions()
   
   const [memoProducts,setMemoProducts] = useState(products.currentData)
   const [memoOrders,setMemoOrders] = useState(orders.currentData)
   
   const callbacks = {
+    
+    clearOrderState:useCallback(() => {
+      orderActions.clearState()
+    },[orderActions]),
     
     loadOrders:useCallback(async (sessionId:number,params?:ParamsType):Promise<baseEntitiesState & {list:IOrder[]} | undefined> => {
       if(sessionId) {

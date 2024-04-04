@@ -5,7 +5,6 @@ const updateHistory = (url:string,replace?:boolean) => {
   if (replace) {
     replaceHistory({}, '', url);
   } else {
-    console.log('da')
     pushHistory({}, '', url);
   }
 }

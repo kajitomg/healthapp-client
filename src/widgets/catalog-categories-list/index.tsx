@@ -25,7 +25,7 @@ const CatalogCategoriesList = memo((props:CatalogCategoriesListProps) => {
   }
   
   return (
-    <Box display={'flex'} width={'100%'} justifyContent={'flex-start'} flexDirection={isMediaQuerySm ?'column' :'row'}>
+    <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} flexDirection={isMediaQuerySm ?'column' :'row'}>
       <List list={props.list} renderItem={renders.item}/>
     </Box>
   );

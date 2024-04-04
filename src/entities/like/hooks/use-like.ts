@@ -1,7 +1,7 @@
 import {useActions} from "../../../shared/services/redux/hooks/use-actions.ts";
 import {useTypedSelector} from "../../../shared/services/redux/hooks/use-typed-selector.ts";
 import {useLazyLoadProductsQuery} from "../../product/store/products/api.ts";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback} from "react";
 import {IProduct} from "../../product/model/product-model.ts";
 import {
   useAddProductsToLikeMutation,
@@ -25,8 +25,6 @@ export const useLike = () => {
   
   const [loadLike] = useLazyLoadLikeQuery()
   const [loadProducts,products] = useLazyLoadProductsQuery()
-  
-  const [memoProducts,setMemoProducts] = useState(products.currentData)
 
   const callbacks = {
     
@@ -64,15 +62,20 @@ export const useLike = () => {
       const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
       
       try {
+        likeActions.replaceProductsState({error:null,waiting:true})
+        
         const products = await loadProducts({
           params:{
             data:JSON.stringify({id:storage.map((item:IProduct) => item.id)}),
             'include[image]':'',
             ...params
           }
-        })
-        return products.data
+        }).unwrap()
+        
+        likeActions.replaceProductsState({error:null,waiting:false,products:products.list,count:products.count})
+        return products
       }catch (e) {
+        likeActions.replaceProductsState({error:null,waiting:false})
         return
       }
     },[loadProducts]),
@@ -80,6 +83,7 @@ export const useLike = () => {
     syncLikeProducts:useCallback( async (likeId?:number) => {
       const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
       
+      likeActions.replaceProductsState({error:null,waiting:true,products:storage})
       if(likeId){
         const products = storage
         
@@ -94,18 +98,22 @@ export const useLike = () => {
         
         localStorage.setItem(localStorageName,JSON.stringify(productsData?.list))
       }
+      likeActions.replaceProductsState({waiting:false})
     },[addProducts, loadProducts]),
     
     addProductToLike:useCallback(  (product:IProduct) => {
       const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
       
-      localStorage.setItem(localStorageName,JSON.stringify(addProductsToLike([product],storage)))
+      const products = addProductsToLike([product],storage)
+      
+      likeActions.replaceProductsState({products,waiting:false})
+      
+      localStorage.setItem(localStorageName,JSON.stringify(products))
       
       if(like.item?.id){
         addProducts({id:like.item?.id,products:[product]})
-      } else {
-        likeActions.replaceState()
       }
+      
       callbacks.loadLikeProducts()
     },[addProducts,likeActions,loadProducts,like]),
     
@@ -113,23 +121,19 @@ export const useLike = () => {
       
       const storage = JSON.parse(localStorage.getItem(localStorageName) || '[]')
       
-      localStorage.setItem(localStorageName,JSON.stringify(deleteProductsFromLike([product],storage)))
+      const products = deleteProductsFromLike([product],storage)
+      
+      likeActions.replaceProductsState({products,waiting:false})
+      
+      localStorage.setItem(localStorageName,JSON.stringify(products))
       if(like.item?.id){
         deleteProducts({id:like.item?.id,products:[product]})
-      } else {
-        likeActions.replaceState()
       }
+      
       callbacks.loadLikeProducts()
     },[deleteProducts,likeActions,loadProducts,like]),
   }
   
-
-  useEffect(() => {
-    if(products.currentData && !products.isLoading){
-      setMemoProducts(products.currentData)
-    }
-  },[products])
   
-  
-  return {like,likeProducts:memoProducts,likelocalStorageName:localStorageName,isLikeProductsLoading:products?.isLoading,...callbacks}
+  return {likeLocalStorageName:localStorageName,...callbacks}
 }

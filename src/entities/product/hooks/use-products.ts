@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback} from "react";
 import {baseEntitiesState} from "../../../shared/utils/reducer-handlers.ts";
 import {ParamsType} from "../../../shared/models";
 import {useLazyLoadProductsPriceRangeQuery, useLazyLoadProductsQuery} from "../store/products/api.ts";
@@ -12,10 +12,8 @@ interface HookOptions {
 
 export const useProducts = () => {
   
-  const [loadProducts,products] = useLazyLoadProductsQuery()
-  const [loadRange,range] = useLazyLoadProductsPriceRangeQuery()
-  
-  const [memoProducts,setMemoProducts] = useState(products.currentData)
+  const [loadProducts] = useLazyLoadProductsQuery()
+  const [loadRange] = useLazyLoadProductsPriceRangeQuery()
  
   const callbacks = {
     
@@ -52,11 +50,5 @@ export const useProducts = () => {
     
   }
   
-  useEffect(() => {
-    if(products.currentData && !products.isLoading){
-      setMemoProducts(products.currentData)
-    }
-  },[products])
-  
-  return {products:memoProducts,productsIsLoading:products.isLoading,productsPriceRange:range.currentData,...callbacks}
+  return {...callbacks}
 }

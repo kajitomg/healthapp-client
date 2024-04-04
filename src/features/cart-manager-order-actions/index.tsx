@@ -4,7 +4,6 @@ import {useActions} from "../../shared/services/redux/hooks/use-actions.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectIsPopSnapOpen} from "../../entities/pop-snap/store/pop-snap/reducer.ts";
 import {getTotalPrice} from "../../shared/utils/get-total-price.ts";
-import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useCreateOrderMutation} from "../../entities/order/store/orders/api.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLazyLoadProductsQuery} from "../../entities/product/store/products/api.ts";
@@ -13,20 +12,18 @@ import {FormFieldDataType} from "../../shared/components/form-field";
 
 const OrderCreateDialog = lazy(() => import("../order-create-dialog"))
 
-interface CartManagerOrderActionsProps {
 
-  products?:IProduct[],
-  
-  cartProps?:ReturnType<typeof useCart>,
-}
-
-const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
+const CartManagerOrderActions = memo(() => {
   const [createOrderId] = useState('create-order-dialog')
   const {popSnap} = useActions()
   const isOpenCreateOrder = useTypedSelector(state => selectIsPopSnapOpen(state,createOrderId))
   const session = useTypedSelector(state => state.session)
+  const cart = useTypedSelector(state => state.cart)
+  
   const [loadProducts] = useLazyLoadProductsQuery()
   const [createOrder] = useCreateOrderMutation()
+  const {deleteProductFromCart} = useCart()
+  
   
   const callbacks = {
     
@@ -34,23 +31,23 @@ const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
       popSnap.open({
         id: createOrderId,
         data: {
-          ...(props.products?.length && {count: props.products?.length}),
-          total: getTotalPrice(props.products)
+          ...(cart.products.list?.length && {count: cart.products.list?.length}),
+          total: getTotalPrice(cart.products.list)
         }
       })
-    },[popSnap,props.products]),
+    },[popSnap,cart.products.list]),
     
     onCloseCreateOrder:useCallback(() => {
       popSnap.close({id:createOrderId})
     },[popSnap]),
     
     onAcceptCreateOrder:useCallback(async (data:{ email?: FormFieldDataType, phonenumber?: FormFieldDataType, comment?: FormFieldDataType}) => {
-      if(session.user.id && props.products){
+      if(session.user.id && cart.products.list){
         const products = await loadProducts({
           params:{
-            data:JSON.stringify({id:props.products?.map(item => item.id)}),
-            ...(props.cartProps?.cart.item?.id && {'include[cart-product]':''}),
-            ...(props.cartProps?.cart.item?.id && {'where[cart-product][cartId]':props.cartProps?.cart.item.id}),
+            data:JSON.stringify({id:cart.products.list?.map(item => item.id)}),
+            ...(cart.item?.id && {'include[cart-product]':''}),
+            ...(cart.item?.id && {'where[cart-product][cartId]':cart.item?.id}),
           }
         }).unwrap()
         if(products?.list){
@@ -60,14 +57,14 @@ const CartManagerOrderActions = memo((props:CartManagerOrderActionsProps) => {
           }
           const order = await createOrder({body:{...reformedData,products:products.list,customerId:session.user.id}}).unwrap()
           if(order?.item){
-            await props.cartProps?.deleteProductFromCart(products.list)
+            await deleteProductFromCart(products.list)
             await callbacks.onCloseCreateOrder()
           }
         }
       }else {
         console.log('Не авторизован')
       }
-    },[props.products,session.user.id,createOrder,props?.cartProps?.deleteProductFromCart,props?.cartProps?.cart])
+    },[cart.products.list,session.user.id,createOrder,deleteProductFromCart,cart.item])
     
   }
   if(session.exists){

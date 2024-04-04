@@ -1,4 +1,4 @@
-import { default as ordersReducers} from './orders/reducer.ts'
+import {default as ordersReducers, ordersActionsList} from './orders/reducer.ts'
 
 
 
@@ -6,4 +6,8 @@ const orderState = {
   orders:ordersReducers,
 }
 
-export {orderState}
+const orderActions = {
+  order:ordersActionsList,
+}
+
+export {orderState,orderActions}

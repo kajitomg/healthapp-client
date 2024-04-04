@@ -22,7 +22,7 @@ interface ProfileButtonListProps {
 const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
   const session = useTypedSelector(state => state.session)
   const {signout} = useAuth()
-  const {setPage,pages,page} = usePage()
+  const {setPage,page} = usePage()
   const {setParams} = useParams()
   
   
@@ -30,7 +30,6 @@ const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
     
     onAccountClick: useCallback(() => {
       setPage('profile')
-      setParams({},pages?.list?.find(page => page.id === 'profile'))
     },[setParams,page]),
     
     signOut: useCallback(() => {
@@ -39,7 +38,6 @@ const HeaderNavigationMenuTabsProfile = (props:ProfileButtonListProps) => {
     
     signIn: useCallback(() => {
       setPage('login')
-      setParams({},pages?.list?.find(page => page.id === 'login'))
     },[setParams,page]),
     
   }

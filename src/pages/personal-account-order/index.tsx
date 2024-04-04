@@ -6,6 +6,7 @@ import {Loader} from "../../shared/components/loader";
 
 const PersonalAccountOrder = () => {
   const session = useTypedSelector(state => state.session)
+  const orders = useTypedSelector(state => state.orders)
   const orderProps = useOrder()
   
   useEffect(() => {
@@ -16,7 +17,7 @@ const PersonalAccountOrder = () => {
 
   if(!orderProps.ordersIsLoading && !session.waiting && orderProps.orders?.list !== undefined || !orderProps.ordersIsLoading && !session.waiting && !session.exists) {
     return (
-      <OrderList list={orderProps.orders?.list} orderProps={orderProps}/>
+      <OrderList list={orders?.list} orderProps={orderProps}/>
     );
   }
   return <Loader/>

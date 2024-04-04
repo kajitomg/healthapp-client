@@ -1,10 +1,7 @@
 import Box from "@mui/material/Box";
 import {MainContentLayout} from "../../shared/components/main-content-layout";
 import mainImage from "../../imgaes/main.jpg";
-import {useEffect} from "react";
-import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {CartProducts} from "../../widgets/cart-products";
-import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {PageImageLayout} from "../../shared/components/page-image-layout";
 import mainImageSM from "../../imgaes/main_SM.jpg";
 import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
@@ -12,15 +9,6 @@ import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 
 const Cart = () => {
   const {page} = usePage()
-  
-  const cartProps = useCart()
-  const likeProps = useLike()
-  
-  const storage = localStorage.getItem(cartProps.cartlocalStorageName)
-  
-  useEffect(() => {
-    cartProps.loadCartProducts()
-  },[cartProps.loadCartProducts,storage])
   
   return (
     <Box display={'flex'} flexDirection={'column'}>
@@ -31,7 +19,7 @@ const Cart = () => {
         title={page?.name}
       />
       <MainContentLayout sx={{pt:2}}>
-        <CartProducts products={cartProps.cartProducts?.list} cartProps={cartProps} likeProps={likeProps}/>
+        <CartProducts/>
       </MainContentLayout>
     </Box>
   );

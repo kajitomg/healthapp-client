@@ -10,7 +10,7 @@ interface CatalogCategoriesCardProps {
 }
 
 const StyledCard = styled(CategoryCard)(() => ({
-  width: 'calc(100%)',
+  width:'100%'
 }))
 
 const CatalogCategoriesCardSimple = (props:CatalogCategoriesCardProps) => {

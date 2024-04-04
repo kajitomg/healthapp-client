@@ -5,24 +5,21 @@ import {useCallback, useEffect, useState} from "react";
 import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {ParamsType} from "../../shared/models";
 import {CatalogManagerFilterButton} from "../catalog-manager-filter-button";
-import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
-import {useLazyLoadPricesRangeQuery} from "../../entities/catalog/store/catalog/api.ts";
+import {useCatalog} from "../../entities/catalog/hooks/use-catalog.ts";
 import {useParams as useReactParams} from "react-router-dom";
-
-
-
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
 
 const CatalogManagerFilterPrice = () => {
   const {id} = useReactParams()
   const catalog = useTypedSelector(state => state.catalog)
-  const [loadRange] = useLazyLoadPricesRangeQuery()
-  const [prices, setPrices] = useState<{ min:number,max:number }>({min:0,max:0})
   const {page} = usePage()
   const {setParams,params} = useParams({page})
   const [value, setValue] = useState<number[]>((params?.filter as ParamsType)?.price as number[] || [0,0]);
-
+  
+  const {loadCatalogProductsRange} = useCatalog()
+  
   const callbacks = {
     onChange:useCallback((newValue: number | number[]) => {
       setValue(newValue as number[]);
@@ -32,23 +29,19 @@ const CatalogManagerFilterPrice = () => {
       setParams({filter:{price:value}})
     },[value,setParams]),
     
+    loadProductsRange:useCallback(() => {
+      loadCatalogProductsRange({
+        query:{categoryId:id},
+        params:params,
+        options:{isLoadWithCategory:Boolean(page?.id)}
+      })
+    },[id,params])
+    
   }
   
   useEffect(() => {
-    loadRange({
-      params: {
-        'include[category]': '',
-        ...(params?.filter && {filter: JSON.stringify(params?.filter)}),
-        ...(page?.id === 'catalog' && id && {'where[category][id]': id}),
-      },
-    })
-  },[page?.id,params?.filter,id])
-  
-  useEffect(() => {
-    if(catalog.pricesRange){
-      setPrices(catalog.pricesRange)
-    }
-  },[catalog.pricesRange])
+    callbacks.loadProductsRange()
+  },[page?.id,catalog.products.list, callbacks.loadProductsRange])
   
   useEffect(() => {
     
@@ -58,8 +51,8 @@ const CatalogManagerFilterPrice = () => {
 
   return (
     <Box width={'100%'} display={'flex'} flexDirection={'column'}>
-      <CatalogManagerFilterPriceSelect value={value} onChange={callbacks.onChange} minPlaceholder={prices.min} maxPlaceholder={prices.max}/>
-      <CatalogManagerFilterPriceSlider value={value} max={prices.max} onChange={callbacks.onChange}/>
+      <CatalogManagerFilterPriceSelect value={value} onChange={callbacks.onChange} minPlaceholder={catalog.products.pricesRange?.min} maxPlaceholder={catalog.products.pricesRange?.max}/>
+      <CatalogManagerFilterPriceSlider value={value} max={catalog.products.pricesRange?.max} onChange={callbacks.onChange}/>
       <CatalogManagerFilterButton onClick={callbacks.onApply} buttonText={'Применить'}/>
     </Box>
   );

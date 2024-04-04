@@ -28,7 +28,7 @@ const CatalogPopoverTab = (props:CatalogPopoverTabProps) => {
   
   useEffect(() => {
     loadCategory({
-      data: {
+      query: {
         id: props.tab?.id
       },
       params: {

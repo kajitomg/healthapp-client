@@ -17,54 +17,79 @@ export interface PricesRange {
 }
 
 interface CatalogState {
-  category:baseEntitiesState & {item:ICategory} | null,
-  products:baseEntitiesState & {list:IProduct[]} | null,
-  pricesRange:PricesRange | null,
+  category:{item?:ICategory}  & {
+    error:null | FetchBaseQueryError,
+    waiting:boolean
+  },
+  products:baseEntitiesState & {list?:IProduct[]} & {
+    error:null | FetchBaseQueryError,
+    waiting:boolean,
+    pricesRange:PricesRange | null,
+  },
   error:null | FetchBaseQueryError,
   waiting:boolean
 }
 
 const initialState: CatalogState = {
-  category:null,
-  products:null,
-  pricesRange:null,
+  category:{
+    error:null,
+    waiting:false
+  },
+  products:{
+    error:null,
+    waiting:false,
+    pricesRange:{min:0,max:0}
+  },
   error:null,
-  waiting:true
+  waiting:false
 }
 
 const catalogSlice = createSlice({
   name:'catalog',
   initialState,
-  reducers:{},
+  reducers:{
+    
+    replaceCategoryState: (state, action:PayloadAction<{category?:ICategory ,error?:null | FetchBaseQueryError,waiting?:boolean,clear?:boolean}>) => {
+      const {category,error,waiting, clear} = action.payload
+      
+      if(category !== undefined) state.category.item = category
+      if(error !== undefined) state.category.error = error
+      if(waiting !== undefined) {
+        state.category.waiting = waiting
+        state.waiting = waiting
+      }
+      if(clear) state.products = {
+        error:state.products.error,
+        waiting:state.products.waiting,
+        pricesRange:state.products.pricesRange
+      }
+    },
+    
+    replaceProductsState: (state, action:PayloadAction<baseEntitiesState & {products?:IProduct[],error?:null | FetchBaseQueryError,waiting?:boolean,pricesRange?:PricesRange,clear?:boolean}>) => {
+      const {products,error,waiting, count, pricesRange, clear} = action.payload
+      
+      if(products !== undefined) state.products.list = products
+      if(error !== undefined) state.products.error = error
+      if(waiting !== undefined) {
+        state.products.waiting = waiting
+        state.waiting = waiting
+      }
+      if(count !== undefined) state.products.count = count
+      if(pricesRange !== undefined) state.products.pricesRange = pricesRange
+      
+      if(clear) state.category = {
+        waiting:state.category.waiting,
+        error:state.category.error
+      }
+    }
+    
+  },
   extraReducers: (builder) => {
     builder
-      .addMatcher(catalogAPI.endpoints.loadCatalogCategory.matchFulfilled, (state, action: PayloadAction<baseEntitiesState & {item:ICategory}>) => {
-        handleFulfilled(state)
-        state.category = action.payload
-      })
-      .addMatcher(catalogAPI.endpoints.loadCatalogCategory.matchPending, (state) => {
-        handlePending(state)
-      })
-      .addMatcher(catalogAPI.endpoints.loadCatalogCategory.matchRejected, (state, action) => {
-        handleRejected(state,action)
-      })
-      
-      
-      .addMatcher(catalogAPI.endpoints.loadCatalogProducts.matchFulfilled, (state, action: PayloadAction<baseEntitiesState & {list:IProduct[]}>) => {
-        handleFulfilled(state)
-        state.products = action.payload
-      })
-      .addMatcher(catalogAPI.endpoints.loadCatalogProducts.matchPending, (state) => {
-        handlePending(state)
-      })
-      .addMatcher(catalogAPI.endpoints.loadCatalogProducts.matchRejected, (state, action) => {
-        handleRejected(state,action)
-      })
-      
       
       .addMatcher(catalogAPI.endpoints.loadPricesRange.matchFulfilled, (state, action: PayloadAction<{item:PricesRange}>) => {
         handleFulfilled(state)
-        state.pricesRange = action.payload.item
+        state.products.pricesRange = action.payload.item
       })
       .addMatcher(catalogAPI.endpoints.loadPricesRange.matchPending, (state) => {
         handlePending(state)
@@ -76,3 +101,5 @@ const catalogSlice = createSlice({
 })
 
 export default catalogSlice.reducer;
+
+export const catalogActionsList = catalogSlice.actions

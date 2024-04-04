@@ -10,27 +10,27 @@ import {LikeNoProducts} from "../../features/like-no-products";
 interface LikeListProps {
   
   list?:IProduct[],
-  
-  likeProps?:ReturnType<typeof useLike>,
 
 }
 
 const LikeList =  memo((props:LikeListProps) => {
   const cartProps = useCart()
+  const likeProps = useLike()
   
   const renders = {
     item:useCallback((item:IProduct) => (
-      <LikeProductCard item={item} key={item?.id} likeProps={props.likeProps} cartProps={cartProps}/>
-    ),[props.likeProps,cartProps])
+      <LikeProductCard item={item} key={item?.id} likeProps={likeProps} cartProps={cartProps}/>
+    ),[likeProps,cartProps])
   }
-  
-  if(props.list?.length !== 0){
+
+  if(props.list?.length){
     return (
       <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} sx={{containerType: "inline-size"}}>
         <List list={props.list} renderItem={renders.item}/>
       </Box>
     );
   }
+  
   return <LikeNoProducts available={true}/>
   
 });

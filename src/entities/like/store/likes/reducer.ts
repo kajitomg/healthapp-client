@@ -14,6 +14,10 @@ import {ILike} from "../../model/like-model.ts";
 
 export interface LikesState {
   item:Partial<ILike> | null
+  products:baseEntitiesState & {list?:IProduct[]} & {
+    error:null | FetchBaseQueryError,
+    waiting:boolean
+  },
   count:number,
   error:null | FetchBaseQueryError,
   waiting:boolean
@@ -22,6 +26,10 @@ export interface LikesState {
 
 const initialState: LikesState = {
   item:null,
+  products:{
+    error:null,
+    waiting:false
+  },
   error:null,
   count:0,
   waiting:true
@@ -32,18 +40,25 @@ export const likesSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.item = null
-      state.error = null
-      state.count = 0
-      state.waiting = true
-    },
-    
-    replaceState: (state) => {
-      state.item = {
-        products:JSON.parse(localStorage.getItem('likeItems') || JSON.stringify([]))
+      state.products = {
+        error:null,
+        waiting:false
       }
       state.error = null
       state.count = 0
-      state.waiting = true
+      state.waiting = false
+    },
+    
+    replaceProductsState: (state, action:PayloadAction<baseEntitiesState & {products?:IProduct[],error?:null | FetchBaseQueryError,waiting?:boolean}>) => {
+      const {products,error,waiting, count} = action.payload
+      
+      if(products !== undefined) state.products.list = products
+      if(error !== undefined) state.products.error = error
+      if(waiting !== undefined) {
+        state.products.waiting = waiting
+        state.waiting = waiting
+      }
+      if(count !== undefined) state.products.count = count
     }
   },
   extraReducers: (builder) => {

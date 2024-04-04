@@ -5,13 +5,13 @@ import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useTypedSelector} from "../../shared/services/redux/hooks/use-typed-selector.ts";
 import {selectNavIndex} from "../../entities/page-controller/store/page-controller/reducer.ts";
 import {SyntheticEvent, useCallback, useMemo, useState} from "react";
-import {useCart} from "../../entities/cart/hooks/use-cart.ts";
-import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {BadgeIcon} from "../../shared/components/badge-icon";
 import styled from "@mui/material/styles/styled";
 import {useTabs} from "../../entities/tabs-controller/hooks/use-tabs.ts";
 import {HeaderNavigationMenuTabsProfile} from "../header-navigation-menu-tabs-profile";
 import {TabPanel} from "../../entities/tabs-controller/components/tab-panel";
+import {useCatalog} from "../../entities/catalog/hooks/use-catalog.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
 const StyledBottomNavigationMenu = styled(Paper)(({theme}) => ({
   position: 'fixed',
@@ -30,28 +30,40 @@ interface BottomNavigationMenuProps {
 
 const BottomNavigationMenu = (props:BottomNavigationMenuProps) => {
   const {setPage, pages} = usePage()
-  const {cartlocalStorageName} = useCart()
-  const {likelocalStorageName} = useLike()
-  const cartStorage = JSON.parse(localStorage.getItem(cartlocalStorageName) || '[]')
-  const likeStorage = JSON.parse(localStorage.getItem(likelocalStorageName) || '[]')
   const [menuAnchor,setMenuAnchor] = useState<null | {[id:string]:EventTarget & Element}>(null)
   
-
+  const likeState = useTypedSelector(state => state.like)
+  const cartState = useTypedSelector(state => state.cart)
+  
+  const {loadCatalogProducts} = useCatalog()
+  const {params} = useParams({page:pages.list.find(page => page.id === 'catalogItems')})
+  
   const badgeData = useMemo<{[name:string]:number}>(() => ({
-    cart:cartStorage.length,
-    like:likeStorage.length
-  }),[cartStorage,likeStorage])
+    cart:cartState.products.list?.length || 0,
+    like:likeState.products.list?.length || 0
+  }),[cartState.products.list,likeState.products.list])
   
   const pageNumber = useTypedSelector(state => selectNavIndex(state))
   
   const callbacks = {
+    
+    setProducts:useCallback(() => {
+      loadCatalogProducts({
+        params:params,
+        query:{paginationPageId:1}
+      })
+    },[loadCatalogProducts,params]),
+    
     onChange:useCallback((event: SyntheticEvent) => {
       event.preventDefault()
       if(event.currentTarget.role === 'menu'){
         return callbacks.onMenuClick(event)
       }
+      if(event.currentTarget.id === 'catalogItems'){
+        callbacks.setProducts()
+      }
       setPage(event.currentTarget.id)
-    },[]),
+    },[loadCatalogProducts,params]),
     
     
     onMenuClick:useCallback((event: SyntheticEvent) => {

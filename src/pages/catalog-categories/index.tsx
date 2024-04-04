@@ -9,7 +9,7 @@ const CatalogCategories = () => {
   
   return (
     <Box display={'flex'} width={'100%'} justifyContent={'flex-start'}>
-      <CatalogCategoriesList list={catalog.category?.item.childrens}/>
+      <CatalogCategoriesList list={catalog.category?.item?.childrens}/>
     </Box>
   );
 };

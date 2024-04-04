@@ -12,15 +12,15 @@ interface CatalogCategoriesCardProps {
 }
 
 const StyledCard = styled(CategoryCard)(({theme}) => ({
-  width: 'calc(25% - 16px)',
+  flex: '0 1 calc(25% - 16px)',
   [theme.breakpoints.down('lg')]:{
-    width: 'calc(33.333% - 16px)'
+    flex: '0 1 calc(33.333% - 16px)',
   },
   [theme.breakpoints.down('md')]:{
-    width: 'calc(50% - 16px)'
+    flex: '0 1 calc(50% - 16px)',
   },
   [theme.breakpoints.down('sm')]:{
-    width: 'calc(100% - 16px)'
+    flex: '0 1 calc(100% - 16px)',
   },
 }))
 

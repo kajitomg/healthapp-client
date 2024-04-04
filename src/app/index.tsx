@@ -12,7 +12,7 @@ import {SubRoutes} from "../entities/page-controller/components/sub-routes";
 import {Header} from "../widgets/header";
 import {Footer} from "../widgets/footer";
 import {BottomNavigationMenu} from "../features/bottom-navigation-menu";
-import {useEffect} from "react";
+import {useLayoutEffect} from "react";
 import {useAuth} from "../entities/user/hooks/use-auth.ts";
 import {useScrollToTop} from "../shared/hooks/use-scroll-to-top.ts";
 import {useLocation} from "react-router-dom";
@@ -30,7 +30,7 @@ const App = () => {
   const page = useTypedSelector(state => selectCurrentPage(state))
   const isOpen = useTypedSelector(state => selectIsPopSnapOpen(state,name))
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     refresh()
   },[])
   

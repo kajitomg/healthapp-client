@@ -12,16 +12,15 @@ interface CartListProps {
   
   cartProps?:ReturnType<typeof useCart>,
   
-  likeProps?:ReturnType<typeof useLike>,
-  
 }
 
 const CartList = memo((props:CartListProps) => {
+  const likeProps = useLike()
   
   const renders = {
     item:useCallback((item:IProduct) => (
-      <CartProductCard item={item} key={item?.id} likeProps={props.likeProps} cartProps={props.cartProps}/>
-    ),[props.likeProps,props.cartProps])
+      <CartProductCard item={item} key={item?.id} likeProps={likeProps} cartProps={props.cartProps}/>
+    ),[likeProps,props.cartProps])
   }
   
   return (

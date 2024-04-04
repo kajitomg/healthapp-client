@@ -27,7 +27,14 @@ const initialState:OrdersState = {
 const ordersSlice = createSlice({
   name:'order',
   initialState,
-  reducers:{},
+  reducers: {
+    clearState: (state) => {
+      state.list = []
+      state.error = null
+      state.count = 0
+      state.waiting = true
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addMatcher(orderAPI.endpoints.loadOrders.matchFulfilled, (state, action: PayloadAction<baseEntitiesState & {list:IOrder[]}>) => {
@@ -46,4 +53,6 @@ const ordersSlice = createSlice({
 
 
 export default ordersSlice.reducer;
+
+export const ordersActionsList = ordersSlice.actions
 

@@ -18,11 +18,11 @@ export const useCategory = () => {
   
   const callbacks = {
     
-    loadCategory:useCallback(async ({data,params,options}:{data:{id?:string | number},params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {item:ICategory} | undefined> => {
-      if(data.id){
+    loadCategory:useCallback(async ({query,params,options}:{query:{id?:string | number},params?:ParamsType,options?:HookOptions}):Promise<baseEntitiesState & {item:ICategory} | undefined> => {
+      if(query.id){
         try {
           return await loadCategory({
-            id:data.id,
+            id:query.id,
             params: {
               ...(options?.includeDefaultParams && {
                 'include[level]':'',

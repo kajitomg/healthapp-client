@@ -5,11 +5,12 @@ import {CatalogPopoverTabs} from "../catalog-popover-tabs";
 import {memo, useCallback, useState} from "react";
 import {ICategory} from "../../entities/product/model/category-model.ts";
 import {useLoadCategoriesQuery} from "../../entities/product/store/categories/api.ts";
-import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {CatalogPopoverSubTabs} from "../catalog-popover-subtabs";
 import useTheme from "@mui/material/styles/useTheme";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import {useCatalog} from "../../entities/catalog/hooks/use-catalog.ts";
+import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
 
 interface CatalogPopoverProps {
   
@@ -22,20 +23,38 @@ interface CatalogPopoverProps {
 }
 
 const CatalogPopover = memo(({anchorEl = null,onClose}:CatalogPopoverProps) => {
-  const {pages, page,setPage} = usePage()
-  const {setParams} = useParams({page})
+  const {setPage,pages} = usePage()
   const {data:categories} = useLoadCategoriesQuery({levelId:1})
   const [subTab,setSubTab] = useState<ICategory>()
   const theme = useTheme()
   const isMediaQuerySm = useMediaQuery(theme.breakpoints.up('sm'))
   
+  const {params} = useParams({page:pages.list.find(page => page.id === 'catalog')})
+  
+  const {loadCatalogCategory,loadCatalogProducts} = useCatalog()
+  
   const callbacks = {
+    
+    setCatalog:useCallback((categoryId?:number) => {
+      loadCatalogCategory({
+        query:{categoryId}
+      })
+    },[loadCatalogCategory]),
+    
+    setProducts:useCallback((categoryId:number | string) => {
+      loadCatalogProducts({
+        params:params,
+        query:{categoryId,paginationPageId:1},
+        options:{isLoadWithCategory:Boolean(categoryId)}
+      })
+    },[loadCatalogProducts,params]),
     
     onTabClick:useCallback((id:number) => {
       setPage('catalog' , id.toString())
-      setParams({},pages.list.find(page => page.id === 'catalog'))
+      callbacks.setCatalog(id)
+      callbacks.setProducts(id)
       onClose && onClose()
-    },[setParams,setPage,page]),
+    },[setPage,loadCatalogCategory]),
     
     onTabHover:useCallback((tab:ICategory) => {
       if(!isMediaQuerySm) return

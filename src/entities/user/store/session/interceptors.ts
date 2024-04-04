@@ -8,16 +8,17 @@ import {QueryReturnValue} from "@reduxjs/toolkit/query/baseQueryTypes";
 export const sessionInterceptors = {
   refresh: () => services.interceptor.add(async (result,baseQuery,api,extraOptions) => {
     if (result.error && result.error.status === 401) {
+
+      if(result.meta.request.url === 'http://localhost:5000/api/users/refresh') return
       
-      // try to get a new token
       const response:QueryReturnValue<{accessToken:string}> = await baseQuery(`/api/users/refresh`,api,extraOptions)
       if (response.data) {
-        // store the new token
+        
         localStorage.setItem('token', response.data.accessToken)
-        // retry the initial query
+        
       } else {
-        localStorage.removeItem('token')
         await baseQuery({url:`/api/users/signout`,method:'POST'},api,extraOptions)
+        localStorage.removeItem('token')
         retry.fail(result.error)
       }
     }

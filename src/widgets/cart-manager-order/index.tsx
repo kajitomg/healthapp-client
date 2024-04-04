@@ -34,7 +34,7 @@ const CartManagerOrder = memo((props:CartManagerOrderProps) => {
     }}>
       <ManagerTitle title={'Заказ'}/>
       <CartManagerOrderContent products={props.products}/>
-      <CartManagerOrderActions products={props.products} cartProps={props.cartProps}/>
+      <CartManagerOrderActions/>
     </ManagerStickyLayout>
   );
 });

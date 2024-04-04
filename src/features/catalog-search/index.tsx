@@ -20,6 +20,7 @@ import {useDebounce} from "../../shared/hooks/use-debounce.ts";
 import Box from "@mui/material/Box";
 import {usePage} from "../../entities/page-controller/hooks/use-page.ts";
 import {useParams} from "../../entities/params-controller/hooks/use-params.ts";
+import {useCatalog} from "../../entities/catalog/hooks/use-catalog.ts";
 const CatalogPopover = lazy(() => import("../catalog-popover"))
 const CatalogSearchPopper= lazy(() => import("../catalog-search-popper"))
 
@@ -31,14 +32,23 @@ const CatalogSearch = memo(() => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLFormElement | null>(null);
   const [anchorSearchEl, setAnchorSearchEl] = React.useState<HTMLFormElement | null>(null);
   const ref = useRef<HTMLFormElement>(null)
-  
   const [value, setValue] = useState<string>('')
   const [searchProducts] = useLazySearchProductsQuery()
   const [searchCategories] = useLazySearchCategoriesQuery()
   const {setPage,pages,page} = usePage()
-  const {setParams,params} = useParams({page})
+  
+  const {setParams,params} = useParams({page:pages.list.find(page => page.id === 'catalog')})
+  
+  const {loadCatalogProducts} = useCatalog()
   
   const callbacks = {
+    
+    setProducts:useCallback(() => {
+      loadCatalogProducts({
+        params:params,
+        query:{paginationPageId:1}
+      })
+    },[loadCatalogProducts,params]),
     
     onOpenPopover:useCallback(() => {
       setAnchorEl(ref.current);
@@ -47,7 +57,6 @@ const CatalogSearch = memo(() => {
     onClosePopover:useCallback(() => {
       setAnchorEl(null);
     },[ref]),
-    
     
     onCloseSearchPopover:useCallback(() => {
       setAnchorSearchEl(null)
@@ -83,6 +92,7 @@ const CatalogSearch = memo(() => {
       if(!params?.search && page?.id === 'catalogItems' && !value){
         return
       }
+      callbacks.setProducts()
       setPage('catalogItems')
       setParams({search:{name:value}},pages?.list?.find(page => page.id === 'catalogItems'))
       
