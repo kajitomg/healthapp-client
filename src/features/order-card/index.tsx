@@ -7,10 +7,18 @@ import {IOrder} from "../../entities/order/model/order-model.ts";
 import {OrderCardContent} from "../order-card-content";
 import {ProductCard} from "../product-card";
 import {OrderCardActions} from "../order-card-actions";
+import {useMediaQuery} from "@mui/material";
+import useTheme from "@mui/material/styles/useTheme";
 
 
-const StyledOrderCard = styled(ProductCard)(() => ({
-  width:'100%'
+const StyledOrderCard = styled(ProductCard)(({theme}) => ({
+  width:'100%',
+  '@container (max-width: 562px)': {
+    flexDirection:'column-reverse'
+  },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection:'column-reverse'
+  },
 }))
 
 interface OrderCardProps {
@@ -21,6 +29,8 @@ interface OrderCardProps {
 
 const OrderCard = (props:OrderCardProps) => {
   const {order} = props
+  const theme = useTheme()
+  const isMediaQuerySm = useMediaQuery(theme.breakpoints.down('sm'))
   
   return (
     <StyledOrderCard>
@@ -30,7 +40,7 @@ const OrderCard = (props:OrderCardProps) => {
         <OrderCardContent order={order}/>
       </CardContent>
       <Box>
-        <Divider orientation={'vertical'}/>
+        <Divider orientation={isMediaQuerySm? 'horizontal' :'vertical'}/>
       </Box>
       <CardActions sx={{
         flex:'1 1 200px'

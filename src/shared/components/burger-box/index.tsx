@@ -1,5 +1,4 @@
 import {BoxProps as MuiBoxProps} from "@mui/material/Box/Box";
-import {memo} from "react";
 import {styled} from "@mui/material";
 import MuiBox from "@mui/material/Box";
 
@@ -11,7 +10,7 @@ interface BoxProps extends MuiBoxProps {
   
 }
 
-const BurgerBoxLayout = styled(MuiBox, {
+export const BurgerBox = styled(MuiBox, {
   shouldForwardProp: (prop) => prop !== ('open' && 'drawerWidth'),
 })<BoxProps>(({ theme, open, drawerWidth }) => ({
   width:'auto',
@@ -30,16 +29,4 @@ const BurgerBoxLayout = styled(MuiBox, {
     },
   }),
 }));
-
-type BurgerBoxProps = BoxProps
-
-const BurgerBox = memo((props:BurgerBoxProps) => {
-  return (
-    <BurgerBoxLayout {...props}>
-    
-    </BurgerBoxLayout>
-  );
-});
-
-export {BurgerBox};
 

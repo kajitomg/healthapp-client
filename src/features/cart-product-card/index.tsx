@@ -11,7 +11,6 @@ import {ProductCard} from "../product-card";
 
 
 const StyledCartProductCard = styled(ProductCard)(({theme}) => ({
-  width:'100%',
   '@container (max-width: 508px)': {
     flexDirection:'column'
   },

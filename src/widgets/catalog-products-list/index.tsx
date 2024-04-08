@@ -1,11 +1,11 @@
 import {memo, useCallback} from 'react';
 import {List} from "../../shared/components/list";
-import Box from "@mui/material/Box";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {CatalogProductsCard} from "../../features/catalog-products-card";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {CatalogNoProducts} from "../../features/catalog-no-products";
+import {StyledList} from "../../shared/components/styled-list";
 
 interface CatalogProductsListProps {
   
@@ -26,9 +26,9 @@ const CatalogProductsList = memo((props:CatalogProductsListProps) => {
   
   if(props.list?.length){
     return (
-      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} sx={{containerType: "inline-size"}}>
+      <StyledList minItemWidth={'270px'} m={1}>
         <List list={props.list} renderItem={renders.item}/>
-      </Box>
+      </StyledList>
     );
   }
   return <CatalogNoProducts available={true}/>

@@ -1,4 +1,4 @@
-import {ReactElement, ReactNode} from "react";
+import {ReactElement} from "react";
 import {ParamsType} from "../../shared/models";
 
 export type RoutesType = {
@@ -6,7 +6,7 @@ export type RoutesType = {
   path:string | string[],
   name:string,
   redirect:string,
-  element:ReactNode,
+  element:ReactElement,
   children:RoutesType[],
   icon?:ReactElement,
   auth?:boolean,

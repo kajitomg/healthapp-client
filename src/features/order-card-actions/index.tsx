@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import {IOrder} from "../../entities/order/model/order-model.ts";
 import {SecondPrice} from "../second-price";
 import {getOrderTotalPrice} from "../../shared/utils/get-order-total-price.ts";
+import useTheme from "@mui/material/styles/useTheme";
 
 interface OrderCardActionsProps {
   
@@ -14,6 +15,7 @@ interface OrderCardActionsProps {
 }
 
 const OrderCardActions = (props:OrderCardActionsProps) => {
+  const theme = useTheme()
   
   return (
     <Box sx={{
@@ -21,7 +23,18 @@ const OrderCardActions = (props:OrderCardActionsProps) => {
       display:'flex',
       flexDirection:'column',
       alignItems:'flex-start',
-      justifyContent:'space-between'
+      justifyContent:'space-between',
+      '@container (max-width: 562px)': {
+        height:'auto',
+        width:'100%',
+        alignItems:'space-between',
+      },
+      [theme.breakpoints.down('sm')]: {
+        height:'auto',
+        width:'100%',
+        flexDirection:'row',
+        alignItems:'space-between',
+      },
     }}>
       <Box display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
         <Typography fontSize={'x-small'} fontWeight={'bold'}>Статус:</Typography>

@@ -12,14 +12,14 @@ const SubRoutes = memo((props:SubRoutesProps) => {
 
   return (
     <Routes>
-      {nestedListInList(props.routes).map(route =>
-        Array.isArray(route.path)
-          ? route.path.map((path) =>
-            <Route key={route.id} path={path} element={<Suspense fallback={<Loader/>}><Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected></Suspense>}/>
-          )
-          :
-        <Route key={route.id} path={route.path} element={<Suspense fallback={<Loader/>}><Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected></Suspense>}/>
-      )}
+        {nestedListInList(props.routes).map(route =>
+          Array.isArray(route.path)
+            ? route.path.map((path) =>
+              <Route key={route.id} path={path} element={<Suspense fallback={<Loader/>}><Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected></Suspense>}/>
+            )
+            :
+          <Route key={route.id} path={route.path} element={<Suspense fallback={<Loader/>}><Protected authPath={route.auth} redirect={route.redirect}>{route.element}</Protected></Suspense>}/>
+        )}
     </Routes>
   )
 });

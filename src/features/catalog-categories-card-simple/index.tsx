@@ -18,8 +18,7 @@ const CatalogCategoriesCardSimple = (props:CatalogCategoriesCardProps) => {
   
   return (
     <StyledCard variant={'outlined'} catalogId={item?.id} sx={{
-      flexDirection:'column',
-      m:0.5
+      flexDirection:'column'
     }}>
       <CatalogCategoriesCardContent name={item?.name}/>
     </StyledCard>

@@ -1,4 +1,3 @@
-import {Box} from "@mui/material";
 import {IProduct} from "../../entities/product/model/product-model.ts";
 import {useLike} from "../../entities/like/hooks/use-like.ts";
 import {useCart} from "../../entities/cart/hooks/use-cart.ts";
@@ -6,6 +5,7 @@ import {memo, useCallback} from "react";
 import {List} from "../../shared/components/list";
 import {LikeProductCard} from "../../features/like-product-card";
 import {LikeNoProducts} from "../../features/like-no-products";
+import {StyledList} from "../../shared/components/styled-list";
 
 interface LikeListProps {
   
@@ -25,9 +25,9 @@ const LikeList =  memo((props:LikeListProps) => {
 
   if(props.list?.length){
     return (
-      <Box display={'flex'} flexWrap={'wrap'} width={'100%'} justifyContent={'flex-start'} sx={{containerType: "inline-size"}}>
+      <StyledList minItemWidth={'270px'} m={1}>
         <List list={props.list} renderItem={renders.item}/>
-      </Box>
+      </StyledList>
     );
   }
   

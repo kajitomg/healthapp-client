@@ -1,8 +1,6 @@
 import {Card, styled} from "@mui/material";
-import {memo} from "react";
 
-export const StyledCard = memo(styled(Card)(({theme}) => ({
+export const StyledCard = styled(Card)(() => ({
   display:'flex',
   cursor:'pointer',
-  margin: theme.spacing(1),
-})))
+}))
